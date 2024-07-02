@@ -1,0 +1,12 @@
+1:
+LAN - Uma rede local, geralmente encontrada em um mesmo edificio.
+
+WAN - Uma rede de longa distancia, conecta servidores, aplicações em nuvem.
+
+2:
+
+Internet - rede de computadores encontrados no mundo todo trocando dados utilizando um protocolo em comum, unindo usuarios, entidades de pesquisas, orgãos culturais, institutos militares e empresas de todos os nichos.
+
+Intranet - Rede local, tendo um limite intero de uma instituição, onde são usados os mesmos programas e protocolos de comunicação.
+
+Extranet - Extranet funciona como a internet, mas tendo acesso há apenas um grupo de usuários específicos, ela permite que os usuários acessem dados que não estão na rede interna (intranet).

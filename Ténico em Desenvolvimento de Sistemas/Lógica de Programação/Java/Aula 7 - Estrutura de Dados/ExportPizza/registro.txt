@@ -1,0 +1,3 @@
+---Lista de Pizza---
+ |Tamanho|  |Sabor1|  |Sabor2|  |Borda?| |Formato| |Fatias| |Premium?| 
+gigante, frango, catupiry, true, circular, 10, true

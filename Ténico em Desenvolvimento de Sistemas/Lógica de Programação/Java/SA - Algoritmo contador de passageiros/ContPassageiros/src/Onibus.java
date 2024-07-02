@@ -5,7 +5,7 @@
 public class Onibus {
     private int codigo;
     private String placa;
-    private int capacidadeMaxima;
+    private int capacidadeMaxima = 0;
     private int capacidadeAtual;
     private int quantidadePassageiros;
 

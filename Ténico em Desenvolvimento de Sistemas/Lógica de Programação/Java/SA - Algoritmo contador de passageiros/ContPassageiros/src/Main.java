@@ -20,14 +20,14 @@ public class Main {
         int opcao;
         do {
             System.out.println("\n--- Menu ---");
-            System.out.println("1. Cadastrar ônibus");
+            System.out.println("1. Cadastrar onibus");
             System.out.println("2. Cadastrar linha");
             System.out.println("3. Cadastrar viagem");
             System.out.println("4. Embarcar passageiros");
             System.out.println("5. Desembarcar passageiros");
             System.out.println("6. Salvar dados em arquivo");
             System.out.println("7. Sair");
-            System.out.print("Escolha uma opção: ");
+            System.out.print("Escolha uma opcao: ");
             opcao = scanner.nextInt();
 
             switch (opcao) {
@@ -53,7 +53,7 @@ public class Main {
                     System.out.println("Encerrando o programa...");
                     break;
                 default:
-                    System.out.println("Opção inválida. Tente novamente.");
+                    System.out.println("Opcao invalida. Tente novamente.");
                     break;
             }
 
@@ -65,20 +65,20 @@ public class Main {
     public static void cadastrarOnibus() {
         Scanner ler = new Scanner(System.in);
 
-        System.out.print("Informe o código do ônibus: ");
+        System.out.print("Informe o codigo do onibus: ");
         int codigo = ler.nextInt();
         ler.nextLine(); // Limpar o buffer
 
-        System.out.print("Informe a placa do ônibus: ");
+        System.out.print("Informe a placa do onibus: ");
         String placa = ler.nextLine();
 
-        System.out.print("Informe a capacidade máxima do ônibus: ");
+        System.out.print("Informe a capacidade maxima do onibus: ");
         int capacidadeMaxima = ler.nextInt();
 
         Onibus onibus = new Onibus(codigo, placa, capacidadeMaxima);
         listaOnibus.add(onibus);
 
-        System.out.println("Ônibus cadastrado com sucesso!");
+        System.out.println("Onibus cadastrado com sucesso!");
 
         ler.close();
     }
@@ -100,7 +100,7 @@ public class Main {
     public static void cadastrarViagem() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Selecione o ônibus para a viagem (informe o código): ");
+        System.out.print("Selecione o onibus para a viagem (informe o codigo): ");
         int codigoOnibus = scanner.nextInt();
         Onibus onibusSelecionado = null;
         for (Onibus onibus : listaOnibus) {
@@ -110,7 +110,7 @@ public class Main {
             }
         }
         if (onibusSelecionado == null) {
-            System.out.println("Ônibus não encontrado.");
+            System.out.println("Onibus nao encontrado.");
             return;
         }
 
@@ -134,7 +134,7 @@ public class Main {
             }
         }
         if (linhaSelecionada == null) {
-            System.out.println("Linha não encontrada.");
+            System.out.println("Linha nao encontrada.");
             return;
         }
 
@@ -149,7 +149,7 @@ public class Main {
     public static void embarcarPassageiros() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Informe o código do ônibus: ");
+        System.out.print("Informe o codigo do onibus: ");
         int codigoOnibus = scanner.nextInt();
         Onibus onibusSelecionado = null;
         for (Onibus onibus : listaOnibus) {
@@ -159,7 +159,7 @@ public class Main {
             }
         }
         if (onibusSelecionado == null) {
-            System.out.println("Ônibus não encontrado.");
+            System.out.println("Onibus nao encontrado.");
             return;
         }
 
@@ -176,7 +176,7 @@ public class Main {
     public static void desembarcarPassageiros() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Informe o código do ônibus: ");
+        System.out.print("Informe o codigo do onibus: ");
         int codigoOnibus = scanner.nextInt();
         Onibus onibusSelecionado = null;
         for (Onibus onibus : listaOnibus) {
@@ -186,7 +186,7 @@ public class Main {
             }
         }
         if (onibusSelecionado == null) {
-            System.out.println("Ônibus não encontrado.");
+            System.out.println("Onibus nao encontrado.");
             return;
         }
 
@@ -204,7 +204,7 @@ public class Main {
         try (FileWriter writer = new FileWriter(nomeArquivo)) {
             for (Viagem viagem : listaViagens) {
                 writer.write("Data: " + viagem.getData() + ", Hora: " + viagem.getHora() + "\n");
-                writer.write("Ônibus: " + viagem.getOnibus().getPlaca() + ", Linha: " + viagem.getLinha().getNome() + "\n");
+                writer.write("Onibus: " + viagem.getOnibus().getPlaca() + ", Linha: " + viagem.getLinha().getNome() + "\n");
                 writer.write("Passageiros presentes: " + viagem.getOnibus().getQuantidadePassageiros() + "\n");
                 writer.write("\n");
             }

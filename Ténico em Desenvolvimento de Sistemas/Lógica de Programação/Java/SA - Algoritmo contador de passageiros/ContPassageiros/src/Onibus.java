@@ -43,7 +43,7 @@ public class Onibus {
             quantidadePassageiros += quantidade;
             capacidadeAtual -= quantidade;
         } else {
-            System.out.println("Capacidade excedida. Não foi possível embarcar todos os passageiros.");
+            System.out.println("Capacidade excedida. Nao foi possível embarcar todos os passageiros.");
         }
     }
 
@@ -52,7 +52,7 @@ public class Onibus {
             quantidadePassageiros -= quantidade;
             capacidadeAtual += quantidade;
         } else {
-            System.out.println("Quantidade de passageiros a desembarcar maior que a quantidade presente no ônibus.");
+            System.out.println("Quantidade de passageiros a desembarcar maior que a quantidade presente no onibus.");
         }
     }
 }

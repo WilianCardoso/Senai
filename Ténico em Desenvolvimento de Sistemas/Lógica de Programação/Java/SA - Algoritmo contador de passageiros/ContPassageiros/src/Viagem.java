@@ -1,56 +1,37 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  *
  * @author wilian_g_cardoso
  */
 public class Viagem {
+    private Onibus onibus;
+    private LocalDate data;
+    private LocalTime hora;
+    private Linha linha;
 
-    private String onibus;
-    private String data;
-    private String hora;
-    private String linha;
-
-    //construtores
-    public Viagem(String data, String hora, String linha, String onibus) {
-        this.data = data;
-        this.hora = hora;
-        this.linha =linha;
+    public Viagem(Onibus onibus, LocalDate data, LocalTime hora, Linha linha) {
         this.onibus = onibus;
-    }
-    public Viagem(){
-        
-    }
-
-    //Getters and Setters
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
         this.data = data;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
         this.hora = hora;
+        this.linha = linha;
     }
 
-    public String getOnibus() {
+    // Getters para acesso aos atributos
+    public Onibus getOnibus() {
         return onibus;
     }
 
-    public void setOnibus(String onibus) {
-        this.onibus = onibus;
+    public LocalDate getData() {
+        return data;
     }
 
-    public String getLinha() {
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    public Linha getLinha() {
         return linha;
-    }
-
-    public void setLinha(String linha) {
-        this.linha = linha;
     }
 }

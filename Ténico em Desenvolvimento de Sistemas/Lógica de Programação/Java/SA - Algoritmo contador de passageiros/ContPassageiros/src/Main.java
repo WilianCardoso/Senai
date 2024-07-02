@@ -1,82 +1,216 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author wilian_g_cardoso
  */
 public class Main {
-
-    private static Scanner ler = new Scanner(System.in);
+    private static ArrayList<Onibus> listaOnibus = new ArrayList<>();
+    private static ArrayList<Linha> listaLinhas = new ArrayList<>();
+    private static ArrayList<Viagem> listaViagens = new ArrayList<>();
 
     public static void main(String[] args) {
-        Onibus on = new Onibus("098-WTF", 40, 0);
-        Linha l1 = new Linha(6, "Rodoviaria - Seu Jorge");
-        Viagem v1 = new Viagem("15/06", "14:00", "l1", "on");
+        Scanner scanner = new Scanner(System.in);
 
-        /*
-        //Cont passg
-        int qtdEmbarque;
-        int qtdDesembarque;
-        for(int i = 0; i < v1.getLinha().getQtdParadas(); i++){
-            qtdEmbarque = Integer.parseInt(JOptionPane.showMessageDialog("Informe a quantidade de passageiros."));
-            v1.getOnbus().setQtdAtual(qtdEmbarque);
-            v1.addPassageiros(qtdEmbarque);
-            if(v1.getLinha().getQtdParadas() != 0){
-                qtdDesembarque = Integer.parseInt(JOptionPane.showMessageDialog("Informe a quantos passageiros desembarcaram."));
-         */
-        cadastroOnibus();
+        int opcao;
+        do {
+            System.out.println("\n--- Menu ---");
+            System.out.println("1. Cadastrar ônibus");
+            System.out.println("2. Cadastrar linha");
+            System.out.println("3. Cadastrar viagem");
+            System.out.println("4. Embarcar passageiros");
+            System.out.println("5. Desembarcar passageiros");
+            System.out.println("6. Salvar dados em arquivo");
+            System.out.println("7. Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    cadastrarOnibus();
+                    break;
+                case 2:
+                    cadastrarLinha();
+                    break;
+                case 3:
+                    cadastrarViagem();
+                    break;
+                case 4:
+                    embarcarPassageiros();
+                    break;
+                case 5:
+                    desembarcarPassageiros();
+                    break;
+                case 6:
+                    salvarDadosEmArquivo("dados_viagens.txt");
+                    break;
+                case 7:
+                    System.out.println("Encerrando o programa...");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    break;
+            }
+
+        } while (opcao != 7);
+
+        scanner.close();
     }
 
-    public static void Menu() {
-        System.out.println(" ___________Cadastre sua Viagem_____________");
-        System.out.println("|                                           |");
-        System.out.println("|         1 - Cadastre o Onibus             |");
-        System.out.println("|         2 - Cadastre a viagem             |");
-        System.out.println("|         3 - Cadastre a linha              |");
-        System.out.println("|         4 - Decorrer a viagem             |");
-        System.out.println("|         4 - sair                          |");
-        System.out.println("|___________________________________________|");
+    public static void cadastrarOnibus() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Informe o código do ônibus: ");
+        int codigo = scanner.nextInt();
+        scanner.nextLine(); // Limpar o buffer
+
+        System.out.print("Informe a placa do ônibus: ");
+        String placa = scanner.nextLine();
+
+        System.out.print("Informe a capacidade máxima do ônibus: ");
+        int capacidadeMaxima = scanner.nextInt();
+
+        Onibus onibus = new Onibus(codigo, placa, capacidadeMaxima);
+        listaOnibus.add(onibus);
+
+        System.out.println("Ônibus cadastrado com sucesso!");
+
+        scanner.close();
     }
 
-    public static void cadastroOnibus() {
-        System.err.println("Informe a placa do onibus:");
-        System.out.print("ENTRADA:");
-        String codPlaca = ler.next();
-        System.err.println("Informe a capacidade maxima do onibus:");
-        System.out.print("ENTRADA:");
-        int capMax = ler.nextInt();
-        System.out.println("Onibus cadastrado com sucesso!");
-        
-        Onibus on = new Onibus();
+    public static void cadastrarLinha() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Informe o nome da linha: ");
+        String nome = scanner.nextLine();
+
+        Linha linha = new Linha(nome);
+        listaLinhas.add(linha);
+
+        System.out.println("Linha cadastrada com sucesso!");
+
+        scanner.close();
     }
 
-    public static void cadastroViagem() {
-        System.err.println("Informe a Data da viagem");
-        System.out.print("Entrada:");
-        String data = ler.next();
-        System.err.println("Informe a hota da viagem");
-        System.out.print("Entrada:");
-        String hora = ler.next();
-        System.err.println("Informe a linha da viagem");
-        System.out.print("Entrada:");
-        String linha = ler.next();
-        System.err.println("Informe o onibus da viagem");
-        System.out.print("Entrada:");
-        String onibus = ler.next();
-        
-        Viagem vi = new Viagem();
+    public static void cadastrarViagem() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Selecione o ônibus para a viagem (informe o código): ");
+        int codigoOnibus = scanner.nextInt();
+        Onibus onibusSelecionado = null;
+        for (Onibus onibus : listaOnibus) {
+            if (onibus.getCodigo() == codigoOnibus) {
+                onibusSelecionado = onibus;
+                break;
+            }
+        }
+        if (onibusSelecionado == null) {
+            System.out.println("Ônibus não encontrado.");
+            return;
+        }
+
+        scanner.nextLine(); // Limpar o buffer
+
+        System.out.print("Informe a data da viagem (AAAA-MM-DD): ");
+        String dataString = scanner.nextLine();
+        LocalDate data = LocalDate.parse(dataString);
+
+        System.out.print("Informe a hora da viagem (HH:MM): ");
+        String horaString = scanner.nextLine();
+        LocalTime hora = LocalTime.parse(horaString);
+
+        System.out.print("Selecione a linha para a viagem (informe o nome da linha): ");
+        String nomeLinha = scanner.nextLine();
+        Linha linhaSelecionada = null;
+        for (Linha linha : listaLinhas) {
+            if (linha.getNome().equals(nomeLinha)) {
+                linhaSelecionada = linha;
+                break;
+            }
+        }
+        if (linhaSelecionada == null) {
+            System.out.println("Linha não encontrada.");
+            return;
+        }
+
+        Viagem viagem = new Viagem(onibusSelecionado, data, hora, linhaSelecionada);
+        listaViagens.add(viagem);
+
+        System.out.println("Viagem cadastrada com sucesso!");
+
+        scanner.close();
     }
 
-    public static void cadastroLinha() {
-        Linha li = new Linha();
-        
-        System.err.println("Informe a linha");
-        System.out.print("Entrada:");
-        String linha = ler.next();
-        System.err.println("Informe a qantidade de paradas");
-        System.out.print("Entrada:");
-        int qtdParadas = ler.nextInt();
-        
+    public static void embarcarPassageiros() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Informe o código do ônibus: ");
+        int codigoOnibus = scanner.nextInt();
+        Onibus onibusSelecionado = null;
+        for (Onibus onibus : listaOnibus) {
+            if (onibus.getCodigo() == codigoOnibus) {
+                onibusSelecionado = onibus;
+                break;
+            }
+        }
+        if (onibusSelecionado == null) {
+            System.out.println("Ônibus não encontrado.");
+            return;
+        }
+
+        System.out.print("Informe a quantidade de passageiros a embarcar: ");
+        int quantidade = scanner.nextInt();
+
+        onibusSelecionado.embarcarPassageiros(quantidade);
+
+        System.out.println("Embarque realizado com sucesso!");
+
+        scanner.close();
+    }
+
+    public static void desembarcarPassageiros() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Informe o código do ônibus: ");
+        int codigoOnibus = scanner.nextInt();
+        Onibus onibusSelecionado = null;
+        for (Onibus onibus : listaOnibus) {
+            if (onibus.getCodigo() == codigoOnibus) {
+                onibusSelecionado = onibus;
+                break;
+            }
+        }
+        if (onibusSelecionado == null) {
+            System.out.println("Ônibus não encontrado.");
+            return;
+        }
+
+        System.out.print("Informe a quantidade de passageiros a desembarcar: ");
+        int quantidade = scanner.nextInt();
+
+        onibusSelecionado.desembarcarPassageiros(quantidade);
+
+        System.out.println("Desembarque realizado com sucesso!");
+
+        scanner.close();
+    }
+
+    public static void salvarDadosEmArquivo(String nomeArquivo) {
+        try (FileWriter writer = new FileWriter(nomeArquivo)) {
+            for (Viagem viagem : listaViagens) {
+                writer.write("Data: " + viagem.getData() + ", Hora: " + viagem.getHora() + "\n");
+                writer.write("Ônibus: " + viagem.getOnibus().getPlaca() + ", Linha: " + viagem.getLinha().getNome() + "\n");
+                writer.write("Passageiros presentes: " + viagem.getOnibus().getQuantidadePassageiros() + "\n");
+                writer.write("\n");
+            }
+            System.out.println("Dados salvos com sucesso no arquivo: " + nomeArquivo);
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar dados no arquivo: " + e.getMessage());
+        }
     }
 }

@@ -1,0 +1,35 @@
+Cat3 (Categoria 3)
+Transferência: Máx. 10 Mbps
+Velocidade: 10BASE-T (10 Mbps)
+Taxa de Interferência: Alta
+Uso Típico: Redes telefônicas e antigas redes Ethernet
+
+Cat5 (Categoria 5)
+Transferência: Máx. 100 Mbps
+Velocidade: 100BASE-TX (100 Mbps)
+Taxa de Interferência: Moderada
+Uso Típico: Redes Ethernet antigas, redes de área local (LAN)
+
+Cat5e (Categoria 5e - Enhanced)
+Transferência: Máx. 1 Gbps (1000 Mbps)
+Velocidade: 1000BASE-T (1 Gbps)
+Taxa de Interferência: Menor que Cat5, melhorada com especificações adicionais
+Uso Típico: Redes Ethernet modernas, substituindo gradualmente Cat5
+
+Cat6 (Categoria 6)
+Transferência: Máx. 10 Gbps para distâncias curtas (até 55 metros)
+Velocidade: 10GBASE-T (10 Gbps)
+Taxa de Interferência: Baixa devido a especificações de engenharia mais rigorosas
+Uso Típico: Redes Ethernet de alta velocidade, centros de dados
+
+Cat6a (Categoria 6a - Augmented)
+Transferência: Máx. 10 Gbps para distâncias maiores (até 100 metros)
+Velocidade: 10GBASE-T (10 Gbps)
+Taxa de Interferência: Muito baixa, com blindagem adicional para redução de crosstalk
+Uso Típico: Aplicações de alta velocidade, centros de dados, ambientes industriais
+
+Cat7 (Categoria 7)
+Transferência: Máx. 10 Gbps com potencial para mais em futuras atualizações
+Velocidade: 10GBASE-T (10 Gbps) com especificações para suporte a futuras atualizações
+Taxa de Interferência: Extremamente baixa, blindagem individual para cada par de fios e uma blindagem adicional ao redor de todos os pares
+Uso Típico: Instalações de alta performance, ambientes com alta densidade de dados, uso residencial avançado

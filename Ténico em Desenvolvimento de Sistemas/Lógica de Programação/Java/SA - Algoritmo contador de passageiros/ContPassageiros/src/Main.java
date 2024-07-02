@@ -63,24 +63,24 @@ public class Main {
     }
 
     public static void cadastrarOnibus() {
-        Scanner scanner = new Scanner(System.in);
+        Scanner ler = new Scanner(System.in);
 
         System.out.print("Informe o código do ônibus: ");
-        int codigo = scanner.nextInt();
-        scanner.nextLine(); // Limpar o buffer
+        int codigo = ler.nextInt();
+        ler.nextLine(); // Limpar o buffer
 
         System.out.print("Informe a placa do ônibus: ");
-        String placa = scanner.nextLine();
+        String placa = ler.nextLine();
 
         System.out.print("Informe a capacidade máxima do ônibus: ");
-        int capacidadeMaxima = scanner.nextInt();
+        int capacidadeMaxima = ler.nextInt();
 
         Onibus onibus = new Onibus(codigo, placa, capacidadeMaxima);
         listaOnibus.add(onibus);
 
         System.out.println("Ônibus cadastrado com sucesso!");
 
-        scanner.close();
+        ler.close();
     }
 
     public static void cadastrarLinha() {

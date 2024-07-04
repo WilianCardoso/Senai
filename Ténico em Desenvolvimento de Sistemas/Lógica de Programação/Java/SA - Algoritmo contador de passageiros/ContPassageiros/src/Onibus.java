@@ -72,11 +72,4 @@ public class Onibus {
             System.out.println("Ha " + this.capAtual + " no onibus.");
         }
     }
-
-    public void Status() {
-        System.out.println("Onibus " + this.codPlaca + ":");
-        System.out.println("  Capacidade máxima: " + this.capMax);
-        System.out.println("  Capacidade atual: " + this.capAtual);
-        System.out.println("  Passageiros a bordo: " + this.capAtual);
-    }
 }

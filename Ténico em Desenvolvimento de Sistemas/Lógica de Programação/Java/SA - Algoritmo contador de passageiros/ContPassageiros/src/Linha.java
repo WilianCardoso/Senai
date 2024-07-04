@@ -16,6 +16,7 @@ public class Linha {
     public Linha(int qtdParadas, String nmLinha) {
         this.qtdParadas = qtdParadas;
         this.nmLinha = nmLinha;
+         this.viagens = new ArrayList<>(); 
     }
 
     public Linha() {

@@ -1,7 +1,9 @@
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -9,33 +11,20 @@ import javax.swing.JOptionPane;
  */
 public class Main {
 
+    private static ArrayList<Onibus> Onibus = new ArrayList<Onibus>();
+
     private static ArrayList<Linha> linhas = new ArrayList<>();
     private static ArrayList<Onibus> onibusList = new ArrayList<>();
     private static ArrayList<Viagem> viagens = new ArrayList<>();
     private static Scanner ler = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        Onibus on = new Onibus("098-WTF", 40, 0);
-        Linha l1 = new Linha(6, "Rodoviaria - Seu Jorge");
-        Viagem v1 = new Viagem("15/06", "14:00", "l1", "on");
-
-        /*
-        //Cont passg
-        int qtdEmbarque;
-        int qtdDesembarque;
-        for(int i = 0; i < v1.getLinha().getQtdParadas(); i++){
-            qtdEmbarque = Integer.parseInt(JOptionPane.showMessageDialog("Informe a quantidade de passageiros."));
-            v1.getOnbus().setQtdAtual(qtdEmbarque);
-            v1.addPassageiros(qtdEmbarque);
-            if(v1.getLinha().getQtdParadas() != 0){
-                qtdDesembarque = Integer.parseInt(JOptionPane.showMessageDialog("Informe a quantos passageiros desembarcaram."));
-         */
-        cadastroOnibus();
+    public static void main(String[] args) throws IOException {
+        Menu();
     }
 
-    public static void Menu() {
+    public static void Menu() throws IOException {
+        boolean sair = false;
         int op = 0;
-
         do {
             System.out.println(" ___________Cadastre sua Viagem_____________");
             System.out.println("|                                           |");
@@ -43,9 +32,11 @@ public class Main {
             System.out.println("|         2 - Cadastre a viagem             |");
             System.out.println("|         3 - Cadastre a linha              |");
             System.out.println("|         4 - Exibir dados                  |");
-            System.out.println("|         5 - sair                          |");
+            System.out.println("|         5 - Decorrer Viagem               |");
+            System.out.println("|         6 - sair                          |");
             System.out.println("|___________________________________________|");
-
+            System.out.print("Entrada:");
+            op = ler.nextInt();
             switch (op) {
                 case 1:
                     cadastroOnibus();
@@ -58,12 +49,18 @@ public class Main {
                     break;
                 case 4:
                     exibirDados();
+                    break;
                 case 5:
+                    decorrerViagem();
+                    break;
+                case 6:
+                    sair = true;
                     System.out.println("Saindo...");
+                    break;
                 default:
-                    throw new AssertionError();
+                    System.out.println("Opcao invalida!");
             }
-        } while (op != 5);
+        } while (!sair);
 
     }
 
@@ -76,30 +73,33 @@ public class Main {
         int capMax = ler.nextInt();
         System.out.println("Onibus cadastrado com sucesso!");
 
-        Onibus on = new Onibus();
+        Onibus onibus = new Onibus(codPlaca, capMax, capMax);
+        onibusList.add(onibus);
     }
 
     public static void cadastroViagem() {
-        System.out.print("Data da Viagem (dd/MM/yyyy): ");
-        String data = ler.nextLine();
-        System.out.print("Hora da Viagem (HH:mm): ");
-        String hora = ler.nextLine();
-        System.out.print("Nome da Linha: ");
+        System.out.print("Data da Viagem: ");
+        String data = ler.next();
+        System.out.print("Hora da Viagem: ");
+        String hora = ler.next();
         String nmLinha = ler.nextLine();
+        System.out.print("Nome da Linha: ");
+        nmLinha = ler.nextLine();
         Linha linha = buscarLinha(nmLinha);
         if (linha == null) {
-            System.out.println("Linha não encontrada!");
+            System.out.println("Linha nao encontrada!");
             return;
         }
         System.err.println("Informe a placa do onibus da viagem");
-        String codPlaca = ler.nextLine();
+        System.out.print("ENTRADA:");
+        String codPlaca = ler.next();
         Onibus onibus = buscarOnibus(codPlaca);
         if (onibus == null) {
-            System.out.println("Onibus não encontrado!");
+            System.out.println("Onibus nao encontrado!");
             return;
         }
 
-        Viagem viagem = new Viagem(data, hora, nmLinha, nmLinha);
+        Viagem viagem = new Viagem(data, hora, nmLinha, codPlaca);
         viagens.add(viagem);
         linhas.add(linha);
         System.out.println("Viagem cadastrada com sucesso!");
@@ -125,32 +125,36 @@ public class Main {
     }
 
     public static void cadastroLinha() {
-        Linha li = new Linha();
-
+        String nmLinha = ler.nextLine();
         System.err.println("Informe a linha");
         System.out.print("Entrada:");
-        String nmLinha = ler.nextLine();
+        nmLinha = ler.nextLine();
         System.err.println("Informe a qantidade de paradas");
         System.out.print("Entrada:");
         int qtdParadas = ler.nextInt();
-        
+
         Linha linha = new Linha(qtdParadas, nmLinha);
         linhas.add(linha);
-        System.out.print("Sua linha foi cadastrada com Sucesso!");
+        System.out.println("Sua linha foi cadastrada com Sucesso!");
     }
 
-    private static void exibirDados() {
+    public static void decorrerViagem() {
+
+    }
+
+    private static void exibirDados() throws IOException {
+        FileWriter arquivo = new FileWriter("registro.txt", true);
+        PrintWriter gravador = new PrintWriter(arquivo);
         System.out.println("Linhas:");
         for (Linha linha : linhas) {
             System.out.println("Nome: " + linha.getNmLinha() + ", Paradas: " + linha.getQtdParadas());
-            for (Viagem viagem : linha.getViagens() ) {
+            for (Viagem viagem : linha.getViagens()) {
                 System.out.println("  Viagem: " + viagem.getData() + " " + viagem.getHora() + ", Ônibus: " + viagem.getOnibus());
             }
         }
-
-        System.out.println("Ônibus:");
+        System.out.println("Onibus:");
         for (Onibus onibus : onibusList) {
-            System.out.println("Placa: " + onibus.getCodPlaca() + ", Capacidade Máxima: " + onibus.getCapMax() + ", Passageiros Transportados: " + onibus.getQtdPassag());
+            System.out.println("Placa: " + onibus.getCodPlaca() + ", Capacidade Maxima: " + onibus.getCapMax() + ", Passageiros Transportados: " + onibus.getQtdPassag());
         }
     }
 }

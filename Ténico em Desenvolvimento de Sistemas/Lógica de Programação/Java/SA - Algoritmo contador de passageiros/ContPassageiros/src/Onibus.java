@@ -1,4 +1,4 @@
-
+ 
 /**
  *
  * @author wilian_g_cardoso
@@ -52,24 +52,5 @@ public class Onibus {
 
     public void setQtdPassag(int qtdPassag) {
         this.qtdPassag = qtdPassag;
-    }
-
-    //Metodos
-    public void embarqueNoOnibus() {
-        if (this.qtdPassag > this.capMax) {
-            System.out.println("O onibus está cheio");
-        } else if (this.qtdPassag < this.capMax) {
-            this.capAtual += this.qtdPassag;
-            System.out.println("Tem " + this.capAtual + "no onibus.");
-        }
-    }
-
-    public void desembarqueDoOnibus() {
-        if (this.qtdPassag > this.capAtual) {
-            System.out.println("Numero de passageiros invalidos, nao ha passageiros a bordo suficiente para o desembarque.");
-        } else if (this.qtdPassag < this.capAtual) {
-            this.capAtual -= this.qtdPassag;
-            System.out.println("Ha " + this.capAtual + " no onibus.");
-        }
     }
 }

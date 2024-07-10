@@ -1,52 +1,30 @@
-Placa do ônibus: 123-abc
-Passageiros embarcados: 40
-Passageiros desembarcados: 3
-Capacidade atual: 3
-Total de passageiros: 37
-========================================
-Início da viagem com ônibus de placa: 123-abc
-Linha: K
-Passageiros embarcados: 13
+Inicio da viagem com onibus de placa: 123
+Linha: Dr
+Passageiros embarcados: 4
 ========================================
 Parada 1:
-Passageiros desembarcados: 3
-Passageiros restantes: 10
+Passageiros desembarcados: 1
+Passageiros restantes: 3
 ========================================
 Parada 2:
-Passageiros desembarcados: 5
-Passageiros restantes: 5
-========================================
-Parada 4:
 Passageiros desembarcados: 3
-Passageiros restantes: 2
-========================================
-Parada 5:
-Passageiros desembarcados: 2
 Passageiros restantes: 0
 ========================================
 Fim da viagem.
-Início da viagem com ônibus de placa: 123-abc
-Linha: K
-Passageiros embarcados: 40
+Inicio da viagem com onibus de placa: 123
+Linha: Dr
+Passageiros embarcados: 14
 ========================================
 Parada 1:
-Passageiros desembarcados: 3
-Passageiros restantes: 37
+Passageiros desembarcados: 1
+Passageiros restantes: 13
 ========================================
 Parada 2:
-Passageiros desembarcados: 5
-Passageiros restantes: 32
+Passageiros desembarcados: 3
+Passageiros restantes: 10
 ========================================
 Parada 3:
-Passageiros desembarcados: 6
-Passageiros restantes: 26
-========================================
-Parada 4:
-Passageiros desembarcados: 2
-Passageiros restantes: 24
-========================================
-Parada 5:
-Passageiros desembarcados: 1
-Passageiros restantes: 23
+Passageiros desembarcados: 4
+Passageiros restantes: 6
 ========================================
 Fim da viagem.

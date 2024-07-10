@@ -1,24 +1,28 @@
 
+import java.util.ArrayList;
+
 /**
  *
  * @author wilian_g_cardoso
  */
 public class Viagem {
 
+    private String nmViagem;
     private String onibus;
     private String data;
     private String hora;
-    private String linha;
+
 
     //construtores
-    public Viagem(String data, String hora, String linha, String onibus) {
+    public Viagem(String data, String hora, String nmViagem, String onibus) {
         this.data = data;
         this.hora = hora;
-        this.linha =linha;
+        this.nmViagem = nmViagem;
         this.onibus = onibus;
     }
-    public Viagem(){
-        
+
+    public Viagem() {
+
     }
 
     //Getters and Setters
@@ -46,11 +50,12 @@ public class Viagem {
         this.onibus = onibus;
     }
 
-    public String getLinha() {
-        return linha;
+    
+        public String getNmViagem() {
+        return nmViagem;
     }
 
-    public void setLinha(String linha) {
-        this.linha = linha;
+    public void setNmViagem(String nmViagem) {
+        this.nmViagem = nmViagem;
     }
 }

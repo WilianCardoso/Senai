@@ -21,10 +21,6 @@ public class Viagem {
         this.onibus = onibus;
     }
 
-    public Viagem() {
-
-    }
-
     //Getters and Setters
     public String getData() {
         return data;

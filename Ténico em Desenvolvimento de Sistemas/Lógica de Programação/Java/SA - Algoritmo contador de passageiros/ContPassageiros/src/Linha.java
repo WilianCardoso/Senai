@@ -19,10 +19,6 @@ public class Linha {
          this.viagens = new ArrayList<>(); 
     }
 
-    public Linha() {
-
-    }
-
     public int getQtdParadas() {
         return qtdParadas;
     }

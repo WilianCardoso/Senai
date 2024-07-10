@@ -126,7 +126,7 @@ public class Main {
     //Faz o cadastro das linhas
     public static void cadastroLinha() {
         System.out.print("Infome a viagem: ");
-        String nmViagem = ler.next();
+        String nmViagem = ler.nextLine();
         Viagem viagem = buscarViagem(nmViagem);
 
         //Verificação para caso não há viagem

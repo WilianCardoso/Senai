@@ -6,7 +6,7 @@
 public class Onibus {
 
     private String codPlaca;
-    private int capMax = 40;
+    private int capMax = 0;
     private int capAtual;
     private int qtdPassag;
 

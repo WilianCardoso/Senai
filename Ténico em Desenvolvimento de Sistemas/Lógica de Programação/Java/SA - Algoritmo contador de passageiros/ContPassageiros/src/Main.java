@@ -5,8 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Classe principal para cadastro de viagens de ônibus.
+/** 
  *
  * @author wilian_g_cardoso
  */

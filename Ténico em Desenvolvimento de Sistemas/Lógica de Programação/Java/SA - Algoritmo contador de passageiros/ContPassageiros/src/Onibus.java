@@ -6,15 +6,16 @@
 public class Onibus {
 
     private String codPlaca;
-    private int capMax = 0;
+    private int capMax;
     private int capAtual;
     private int qtdPassag;
 
     //Construtores
-    public Onibus(String codPlaca, int capAtual, int qtdPassag) {
+    public Onibus(String codPlaca, int capAtual, int qtdPassag,int capMax) {
         this.codPlaca = codPlaca;
         this.capAtual = capAtual;
         this.qtdPassag = 0;
+        this.capMax = capMax;
     }
 
     public Onibus() {

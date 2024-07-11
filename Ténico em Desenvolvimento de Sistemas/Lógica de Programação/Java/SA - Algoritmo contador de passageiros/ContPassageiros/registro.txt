@@ -1,30 +1,17 @@
-Inicio da viagem com onibus de placa: 123
-Linha: Dr
-Passageiros embarcados: 4
-========================================
-Parada 1:
-Passageiros desembarcados: 1
-Passageiros restantes: 3
-========================================
-Parada 2:
-Passageiros desembarcados: 3
-Passageiros restantes: 0
-========================================
 Fim da viagem.
-Inicio da viagem com onibus de placa: 123
-Linha: Dr
-Passageiros embarcados: 14
-========================================
 Parada 1:
-Passageiros desembarcados: 1
-Passageiros restantes: 13
+Passageiros desembarcados: 0
+Passageiros embarcados: 7
+Passageiros restantes: 7
 ========================================
 Parada 2:
-Passageiros desembarcados: 3
-Passageiros restantes: 10
+Passageiros desembarcados: 4
+Passageiros embarcados: 9
+Passageiros restantes: 12
 ========================================
 Parada 3:
-Passageiros desembarcados: 4
-Passageiros restantes: 6
+Passageiros desembarcados: 2
+Passageiros embarcados: 8
+Passageiros restantes: 18
 ========================================
 Fim da viagem.

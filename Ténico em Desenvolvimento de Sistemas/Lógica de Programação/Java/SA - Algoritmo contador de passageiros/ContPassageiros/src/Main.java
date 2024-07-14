@@ -104,7 +104,7 @@ public class Main {
         }
 
         try {
-            System.out.println("Nome da viagem:");
+            System.out.print("Nome da viagem:");
             String nmViagem = ler.nextLine();
             System.out.print("Data da Viagem: ");
             String data = ler.next();
@@ -171,8 +171,7 @@ public class Main {
             System.out.print("Informe o nome da linha:");
             String nmLinha = ler.nextLine();
 
-            System.out.println("Informe a quantidade de paradas:");
-            System.out.print("ENTRADA: ");
+            System.out.print("Informe a quantidade de paradas:");
             int qtdParadas = ler.nextInt();
 
             if (qtdParadas <= 0) {
@@ -184,7 +183,7 @@ public class Main {
             linhas.add(linha);
             System.out.println("Sua linha foi cadastrada com sucesso!");
         } catch (InputMismatchException e) {
-            System.out.println("Entrada inválida. A quantidade de paradas deve ser um número inteiro.");
+            System.out.println("Entrada invalida. A quantidade de paradas deve ser um numero inteiro.");
             ler.nextLine(); // Consumir a entrada inválida
         }
     }
@@ -202,7 +201,7 @@ public class Main {
     //Faz a simulação da viagem
 public static void decorrerViagem() throws IOException {
     if (onibusList.isEmpty()) {
-        System.out.println("Nao ha nenhum onibus cadastrado. Cadastre um onibus antes de decorrer a viagem.");
+        System.out.println("Nao ha nenhum ônibus cadastrado. Cadastre um onibus antes de decorrer a viagem.");
         return;
     }
     if (viagens.isEmpty()) {
@@ -214,16 +213,17 @@ public static void decorrerViagem() throws IOException {
         return;
     }
 
-    System.out.print("Informe a placa do onibus da viagem a decorrer: ");
+    System.out.print("Informe a placa do ônibus da viagem a decorrer: ");
     String codPlaca = ler.next();
 
     Onibus onibus = buscarOnibus(codPlaca);
     if (onibus == null) {
-        System.out.println("Onibus nao encontrado!");
+        System.out.println("onibus nao encontrado!");
         return;
     }
-
+    
     System.out.print("Informe o nome da linha da viagem: ");
+    ler.nextLine();  // Consumir nova linha
     String nmLinha = ler.nextLine();
 
     Linha linha = buscarLinha(nmLinha);
@@ -249,6 +249,7 @@ public static void decorrerViagem() throws IOException {
 
             if (qtdEmbarque > onibus.getCapAtual()) {
                 System.out.println("Numero de passageiros excede a capacidade máxima do onibus!");
+                gravador.close();
                 return;
             }
 
@@ -260,22 +261,27 @@ public static void decorrerViagem() throws IOException {
 
             if (qtdDesembarque > onibus.getQtdPassag()) {
                 System.out.println("Numero de passageiros para desembarque excede o numero de passageiros a bordo!");
+                gravador.close();
                 return;
             }
 
             onibus.setQtdPassag(onibus.getQtdPassag() - qtdDesembarque);
         }
 
-        // Solicita o embarque
-        System.out.print("Informe o numero de passageiros embarcando: ");
-        qtdEmbarque += ler.nextInt();
+        // Solicita o embarque para as demais paradas
+        if (parada != 1) {
+            System.out.print("Informe o numero de passageiros embarcando: ");
+            qtdEmbarque = ler.nextInt();
 
-        if (qtdEmbarque > onibus.getCapAtual()) {
-            System.out.println("Numero de passageiros excede a capacidade maxima do onibus!");
-            return;
+            if (qtdEmbarque > onibus.getCapAtual()) {
+                System.out.println("Numero de passageiros excede a capacidade máxima do onibus!");
+                gravador.close();
+                return;
+            }
+
+            onibus.setQtdPassag(onibus.getQtdPassag() + qtdEmbarque);
         }
 
-        onibus.setQtdPassag(onibus.getQtdPassag() + qtdEmbarque);
         onibus.setCapAtual(onibus.getCapMax() - onibus.getQtdPassag());
 
         // Registro das informações

@@ -199,104 +199,108 @@ public class Main {
     }
 
     //Faz a simulação da viagem
-public static void decorrerViagem() throws IOException {
-    if (onibusList.isEmpty()) {
-        System.out.println("Nao ha nenhum ônibus cadastrado. Cadastre um onibus antes de decorrer a viagem.");
-        return;
-    }
-    if (viagens.isEmpty()) {
-        System.out.println("Nenhuma viagem cadastrada. Cadastre uma viagem antes de decorrer a viagem.");
-        return;
-    }
-    if (linhas.isEmpty()) {
-        System.out.println("Nenhuma linha cadastrada. Cadastre uma linha antes de decorrer a viagem.");
-        return;
-    }
-
-    System.out.print("Informe a placa do ônibus da viagem a decorrer: ");
-    String codPlaca = ler.next();
-
-    Onibus onibus = buscarOnibus(codPlaca);
-    if (onibus == null) {
-        System.out.println("onibus nao encontrado!");
-        return;
-    }
-    
-    System.out.print("Informe o nome da linha da viagem: ");
-    ler.nextLine();  // Consumir nova linha
-    String nmLinha = ler.nextLine();
-
-    Linha linha = buscarLinha(nmLinha);
-    if (linha == null) {
-        System.out.println("Linha nao encontrada!");
-        return;
-    }
-
-    FileWriter arquivo = new FileWriter("registro.txt", true);
-    PrintWriter gravador = new PrintWriter(arquivo);
-
-    // Laço para cada parada
-    for (int parada = 1; parada <= linha.getQtdParadas(); parada++) {
-        System.out.println("Parada " + parada + ":");
-
-        int qtdEmbarque = 0;
-        int qtdDesembarque = 0;
-
-        if (parada == 1) {
-            // Solicita o embarque na primeira parada
-            System.out.print("Informe o numero de passageiros embarcando: ");
-            qtdEmbarque = ler.nextInt();
-
-            if (qtdEmbarque > onibus.getCapAtual()) {
-                System.out.println("Numero de passageiros excede a capacidade máxima do onibus!");
-                gravador.close();
-                return;
-            }
-
-            onibus.setQtdPassag(qtdEmbarque);
-        } else {
-            // Solicita o desembarque
-            System.out.print("Informe o numero de passageiros desembarcando: ");
-            qtdDesembarque = ler.nextInt();
-
-            if (qtdDesembarque > onibus.getQtdPassag()) {
-                System.out.println("Numero de passageiros para desembarque excede o numero de passageiros a bordo!");
-                gravador.close();
-                return;
-            }
-
-            onibus.setQtdPassag(onibus.getQtdPassag() - qtdDesembarque);
+    public static void decorrerViagem() throws IOException {
+        if (onibusList.isEmpty()) {
+            System.out.println("Nao ha nenhum onibus cadastrado. Cadastre um onibus antes de decorrer a viagem.");
+            return;
+        }
+        if (viagens.isEmpty()) {
+            System.out.println("Nenhuma viagem cadastrada. Cadastre uma viagem antes de decorrer a viagem.");
+            return;
+        }
+        if (linhas.isEmpty()) {
+            System.out.println("Nenhuma linha cadastrada. Cadastre uma linha antes de decorrer a viagem.");
+            return;
         }
 
-        // Solicita o embarque para as demais paradas
-        if (parada != 1) {
-            System.out.print("Informe o numero de passageiros embarcando: ");
-            qtdEmbarque = ler.nextInt();
+        System.out.print("Informe a placa do onibus da viagem a decorrer: ");
+        String codPlaca = ler.next();
 
-            if (qtdEmbarque > onibus.getCapAtual()) {
-                System.out.println("Numero de passageiros excede a capacidade máxima do onibus!");
-                gravador.close();
-                return;
-            }
-
-            onibus.setQtdPassag(onibus.getQtdPassag() + qtdEmbarque);
+        Onibus onibus = buscarOnibus(codPlaca);
+        if (onibus == null) {
+            System.out.println("Onibus nao encontrado!");
+            return;
         }
 
-        onibus.setCapAtual(onibus.getCapMax() - onibus.getQtdPassag());
+        System.out.print("Informe o nome da linha da viagem: ");
+        ler.nextLine();  // Consumir nova linha
+        String nmLinha = ler.nextLine();
 
-        // Registro das informações
-        gravador.println("Parada " + parada + ":");
-        gravador.println("Passageiros desembarcados: " + qtdDesembarque);
-        gravador.println("Passageiros embarcados: " + qtdEmbarque);
-        gravador.println("Passageiros restantes: " + onibus.getQtdPassag());
-        gravador.println("========================================");
+        Linha linha = buscarLinha(nmLinha);
+        if (linha == null) {
+            System.out.println("Linha nao encontrada!");
+            return;
+        }
+
+        FileWriter arquivo = new FileWriter("registro.txt", true);
+        PrintWriter gravador = new PrintWriter(arquivo);
+
+        int totalEmbarcados = 0;  // Variavel para acumular o total de passageiros embarcados
+
+        // Laco para cada parada
+        for (int parada = 1; parada <= linha.getQtdParadas(); parada++) {
+            System.out.println("Parada " + parada + ":");
+
+            int qtdEmbarque = 0;
+            int qtdDesembarque = 0;
+
+            if (parada == 1) {
+                // Solicita o embarque na primeira parada
+                System.out.print("Informe o numero de passageiros embarcando: ");
+                qtdEmbarque = ler.nextInt();
+
+                if (qtdEmbarque > onibus.getCapMax()) {
+                    System.out.println("Numero de passageiros excede a capacidade maxima do onibus!");
+                    gravador.close();
+                    return;
+                }
+
+                onibus.setQtdPassag(qtdEmbarque);
+                totalEmbarcados += qtdEmbarque;  // Acumula a quantidade de embarques
+            } else {
+                // Solicita o desembarque
+                System.out.print("Informe o numero de passageiros desembarcando: ");
+                qtdDesembarque = ler.nextInt();
+
+                if (qtdDesembarque > onibus.getQtdPassag()) {
+                    System.out.println("Numero de passageiros para desembarque excede o numero de passageiros a bordo!");
+                    gravador.close();
+                    return;
+                }
+
+                onibus.setQtdPassag(onibus.getQtdPassag() - qtdDesembarque);
+
+                // Solicita o embarque para as demais paradas
+                System.out.print("Informe o numero de passageiros embarcando: ");
+                qtdEmbarque = ler.nextInt();
+
+                if (qtdEmbarque + onibus.getQtdPassag() > onibus.getCapMax()) {
+                    System.out.println("Numero de passageiros excede a capacidade maxima do onibus!");
+                    gravador.close();
+                    return;
+                }
+
+                onibus.setQtdPassag(onibus.getQtdPassag() + qtdEmbarque);
+                totalEmbarcados += qtdEmbarque;  // Acumula a quantidade de embarques
+            }
+
+            onibus.setCapAtual(onibus.getCapMax() - onibus.getQtdPassag());
+
+            // Registro das informacoes
+            gravador.println("Parada " + parada + ":");
+            gravador.println("Passageiros desembarcados: " + qtdDesembarque);
+            gravador.println("Passageiros embarcados: " + qtdEmbarque);
+            gravador.println("Passageiros restantes: " + onibus.getQtdPassag());
+            gravador.println("========================================");
+        }
+
+        gravador.println("Fim da viagem.");
+        gravador.close();
+
+        System.out.println("Viagem registrada com sucesso!");
+        System.out.println("Total de passageiros embarcados: " + totalEmbarcados);  // Exibe a soma de todos os passageiros que subiram
     }
 
-    gravador.println("Fim da viagem.");
-    gravador.close();
-
-    System.out.println("Viagem registrada com sucesso!");
-}
     //Exibe os dados no console
     private static void exibirDados() throws IOException {
         // Exibe os dados cadastrados no console

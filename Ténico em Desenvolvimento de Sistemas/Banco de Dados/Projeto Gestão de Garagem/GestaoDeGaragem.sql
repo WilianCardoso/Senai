@@ -3,7 +3,7 @@ CREATE SCHEMA `garagem` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 CREATE TABLE `garagem`.`car` (
   `placa` CHAR(7) NOT NULL COMMENT 'Campo armazena a placa do veículo',
   PRIMARY KEY (`placa`),
-  UNIQUE INDEX `placa_UNIQUE` (`placa` ASC) VISIBLE)
+  UNIQUE INDEX `placa_UNIQUE` (`placa` ASC) )
 COMMENT = 'Essa tabela armazena dados de veículos';
 
 ALTER TABLE `garagem`.`car` 

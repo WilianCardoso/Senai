@@ -19,7 +19,7 @@ public class App {
         altura = ler.nextDouble();
 
         imc = peso / (altura * altura);
-        System.out.printf("%.2f%n",imc);
-
+        System.out.printf("O seu imc é: %.2f%n",imc);
+        ler.close();
     }
 }

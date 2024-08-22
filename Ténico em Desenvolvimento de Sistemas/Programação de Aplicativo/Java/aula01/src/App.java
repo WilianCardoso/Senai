@@ -22,4 +22,6 @@ public class App {
         System.out.printf("O seu imc é: %.2f%n",imc);
         ler.close();
     }
+
+    
 }

@@ -1,4 +1,4 @@
-package com.garagem.restapi.entities;
+package com.garagem.restapi.car.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

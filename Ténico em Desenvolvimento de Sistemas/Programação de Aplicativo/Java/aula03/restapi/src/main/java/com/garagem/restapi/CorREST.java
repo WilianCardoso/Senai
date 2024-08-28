@@ -11,34 +11,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.garagem.restapi.car.database.RepositoryCar;
-import com.garagem.restapi.car.entities.Car;
+import com.garagem.restapi.cor.database.RepositoryCor;
+import com.garagem.restapi.cor.entities.Cor;
 
 @RestController
-@RequestMapping("/car")
-public class CarREST {
+@RequestMapping("/cor")
+public class CorREST {
     @Autowired // cria objeto e injeta dentro do repository para cuidar do ciclo   
-    private RepositoryCar repository;
+    private RepositoryCor repository;
 
     //definir os metodos do CRUD
     @GetMapping // parametrizar para consulta
-    public List<Car> listar(){
+    public List<Cor> listar(){
         return repository.findAll();
     }
 
     @PostMapping //parametrizar para salvar e converter em JSON
-    public void salvar(@RequestBody Car id){
+    public void salvar(@RequestBody Cor id){
         repository.save(id);
     }
 
     @PutMapping 
-    public void alterar(@RequestBody Car id){
+    public void alterar(@RequestBody Cor id){
         if (id.getId() > 0)
         repository.save(id);
     }
 
     @DeleteMapping
-    public void excluir(@RequestBody Car id){
+    public void excluir(@RequestBody Cor id){
         repository.delete(id);
     }
     

@@ -1,4 +1,11 @@
-CREATE SCHEMA `garagem` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+-- APAGAR O DATABASE
+DROP SCHEMA garagem;
+
+-- CRIAR O DATABASE
+CREATE SCHEMA garagem;
+
+-- FORÇAR USAR O DATABASE
+USE GARAGEM;
 
 -- CRIAR TABELA DE USER
 CREATE TABLE `garagem`.`user` (
@@ -67,7 +74,7 @@ COMMENT = 'Tabela de Detalhes de Niveis';
 
 -- ADICIONAR FK DE LEVEL INDEXADA ITENS
 ALTER TABLE `garagem`.`level` 
-ADD INDEX `id_level_items_fk_idx` (`id_level_items` ASC) VISIBLE;
+ADD INDEX `id_level_items_fk_idx` (`id_level_items` ASC) ;
 ;
 
 ALTER TABLE `garagem`.`level` 
@@ -78,7 +85,7 @@ ADD CONSTRAINT `id_level_items_fk`
   ON UPDATE NO ACTION;
 
 ALTER TABLE `garagem`.`user` 
-ADD INDEX `level_id_fk_idx` (`level_id` ASC) VISIBLE;
+ADD INDEX `level_id_fk_idx` (`level_id` ASC) ;
 ;
 ALTER TABLE `garagem`.`user` 
 ADD CONSTRAINT `level_id_fk`
@@ -88,8 +95,8 @@ ADD CONSTRAINT `level_id_fk`
   ON UPDATE NO ACTION;
   
   ALTER TABLE `garagem`.`car` 
-ADD INDEX `ano_fk_idx` (`ano` ASC) VISIBLE,
-ADD INDEX `cor_fk_idx` (`cor` ASC) VISIBLE;
+ADD INDEX `ano_fk_idx` (`ano` ASC) ,
+ADD INDEX `cor_fk_idx` (`cor` ASC) ;
 ;
 ALTER TABLE `garagem`.`car` 
 ADD CONSTRAINT `ano_fk`
@@ -122,7 +129,7 @@ COMMENT = 'Tabela de Itens dos Opcionais';
 
 
 ALTER TABLE `garagem`.`opcionais` 
-ADD INDEX `opcionais_itens_fk_idx` (`itens` ASC) VISIBLE;
+ADD INDEX `opcionais_itens_fk_idx` (`itens` ASC) ;
 ;
 ALTER TABLE `garagem`.`opcionais` 
 ADD CONSTRAINT `opcionais_itens_fk`
@@ -133,7 +140,7 @@ ADD CONSTRAINT `opcionais_itens_fk`
 
 
 ALTER TABLE `garagem`.`car` 
-ADD INDEX `opcionais_fk_idx` (`opcionais` ASC) VISIBLE;
+ADD INDEX `opcionais_fk_idx` (`opcionais` ASC) ;
 ;
 ALTER TABLE `garagem`.`car` 
 ADD CONSTRAINT `opcionais_fk`
@@ -166,28 +173,39 @@ INSERT INTO `garagem`.`level_items` (`id`, `codigo`, `descricao`, `status`) VALU
 INSERT INTO `garagem`.`level` (`descricao`, `id_level_items`, `status`) VALUES ('Administrador', '1', '1');
 INSERT INTO `garagem`.`user` (`nome`, `level_id`, `senha`, `email`, `status`) VALUES ('Administrador', '1', '123456', 'admin@localhost', '1');
 
-  CREATE TABLE `garagem`.`modelo` (
-  `idmodelo` INT NOT NULL AUTO_INCREMENT,
+
+CREATE TABLE `garagem`.`modelo` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(45) NOT NULL,
-  `id_manufactory` INT(2) NOT NULL,
+  `id_manufactory` INT NOT NULL,
   `status` INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`idmodelo`));
-  
-ALTER TABLE `garagem`.`modelo` 
-DROP COLUMN `id_manufactory`;
+  PRIMARY KEY (`id`))
+COMMENT = 'Tabela de Modelo de Carro';
 
 ALTER TABLE `garagem`.`manufactory` 
-DROP COLUMN `modelo`;
+DROP COLUMN `id_modelo`;
+
+INSERT INTO `garagem`.`manufactory` (`fabricante`, `status`) VALUES ('Volkswagem', '1');
+INSERT INTO `garagem`.`manufactory` (`fabricante`, `status`) VALUES ('Renault', '1');
 
 ALTER TABLE `garagem`.`modelo` 
-ADD COLUMN `id_manufactory` INT NOT NULL AFTER `status`;
-
-ALTER TABLE `garagem`.`modelo` 
-ADD INDEX `modelo_fk_idx` (`id_manufactory` ASC);
+ADD INDEX `manufactory_fk_idx` (`id_manufactory` ASC) ;
 ;
 ALTER TABLE `garagem`.`modelo` 
-ADD CONSTRAINT `modelo_fk`
+ADD CONSTRAINT `manufactory_fk`
   FOREIGN KEY (`id_manufactory`)
   REFERENCES `garagem`.`manufactory` (`id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+INSERT INTO `garagem`.`modelo` (`descricao`, `id_manufactory`, `status`) VALUES ('Tiguan', '1', '1');
+INSERT INTO `garagem`.`modelo` (`descricao`, `id_manufactory`, `status`) VALUES ('Gol', '1', '1');
+INSERT INTO `garagem`.`modelo` (`descricao`, `id_manufactory`, `status`) VALUES ('Clio', '2', '1');
+
+
+INSERT INTO `garagem`.`opcionais_itens` (`id`, `codigo`, `descricao`, `status`) VALUES ('1', '1', 'Ar-Condicionado', '1');
+INSERT INTO `garagem`.`opcionais_itens` (`id`, `codigo`, `descricao`, `status`) VALUES ('1', '2', 'Trava-Eletrica', '1');
+INSERT INTO `garagem`.`opcionais_itens` (`id`, `codigo`, `descricao`, `status`) VALUES ('1', '3', 'Direção Hidraulica', '1');
+
+INSERT INTO `garagem`.`opcionais` (`descricao`, `itens`, `status`) VALUES ('Completo', '1', '1');
+

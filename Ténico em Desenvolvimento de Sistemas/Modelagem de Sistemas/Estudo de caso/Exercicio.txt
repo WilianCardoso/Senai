@@ -1,0 +1,9 @@
+*Além do desenvolvimento de software, a UML tem aplicações em fluxos do processo na fabricação.
+
+*Um fluxo de eventos, para um conjunto específico de entradas para o sistema, estado do sistema e estados do ambiente do sistema.
+
+*Um humano ou entidade máquina que interage com o sistema para executar trabalho.
+
+*É um modelo que descreve como varios tipos de usuários interagem para resolver determinado problema.
+
+*Várias sequencias de comportamentos, que dizem como um comportamento adicional que pode aumentar de forma gradativa o comportamento do caso de uso base.

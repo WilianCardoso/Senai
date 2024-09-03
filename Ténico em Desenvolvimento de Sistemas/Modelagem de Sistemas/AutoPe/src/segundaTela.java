@@ -25,7 +25,6 @@ public class segundaTela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jblCadfunci = new javax.swing.JLabel();
         jblTitulo2 = new javax.swing.JLabel();
         jTextFieldNome = new javax.swing.JTextField();
         jblNome = new javax.swing.JLabel();
@@ -37,11 +36,12 @@ public class segundaTela extends javax.swing.JFrame {
         jTextFieldCPF = new javax.swing.JTextField();
         jblSetor = new javax.swing.JLabel();
         Setor = new javax.swing.JComboBox<>();
-        jBtnCad = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jblCadfunci.setText("Cadastro de Funcionário");
 
         jblTitulo2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jblTitulo2.setText("ABC - Auto Peças");
@@ -54,14 +54,16 @@ public class segundaTela extends javax.swing.JFrame {
 
         jblNome.setText("Nome");
 
+        jTextFieldEnd.setText("999.999.999-99");
         jTextFieldEnd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldEndActionPerformed(evt);
             }
         });
 
-        jblEnd.setText("Endereço");
+        jblEnd.setText("CPF");
 
+        jTextFieldTel.setText("47 9 9999 9999");
         jTextFieldTel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldTelActionPerformed(evt);
@@ -70,7 +72,7 @@ public class segundaTela extends javax.swing.JFrame {
 
         jblTel.setText("Telefone");
 
-        jblCPF.setText("CPF");
+        jblCPF.setText("Endereço");
 
         jTextFieldCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,10 +84,31 @@ public class segundaTela extends javax.swing.JFrame {
 
         Setor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jBtnCad.setText("Cadastrar");
-        jBtnCad.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Excluir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnCadActionPerformed(evt);
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Consultar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Alterar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Cadastrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -93,76 +116,79 @@ public class segundaTela extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jblCPF))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jblTel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jblSetor)
-                            .addGap(156, 156, 156))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jblNome)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jblEnd)
-                                    .addComponent(jTextFieldEnd)
-                                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(100, 100, 100))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jTextFieldTel, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Setor, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(77, 77, 77)))))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jblTitulo2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(178, 178, 178)
-                        .addComponent(jBtnCad)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(161, 161, 161)
-                .addComponent(jblCadfunci)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(132, 132, 132)
+                .addComponent(jblTitulo2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldTel)
+                            .addComponent(jTextFieldEnd)
+                            .addComponent(jTextFieldNome)
+                            .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jblCPF))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jblNome)))
+                        .addContainerGap(72, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Setor, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jblSetor)
+                                    .addComponent(jblEnd)
+                                    .addComponent(jblTel))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(16, 16, 16)
                 .addComponent(jblTitulo2)
                 .addGap(18, 18, 18)
-                .addComponent(jblCadfunci)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jblEnd)
-                .addGap(12, 12, 12)
-                .addComponent(jTextFieldEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jblTel)
-                    .addComponent(jblSetor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Setor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jblEnd)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jblTel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jblCPF)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jblSetor)
+                .addGap(2, 2, 2)
+                .addComponent(Setor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBtnCad)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -184,12 +210,24 @@ public class segundaTela extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCPFActionPerformed
 
-    private void jBtnCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCadActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         Principal telaPrincipal = new Principal();
         telaPrincipal.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jBtnCadActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,13 +267,15 @@ public class segundaTela extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Setor;
-    private javax.swing.JButton jBtnCad;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JTextField jTextFieldCPF;
     private javax.swing.JTextField jTextFieldEnd;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldTel;
     private javax.swing.JLabel jblCPF;
-    private javax.swing.JLabel jblCadfunci;
     private javax.swing.JLabel jblEnd;
     private javax.swing.JLabel jblNome;
     private javax.swing.JLabel jblSetor;

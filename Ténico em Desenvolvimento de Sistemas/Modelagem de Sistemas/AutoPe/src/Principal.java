@@ -26,37 +26,20 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jblTitulo = new javax.swing.JLabel();
-        jBtnForn = new javax.swing.JButton();
-        jBtnCadPec = new javax.swing.JButton();
         jBtnCadFunci = new javax.swing.JButton();
         jBtnConsult = new javax.swing.JButton();
-        jBtnRelat = new javax.swing.JButton();
         jComboPeca = new javax.swing.JComboBox<>();
         jComboForn = new javax.swing.JComboBox<>();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
+        jBtnForn1 = new javax.swing.JButton();
+        jBtnForn2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jblTitulo.setText("ABC - Auto Peças");
 
-        jBtnForn.setText("Cadastrar Fornecedor");
-        jBtnForn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnFornActionPerformed(evt);
-            }
-        });
-
-        jBtnCadPec.setText("Cadastrar Peça");
-        jBtnCadPec.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnCadPecActionPerformed(evt);
-            }
-        });
-
-        jBtnCadFunci.setText("Cadastrar Funcionário");
+        jBtnCadFunci.setText("Cadastrar Peça");
         jBtnCadFunci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnCadFunciActionPerformed(evt);
@@ -70,81 +53,70 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jBtnRelat.setText("Relatórios");
-        jBtnRelat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnRelatActionPerformed(evt);
-            }
-        });
-
         jComboPeca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jComboForn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
         jButton1.setText("Sair");
+
+        jBtnForn1.setText("Cadastrar Fornecedor");
+        jBtnForn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnForn1ActionPerformed(evt);
+            }
+        });
+
+        jBtnForn2.setText("Cadastrar Funcionário");
+        jBtnForn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnForn2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnConsult))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnRelat, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jBtnForn, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
-                .addComponent(jBtnCadFunci)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtnCadPec)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(184, 184, 184))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jBtnCadFunci, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnForn1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtnForn2, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jblTitulo)
-                        .addGap(118, 118, 118))))
+                        .addGap(146, 146, 146))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jBtnConsult)
+                        .addGap(35, 35, 35)
+                        .addComponent(jComboForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(103, 103, 103))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(189, 189, 189))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jblTitulo)
-                        .addGap(21, 21, 21)
-                        .addComponent(jBtnRelat)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(69, Short.MAX_VALUE)
-                        .addComponent(jBtnConsult)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jComboForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)))
+                .addContainerGap(49, Short.MAX_VALUE)
+                .addComponent(jblTitulo)
+                .addGap(31, 31, 31)
+                .addComponent(jBtnCadFunci)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnForn1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBtnForn2)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnForn)
-                    .addComponent(jBtnCadPec)
-                    .addComponent(jBtnCadFunci))
-                .addGap(32, 32, 32)
+                    .addComponent(jComboPeca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboForn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnConsult))
+                .addGap(34, 34, 34)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -154,8 +126,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void jBtnCadFunciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCadFunciActionPerformed
         // TODO add your handling code here:
-        segundaTela telaFuncionario = new segundaTela();
-        telaFuncionario.setVisible(true);
+        cadProduto telaProduto = new cadProduto();
+        telaProduto.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBtnCadFunciActionPerformed
 
@@ -163,20 +135,16 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jBtnConsultActionPerformed
 
-    private void jBtnRelatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRelatActionPerformed
+    private void jBtnForn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnForn1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnRelatActionPerformed
+    }//GEN-LAST:event_jBtnForn1ActionPerformed
 
-    private void jBtnFornActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnFornActionPerformed
+    private void jBtnForn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnForn2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnFornActionPerformed
-
-    private void jBtnCadPecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCadPecActionPerformed
-        // TODO add your handling code here:
-        cadProduto telaProduto = new cadProduto();
-        telaProduto.setVisible(true);
+         segundaTela teladois = new segundaTela();
+        teladois.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jBtnCadPecActionPerformed
+    }//GEN-LAST:event_jBtnForn2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,15 +183,12 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCadFunci;
-    private javax.swing.JButton jBtnCadPec;
     private javax.swing.JButton jBtnConsult;
-    private javax.swing.JButton jBtnForn;
-    private javax.swing.JButton jBtnRelat;
+    private javax.swing.JButton jBtnForn1;
+    private javax.swing.JButton jBtnForn2;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboForn;
     private javax.swing.JComboBox<String> jComboPeca;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel jblTitulo;
     // End of variables declaration//GEN-END:variables
 }

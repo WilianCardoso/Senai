@@ -23,39 +23,32 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jComboPeca" min="-2" max="-2" attributes="0"/>
-                  <Component id="jComboForn" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jBtnConsult" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="97" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jBtnRelat" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" alignment="1" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jBtnForn" min="-2" pref="143" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-              <Component id="jBtnCadFunci" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jBtnCadPec" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace pref="58" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="184" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jBtnCadFunci" alignment="1" min="-2" pref="382" max="-2" attributes="0"/>
+                          <Component id="jBtnForn1" alignment="1" min="-2" pref="382" max="-2" attributes="0"/>
+                          <Component id="jBtnForn2" min="-2" pref="382" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jblTitulo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jBtnConsult" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="jComboForn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jComboPeca" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="jButton1" min="-2" pref="103" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -64,32 +57,21 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="jblTitulo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                      <Component id="jBtnRelat" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace pref="69" max="32767" attributes="0"/>
-                      <Component id="jBtnConsult" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jComboPeca" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="jComboForn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <EmptySpace pref="49" max="32767" attributes="0"/>
+              <Component id="jblTitulo" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <Component id="jBtnCadFunci" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jBtnForn1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jBtnForn2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jBtnForn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jBtnCadPec" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jBtnCadFunci" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboPeca" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jComboForn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jBtnConsult" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -105,25 +87,9 @@
         <Property name="text" type="java.lang.String" value="ABC - Auto Pe&#xe7;as"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jBtnForn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cadastrar Fornecedor"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnFornActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jBtnCadPec">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cadastrar Pe&#xe7;a"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnCadPecActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="jBtnCadFunci">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cadastrar Funcion&#xe1;rio"/>
+        <Property name="text" type="java.lang.String" value="Cadastrar Pe&#xe7;a"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnCadFunciActionPerformed"/>
@@ -135,14 +101,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnConsultActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jBtnRelat">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnRelatActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboPeca">
@@ -175,25 +133,26 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTextArea" name="jTextArea1">
-          <Properties>
-            <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtnForn1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cadastrar Fornecedor"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnForn1ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jBtnForn2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cadastrar Funcion&#xe1;rio"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnForn2ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

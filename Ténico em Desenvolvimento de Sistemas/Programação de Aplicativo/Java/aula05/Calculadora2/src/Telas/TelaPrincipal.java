@@ -14,6 +14,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     String memoria;
     double total, num2, num1;
+    char op;
 
     /**
      * Creates new form TelaPrincipal
@@ -442,17 +443,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jBtIgualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtIgualActionPerformed
         // TODO add your handling code here:
         //num2 = Double.parseDouble(jtfVisor.getText());
-       // jtfVisor.setText(String.valueOf(num1 + num2));
-        
-        switch (jBtIgual.getText()) {
-            case "+":
-                num2 = Double.parseDouble(jtfVisor.getText());
-                jtfVisor.setText(String.valueOf(num1 +num2));
-                break;
-            default:
-                throw new AssertionError();
+        // jtfVisor.setText(String.valueOf(num1 + num2));
+        if (jtfVisor.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Nenhuma operação solicitada!");
+        } else {
+            switch (op) {
+                case '+':
+                    num2 = Double.parseDouble(jtfVisor.getText());
+                    jtfVisor.setText(String.valueOf(num1 + num2));
+                    break;
+                default:
+                    throw new AssertionError();
+            }
         }
-
     }//GEN-LAST:event_jBtIgualActionPerformed
 
     private void jBtPontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPontoActionPerformed

@@ -4,6 +4,9 @@
  */
 package Telas;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author wilian_g_cardoso
@@ -16,12 +19,12 @@ public class ConversorB extends javax.swing.JFrame {
     public ConversorB() {
         initComponents();
         
-       //ADD os radion de Origem 
+       //ADD os radion de Origem em grupo
         bgOrigem.add(jRbBinario);
         bgOrigem.add(jRbDecimal);
         bgOrigem.add(jRbOctal);
         bgOrigem.add(jRbHexa);
-       //ADD os radion de Destino 
+       //ADD os radion de Destino em grupo
         bgResultado.add(jRbHexaD);
         bgResultado.add(jRbOctalD);
         bgResultado.add(jRbDecimalD);
@@ -200,6 +203,14 @@ public class ConversorB extends javax.swing.JFrame {
 //            
 //        }
 //    }
+    ActionListener listener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            updateOutput();
+        }
+        
+        
+    };
     private void jTaOrigemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTaOrigemKeyReleased
         // TODO add your handling code here:
        String numeroConvertido = Integer.toBinaryString(Integer.parseInt(jTaOrigem.getText(), 2)); //CONVERSOR EXEMPLO        

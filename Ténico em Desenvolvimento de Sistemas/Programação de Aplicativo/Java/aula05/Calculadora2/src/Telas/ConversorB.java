@@ -206,7 +206,7 @@ public class ConversorB extends javax.swing.JFrame {
     ActionListener listener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            updateOutput();
+           // updateOutput();
         }
         
         

@@ -16,31 +16,21 @@ public class ConversorB extends javax.swing.JFrame {
     public ConversorB() {
         initComponents();
         
-       //ADD jrb 
-       
+       //ADD os radion de Origem 
         bgOrigem.add(jRbBinario);
         bgOrigem.add(jRbDecimal);
         bgOrigem.add(jRbOctal);
         bgOrigem.add(jRbHexa);
-        
-        bgResultado.add(jRbHexa);
-        bgResultado.add(jRbOctal);
-        bgResultado.add(jRbDecimal);
-        bgResultado.add(jRbBinario);
-        
-        bgOrigem.add(jRbHexaD);
-        bgOrigem.add(jRbOctalD);
-        bgOrigem.add(jRbDecimalD);
-        bgOrigem.add(jRbBinarioD);
-        
-        bgResultado.add(jRbBinarioD);
-        bgResultado.add(jRbDecimalD);
-        bgResultado.add(jRbOctalD);
+       //ADD os radion de Destino 
         bgResultado.add(jRbHexaD);
+        bgResultado.add(jRbOctalD);
+        bgResultado.add(jRbDecimalD);
+        bgResultado.add(jRbBinarioD);
         
-        jTaOrigem.setText("0");
-        jRbDecimal.setSelected(true);
-        jRbDecimalD.setSelected(true);
+        jTaOrigem.setText("1");//Deixa definido um valor
+        jTaDestino.setText("0");//Deixa definido um valor
+        jRbDecimal.setSelected(true);//Deixa definido um radion
+        jRbDecimalD.setSelected(true);//Deixa definido um radion
     }
 
     /**
@@ -205,12 +195,18 @@ public class ConversorB extends javax.swing.JFrame {
         TelaPrincipal tela = new TelaPrincipal();
         tela.setVisible(true);
     }//GEN-LAST:event_jBtVoltarActionPerformed
-
+//    public void origemKeyRealesed(){
+//      //  if(bgOrigem.isSelected(jRbBinario)){
+//            
+//        }
+//    }
     private void jTaOrigemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTaOrigemKeyReleased
         // TODO add your handling code here:
-        String numeroConvertido = Integer.toBinaryString(Integer.parseInt(jTaOrigem.getText()));     //CONVERSOR EXEMPLO
-        jTaDestino.setText(numeroConvertido);
+       String numeroConvertido = Integer.toBinaryString(Integer.parseInt(jTaOrigem.getText(), 2)); //CONVERSOR EXEMPLO        
+       // numeroConvertido = Integer.toHexString(Integer.parseInt(jTaOrigem.getText(), 16));
+      //numeroConvertido = Integer.toOctalString(Integer.parseInt(jTaOrigem.getText(), 8));
         
+      jTaDestino.setText(numeroConvertido);
     }//GEN-LAST:event_jTaOrigemKeyReleased
 
     /**

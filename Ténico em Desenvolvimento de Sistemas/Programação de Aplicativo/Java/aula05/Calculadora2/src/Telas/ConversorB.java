@@ -18,18 +18,34 @@ public class ConversorB extends javax.swing.JFrame {
      */
     public ConversorB() {
         initComponents();
-        
-       //ADD os radion de Origem em grupo
+
+        // Listener para mudanças nos radio buttons
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateOutput();
+            }
+        };
+
+        jRbDecimal.addActionListener(listener);
+
+        jRbOctal.addActionListener(listener);
+
+        jRbBinario.addActionListener(listener);
+
+        jRbHexa.addActionListener(listener);
+
+        //ADD os radion de Origem em grupo
         bgOrigem.add(jRbBinario);
         bgOrigem.add(jRbDecimal);
         bgOrigem.add(jRbOctal);
         bgOrigem.add(jRbHexa);
-       //ADD os radion de Destino em grupo
+        //ADD os radion de Destino em grupo
         bgResultado.add(jRbHexaD);
         bgResultado.add(jRbOctalD);
         bgResultado.add(jRbDecimalD);
         bgResultado.add(jRbBinarioD);
-        
+
         jTaOrigem.setText("1");//Deixa definido um valor
         jTaDestino.setText("0");//Deixa definido um valor
         jRbDecimal.setSelected(true);//Deixa definido um radion
@@ -111,8 +127,18 @@ public class ConversorB extends javax.swing.JFrame {
         jRbBinarioD.setText("Binário");
 
         jRbOctalD.setText("Octal");
+        jRbOctalD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRbOctalDActionPerformed(evt);
+            }
+        });
 
         jRbHexaD.setText("Hexa");
+        jRbHexaD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRbHexaDActionPerformed(evt);
+            }
+        });
 
         jTaDestino.setEditable(false);
         jTaDestino.setColumns(20);
@@ -198,27 +224,53 @@ public class ConversorB extends javax.swing.JFrame {
         TelaPrincipal tela = new TelaPrincipal();
         tela.setVisible(true);
     }//GEN-LAST:event_jBtVoltarActionPerformed
-//    public void origemKeyRealesed(){
-//      //  if(bgOrigem.isSelected(jRbBinario)){
-//            
-//        }
-//    }
-    ActionListener listener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-           // updateOutput();
+
+    private void updateOutput() {
+        try {
+            // Obtém o valor de entrada com base na origem selecionada
+            String origem = jTaOrigem.getText();
+            int decimalValue = 0;
+
+            // Converte o valor de acordo com o radio button selecionado na origem
+            if (jRbDecimal.isSelected()) {
+                decimalValue = Integer.parseInt(origem);
+            } else if (jRbOctal.isSelected()) {
+                decimalValue = Integer.parseInt(origem, 8);
+            } else if (jRbBinario.isSelected()) {
+                decimalValue = Integer.parseInt(origem, 2);
+            } else if (jRbHexa.isSelected()) {
+                decimalValue = Integer.parseInt(origem, 16);
+            }
+
+            // Converte o valor decimal para a base de destino
+            String resultado = "";
+            if (jRbDecimalD.isSelected()) {
+                resultado = String.valueOf(decimalValue);
+            } else if (jRbOctalD.isSelected()) {
+                resultado = Integer.toOctalString(decimalValue);
+            } else if (jRbBinarioD.isSelected()) {
+                resultado = Integer.toBinaryString(decimalValue);
+            } else if (jRbHexaD.isSelected()) {
+                resultado = Integer.toHexString(decimalValue).toUpperCase();
+            }
+
+            // Atualiza o campo de saída com o número convertido
+            jTaDestino.setText(resultado);
+        } catch (NumberFormatException e) {
+            jTaDestino.setText("Entrada inválida");
         }
-        
-        
-    };
+    }
     private void jTaOrigemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTaOrigemKeyReleased
-        // TODO add your handling code here:
-       String numeroConvertido = Integer.toBinaryString(Integer.parseInt(jTaOrigem.getText(), 2)); //CONVERSOR EXEMPLO        
-       // numeroConvertido = Integer.toHexString(Integer.parseInt(jTaOrigem.getText(), 16));
-      //numeroConvertido = Integer.toOctalString(Integer.parseInt(jTaOrigem.getText(), 8));
-        
-      jTaDestino.setText(numeroConvertido);
+        updateOutput();
     }//GEN-LAST:event_jTaOrigemKeyReleased
+
+    private void jRbHexaDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRbHexaDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRbHexaDActionPerformed
+
+    private void jRbOctalDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRbOctalDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRbOctalDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,16 +286,24 @@ public class ConversorB extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ConversorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConversorB.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ConversorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConversorB.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ConversorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConversorB.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ConversorB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConversorB.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

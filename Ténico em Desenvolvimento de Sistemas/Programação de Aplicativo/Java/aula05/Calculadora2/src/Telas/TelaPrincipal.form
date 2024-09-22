@@ -23,6 +23,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Sair"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jmbExit">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sair"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmbExitActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
@@ -57,7 +67,7 @@
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="jBtCE" min="-2" pref="56" max="-2" attributes="0"/>
                           <Component id="jBtTres" min="-2" pref="56" max="-2" attributes="0"/>
-                          <Component id="jBtSete" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="jBtNove" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
                           <Component id="jBtSeis" alignment="1" min="-2" pref="56" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -86,19 +96,20 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jBtOito" min="-2" pref="62" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jBtNove" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jBtCinco" min="-2" pref="56" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                      <Component id="jBtQuatro" min="-2" pref="56" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="jBtDois" min="-2" pref="56" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jBtUm" min="-2" pref="56" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jBtOito" alignment="1" min="-2" pref="56" max="-2" attributes="0"/>
+                                          <Component id="jBtCinco" min="-2" pref="56" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jBtQuatro" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                          <Component id="jBtSete" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
@@ -141,9 +152,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jBtSete" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                          <Component id="jBtOito" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                           <Component id="jBtNove" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="jBtOito" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="jBtSete" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jBtSeis" min="-2" pref="29" max="-2" attributes="0"/>
@@ -227,6 +238,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="%"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtPorcentagemActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBtCinco">
       <Properties>
@@ -260,12 +274,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtIgualActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jBtSete">
+    <Component class="javax.swing.JButton" name="jBtNove">
       <Properties>
-        <Property name="text" type="java.lang.String" value="7"/>
+        <Property name="text" type="java.lang.String" value="9"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtSeteActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtNoveActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBtSeis">
@@ -308,12 +322,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtQuatroActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jBtNove">
+    <Component class="javax.swing.JButton" name="jBtSete">
       <Properties>
-        <Property name="text" type="java.lang.String" value="9"/>
+        <Property name="text" type="java.lang.String" value="7"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtNoveActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtSeteActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jBtDivisao">

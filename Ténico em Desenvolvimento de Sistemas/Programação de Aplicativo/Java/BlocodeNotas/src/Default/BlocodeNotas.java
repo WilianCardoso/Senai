@@ -85,6 +85,7 @@ public class BlocodeNotas extends javax.swing.JFrame {
         menuSalvar.addActionListener(e -> salvarArquivo());
         menuSair.addActionListener(e -> System.exit(0));
         menuAbrir.addActionListener(e -> abrirAquivo());
+        menuConfigFont.addActionListener(e -> configFont());
 
     }
 
@@ -157,6 +158,11 @@ public class BlocodeNotas extends javax.swing.JFrame {
     }
 
     private void configFont() {
+        String mFonte;
+        mFonte = JOptionPane.showInputDialog(null, "Informe o nome da fonte a ser utilizada: ");
+        Font font = new Font(mFonte, Font.PLAIN, 18);
+        textArea.setFont(font);
+
     }
 
     /**

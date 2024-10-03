@@ -2,10 +2,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -21,38 +19,38 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
+public class Main extends JFrame {
 
-public class Main extends JFrame{
-    private JButton btnCadastrar, btnConsultar, btnAtualizar, btnExcluir,btnCargo;
+    private JButton btnCadastrar, btnConsultar, btnAtualizar, btnExcluir, btnCargo;
     private JTable tabelaFuncionarios;
     private DefaultTableModel modeloTabela;
     private ArrayList<Funcionario> listaFuncionarios;
-    
-    public Main() throws ParseException{
-           listaFuncionarios = new ArrayList<>();
+
+    public Main() throws ParseException {
+        listaFuncionarios = new ArrayList<>();
         setLayout(null);
-        
+
         // Criação dos JLabels
         JLabel labelNome = new JLabel("Nome:");
         JLabel labelCpf = new JLabel("CPF:");
         JLabel labelEndereco = new JLabel("Endereço:");
         JLabel labelTelefone = new JLabel("Telefone:");
         JLabel labelCargo = new JLabel("Cargo:");
-        
+
         // Definição da posição dos JLabels
         labelNome.setBounds(30, 30, 100, 30);
         labelCpf.setBounds(30, 70, 100, 30);
         labelEndereco.setBounds(30, 110, 100, 30);
         labelTelefone.setBounds(30, 150, 100, 30);
         labelCargo.setBounds(30, 190, 100, 30);
-        
+
         // Criação dos JTextFields
         JTextField campoNome = new JTextField();
-      //  JTextField campoCpf = new JTextField();
+        //  JTextField campoCpf = new JTextField();
         JTextField campoEndereco = new JTextField();
-       //    JTextField campoTelefone = new JTextField();
+        //    JTextField campoTelefone = new JTextField();
         JTextField campoCargo = new JTextField();
-        
+
         //Mascara para o CPF
         MaskFormatter formatarCPF = new MaskFormatter("###.###.###-##");
         formatarCPF.setPlaceholderCharacter('_');
@@ -60,25 +58,25 @@ public class Main extends JFrame{
         campoCpf.setColumns(14);
 
         //Mascara para o Telefone
-         MaskFormatter formatarTel = new MaskFormatter("(##) #####-####");
-         formatarTel.setPlaceholderCharacter('_');
-         JFormattedTextField campotelefone = new JFormattedTextField(formatarTel);
-         campotelefone.setColumns(11);   
+        MaskFormatter formatarTel = new MaskFormatter("(##) #####-####");
+        formatarTel.setPlaceholderCharacter('_');
+        JFormattedTextField campotelefone = new JFormattedTextField(formatarTel);
+        campotelefone.setColumns(11);
 
-         // Definição da posição dos JTextFields
+        // Definição da posição dos JTextFields
         campoNome.setBounds(130, 30, 200, 30);
         campoCpf.setBounds(130, 70, 200, 30);
         campoEndereco.setBounds(130, 110, 200, 30);
         campotelefone.setBounds(130, 150, 200, 30);
         campoCargo.setBounds(130, 190, 200, 30);
-        
+
         // Configurações da janela
         setTitle("Cadastro de Funcionário");
         setSize(500, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-               // Criação dos botões de CRUD
+        // Criação dos botões de CRUD
         btnCadastrar = new JButton("Cadastrar");
         btnConsultar = new JButton("Consultar");
         btnAtualizar = new JButton("Atualizar");
@@ -100,35 +98,35 @@ public class Main extends JFrame{
 
         painelTabela.setBounds(30, 270, 430, 150); // Definição da posição e tamanho da tabela
 
-         // Adiciona os componentes ao JFrame
-         add(labelNome);
-         add(campoNome);
-         add(labelCpf);
-         add(campoCpf);
-         add(labelEndereco);
-         add(campoEndereco);
-         add(labelTelefone);
-         add(campotelefone);
-         add(labelCargo);
-         add(campoCargo);
-         add(btnCadastrar);
-         add(btnConsultar);
-         add(btnAtualizar);
-         add(btnExcluir);
-         add(btnCargo);
-         add(painelTabela); // oi
+        // Adiciona os componentes ao JFrame
+        add(labelNome);
+        add(campoNome);
+        add(labelCpf);
+        add(campoCpf);
+        add(labelEndereco);
+        add(campoEndereco);
+        add(labelTelefone);
+        add(campotelefone);
+        add(labelCargo);
+        add(campoCargo);
+        add(btnCadastrar);
+        add(btnConsultar);
+        add(btnAtualizar);
+        add(btnExcluir);
+        add(btnCargo);
+        add(painelTabela); // oi
 
-         btnCadastrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
+        btnCadastrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 String nome = campoNome.getText();
                 String cpf = campoCpf.getText();
                 String endereco = campoEndereco.getText();
                 String telefone = campotelefone.getText();
                 String cargo = campoCargo.getText();
-                
+
                 modeloTabela.addRow(new Object[]{nome, cpf, endereco, telefone, cargo});
 
-                Funcionario funcionario = new Funcionario(nome,cpf,endereco,telefone,cargo);
+                Funcionario funcionario = new Funcionario(nome, cpf, endereco, telefone, cargo);
 
                 listaFuncionarios.add(funcionario);
                 funcionario.exportarParaTXT(listaFuncionarios);
@@ -138,25 +136,25 @@ public class Main extends JFrame{
                 campotelefone.setText("");
                 campoCargo.setText("");
             }
-         });
+        });
 
-         btnConsultar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-               JFileChooser fileChooser = new JFileChooser();
+        btnConsultar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
 
-               int resultado = fileChooser.showOpenDialog(null);
-               if (resultado == JFileChooser.APPROVE_OPTION) {
-                   File arquivoSelecionado = fileChooser.getSelectedFile();
+                int resultado = fileChooser.showOpenDialog(null);
+                if (resultado == JFileChooser.APPROVE_OPTION) {
+                    File arquivoSelecionado = fileChooser.getSelectedFile();
 
-                   //Limpar tabela e arraylist
-                   listaFuncionarios.clear();
-                   modeloTabela.setRowCount(0);
+                    //Limpar tabela e arraylist
+                    listaFuncionarios.clear();
+                    modeloTabela.setRowCount(0);
 
-                   try (BufferedReader dados = new BufferedReader(new FileReader(arquivoSelecionado))){
+                    try (BufferedReader dados = new BufferedReader(new FileReader(arquivoSelecionado))) {
                         String linha;
-                        while ((linha =dados.readLine())!=null) {
+                        while ((linha = dados.readLine()) != null) {
                             String[] bdados = linha.split(";");
-                            if(bdados.length == 5){
+                            if (bdados.length == 5) {
                                 String nome = bdados[0];
                                 String cpf = bdados[1];
                                 String endereco = bdados[2];
@@ -167,39 +165,58 @@ public class Main extends JFrame{
                                 listaFuncionarios.add(funcionario);
                                 modeloTabela.addRow(new Object[]{nome, cpf, endereco, telefone, cargo});
                             }
-                        }   
-                        JOptionPane.showMessageDialog(null,"Dados importados com sucesso!");
-                   }catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null,"Erro ao ler o arquivo!");
+                        }
+                        JOptionPane.showMessageDialog(null, "Dados importados com sucesso!");
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(null, "Erro ao ler o arquivo!");
 
+                    }
                 }
-               }
             }
-         });
+        });
 
-         btnAtualizar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-           
+        btnAtualizar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                listaFuncionarios.clear();
+                for (int i = 0; i < modeloTabela.getColumnCount(); i++) {
+                    String nome = (String) modeloTabela.getValueAt(i, 0);
+                    String cpf = (String) modeloTabela.getValueAt(i, 1);
+                    String endereco = (String) modeloTabela.getValueAt(i, 2);
+                    String telefone = (String) modeloTabela.getValueAt(i, 3);
+                    String cargo = (String) modeloTabela.getValueAt(i, 4);
+
+                    Funcionario func = new Funcionario(nome, cpf, endereco, telefone, cargo);
+                    listaFuncionarios.add(func);
+                    func.exportarParaTXT(listaFuncionarios);
+                }
             }
-         });
+        });
 
-         btnExcluir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
-      
+        btnExcluir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int linhaselecionada = tabelaFuncionarios.getSelectedRow();
+                if (linhaselecionada != -1) {
+                    listaFuncionarios.remove(linhaselecionada);
+                    modeloTabela.removeRow(linhaselecionada);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione um Funcionário para excluir!");
+                }
             }
-         });
 
-         btnCargo.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){
+        });
+
+        btnCargo.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+               new Cargo();
             }
-         });
+        });
 
-         
+        revalidate();
+        repaint();
 
-         revalidate();
-         repaint();
+    }
 
-    }   
     public static void main(String[] args) throws Exception {
         Main frame = new Main();
         frame.setVisible(true);

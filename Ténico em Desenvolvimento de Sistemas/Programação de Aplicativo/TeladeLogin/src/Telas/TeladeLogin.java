@@ -4,6 +4,8 @@
  */
 package Telas;
 
+import dao.UsuarioDAO;
+
 /**
  *
  * @author wilian_g_cardoso
@@ -52,6 +54,11 @@ public class TeladeLogin extends javax.swing.JFrame {
         jbtEsqueceuSenha.setText("Reset");
 
         jbtLogar.setText("Logar");
+        jbtLogar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtLogarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,6 +125,14 @@ public class TeladeLogin extends javax.swing.JFrame {
     private void jpfSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpfSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jpfSenhaActionPerformed
+
+    private void jbtLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLogarActionPerformed
+        // TODO add your handling code here:
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        String login = jtfUsuario.getText().trim();
+        String senha = new String(jpfSenha.getPassword());
+        Usuario usuario= usuarioDAO.logar(login, senha);
+    }//GEN-LAST:event_jbtLogarActionPerformed
 
     /**
      * @param args the command line arguments

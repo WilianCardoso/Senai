@@ -5,6 +5,7 @@
 package Telas;
 
 import dao.UsuarioDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -132,6 +133,18 @@ public class TeladeLogin extends javax.swing.JFrame {
         String login = jtfUsuario.getText().trim();
         String senha = new String(jpfSenha.getPassword());
         Usuario usuario= usuarioDAO.logar(login, senha);
+        
+        if (usuario !=null) {
+            JOptionPane.showMessageDialog(null,"Usuario"+usuario.getUsu()+" logado com sucesso!");
+            dispose();
+            TelaPrincipal tela = new TelaPrincipal();
+            tela.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null,"Usuário ou senha inválido!");
+            TeladeLogin telaLogin = new TeladeLogin();
+            telaLogin.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_jbtLogarActionPerformed
 
     /**

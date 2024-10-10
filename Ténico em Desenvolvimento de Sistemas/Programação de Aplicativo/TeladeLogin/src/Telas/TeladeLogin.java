@@ -132,10 +132,10 @@ public class TeladeLogin extends javax.swing.JFrame {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         String login = jtfUsuario.getText().trim();
         String senha = new String(jpfSenha.getPassword());
-        Usuario usuario= usuarioDAO.logar(login, senha);
+        Usuario usuario = usuarioDAO.logar(login, senha);
         
         if (usuario !=null) {
-            JOptionPane.showMessageDialog(null,"Usuario"+usuario.getUsu()+" logado com sucesso!");
+            JOptionPane.showMessageDialog(null,"Usuario "+usuario.getUsu()+" logado com sucesso!");
             dispose();
             TelaPrincipal tela = new TelaPrincipal();
             tela.setVisible(true);

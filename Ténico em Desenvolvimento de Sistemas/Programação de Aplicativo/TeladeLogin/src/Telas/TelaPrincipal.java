@@ -26,7 +26,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jmbMenu = new javax.swing.JMenuBar();
+        jmCadastrar = new javax.swing.JMenu();
+        jmtUsu = new javax.swing.JMenuItem();
+        jmSair = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jmCadastrar.setText("Cadastrar");
+
+        jmtUsu.setText("Usuário");
+        jmtUsu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmtUsuActionPerformed(evt);
+            }
+        });
+        jmCadastrar.add(jmtUsu);
+
+        jmbMenu.add(jmCadastrar);
+
+        jmSair.setText("Sair");
+        jmbMenu.add(jmSair);
+
+        setJMenuBar(jmbMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -36,11 +58,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmtUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmtUsuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmtUsuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +104,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jmCadastrar;
+    private javax.swing.JMenu jmSair;
+    private javax.swing.JMenuBar jmbMenu;
+    private javax.swing.JMenuItem jmtUsu;
     // End of variables declaration//GEN-END:variables
 }

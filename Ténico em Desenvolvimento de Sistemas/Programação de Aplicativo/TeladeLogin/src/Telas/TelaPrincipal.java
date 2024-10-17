@@ -66,6 +66,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jmtUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmtUsuActionPerformed
         // TODO add your handling code here:
+        dispose();
+        TelaCadUser tela = new TelaCadUser();
+        tela.setVisible(true);
     }//GEN-LAST:event_jmtUsuActionPerformed
 
     /**

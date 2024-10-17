@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,12 +46,31 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    public void cadastrarUsu(Usuario usuario) {
-
+    public void cadastrarUsu(Usuario usuario){
+        String sql = "insert into login(user_login,nom_login,pas_login)values(?,?,?)";
+        try(PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setString(2, usuario.getNome());
+            ps.setString(1, usuario.getUsu());
+            ps.setString(3, usuario.getPass());
+            
+            ps.execute();
+            ps.close();
+            JOptionPane.showMessageDialog(null,"Usuario Cadastrado!");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Erro ao adicionar usuario!");
+        }
     }
 
     public void removerUsu(int idlogin) throws SQLException {
-
+        String sql = "Delete from login where cod_login=?";
+        try(Connection connection = new ConexaoBanco().getConexao();
+            PreparedStatement ps = connection.prepareStatement(sql))
+        {
+            ps.setInt(1, idlogin);
+            ps.executeUpdate();
+        } catch (java.sql.SQLIntegrityConstraintViolationException e) {
+            throw new SQLException("Não foi possível excluir!");
+        }
     }
 
     public ArrayList<Usuario> getUsuarios() {

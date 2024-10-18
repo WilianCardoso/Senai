@@ -46,26 +46,25 @@ public class UsuarioDAO {
         return usuario;
     }
 
-    public void cadastrarUsu(Usuario usuario){
+    public void cadastrarUsu(Usuario usuario) {
         String sql = "insert into login(user_login,nom_login,pas_login)values(?,?,?)";
-        try(PreparedStatement ps = con.prepareStatement(sql)){
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(2, usuario.getNome());
             ps.setString(1, usuario.getUsu());
             ps.setString(3, usuario.getPass());
-            
+
             ps.execute();
             ps.close();
-            JOptionPane.showMessageDialog(null,"Usuario Cadastrado!");
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,"Erro ao adicionar usuario!");
+            JOptionPane.showMessageDialog(null, "Usuario Cadastrado!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao adicionar usuario!");
         }
     }
 
     public void removerUsu(int idlogin) throws SQLException {
         String sql = "Delete from login where cod_login=?";
-        try(Connection connection = new ConexaoBanco().getConexao();
-            PreparedStatement ps = connection.prepareStatement(sql))
-        {
+        try (Connection connection = new ConexaoBanco().getConexao();
+                PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, idlogin);
             ps.executeUpdate();
         } catch (java.sql.SQLIntegrityConstraintViolationException e) {
@@ -74,11 +73,42 @@ public class UsuarioDAO {
     }
 
     public ArrayList<Usuario> getUsuarios() {
-        return null;
+        String SQL = "Select * from login";
+        ArrayList<Usuario> usuarios = null;
+
+        try (Connection connection = new ConexaoBanco().getConexao();
+                PreparedStatement ps = connection.prepareStatement(SQL)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    if (usuarios == null) {
+                        usuarios = new ArrayList<>();
+                    }
+                    Usuario usuario = new Usuario();
+                    usuario.setCod(rs.getInt("cod_login"));
+                    usuario.setNome(rs.getString("nom_login"));
+                    usuario.setUsu(rs.getString("user_login"));
+                    usuario.setPass(rs.getString("pas_login"));
+                    usuarios.add(usuario);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return usuarios;
     }
 
     public void alterarUsu(int codigo, String password) {
-
+        String sql = "update login set pas_login = ? cod_login = ?";
+        
+        try (PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setString(1, password);
+            ps.setInt(2, codigo);
+            ps.execute();
+            ps.close();
+            
+        } catch (Exception e) {
+            
+        }
     }
 
 }

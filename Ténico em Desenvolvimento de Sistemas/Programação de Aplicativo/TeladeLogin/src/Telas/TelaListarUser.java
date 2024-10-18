@@ -5,8 +5,10 @@
 package Telas;
 
 import dao.UsuarioDAO;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.w3c.dom.UserDataHandler;
 
 /**
  *
@@ -19,6 +21,12 @@ public class TelaListarUser extends javax.swing.JFrame {
      */
     public TelaListarUser() {
         initComponents();
+        
+        //Colocar os titulos da Tabela
+        String[] novostitulos={"Código","Nome","Usuário","Senha"};
+        for (int i = 0; i < novostitulos.length; i++) {
+            jbtUsuarios.getColumnModel().getColumn(i).setHeaderValue(novostitulos[i]);
+        }
     }
 
     /**
@@ -41,6 +49,7 @@ public class TelaListarUser extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jbtVisu.setFont(new java.awt.Font("Sitka Small", 0, 12)); // NOI18N
         jbtVisu.setText("Visualizar");
         jbtVisu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -48,6 +57,7 @@ public class TelaListarUser extends javax.swing.JFrame {
             }
         });
 
+        jbtExcluir.setFont(new java.awt.Font("Sitka Subheading", 0, 12)); // NOI18N
         jbtExcluir.setText("Excluir");
         jbtExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -55,10 +65,13 @@ public class TelaListarUser extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Sitka Subheading", 0, 18)); // NOI18N
         jLabel1.setText("Visualização de Dados");
 
+        jlbCod.setFont(new java.awt.Font("Sitka Subheading", 0, 12)); // NOI18N
         jlbCod.setText("Código");
 
+        jbtVoltar.setFont(new java.awt.Font("Sitka Subheading", 0, 12)); // NOI18N
         jbtVoltar.setText("Voltar");
         jbtVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,29 +112,28 @@ public class TelaListarUser extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(161, 161, 161)
                         .addComponent(jbtVisu)))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(137, 137, 137))
+                .addGap(112, 112, 112))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jbtVoltar)
-                .addGap(16, 16, 16)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbCod)
                     .addComponent(jbtExcluir)
                     .addComponent(jtfCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jbtVisu)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -131,6 +143,19 @@ public class TelaListarUser extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel)jbtUsuarios.getModel();
         model.setRowCount(0);
+        
+        UsuarioDAO usu = new UsuarioDAO();
+        ArrayList<Usuario> listaUsu = new ArrayList<>();
+        listaUsu = usu.getUsuarios();
+        for(Usuario usuario: listaUsu){
+            Object[]linha ={
+                usuario.getCod(),
+                usuario.getNome(),
+                usuario.getUsu(),
+                usuario.getPass()};
+            model.addRow(linha);
+        }
+        
     }//GEN-LAST:event_jbtVisuActionPerformed
 
     private void jbtExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtExcluirActionPerformed

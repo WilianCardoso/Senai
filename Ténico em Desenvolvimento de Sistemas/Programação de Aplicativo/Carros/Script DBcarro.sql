@@ -1,0 +1,8 @@
+CREATE SCHEMA DBcarro;
+
+CREATE TABLE Car(
+cod_car INT NOT NULL AUTO_INCREMENT,
+pot_car INT NOT NULL,
+cor_car VARCHAR(50) NOT NULL,
+PRIMARY KEY (cod_car)
+);

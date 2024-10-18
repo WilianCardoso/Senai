@@ -18,6 +18,12 @@ public class TeladeLogin extends javax.swing.JFrame {
      */
     public TeladeLogin() {
         initComponents();
+
+        jtfInfCod.setVisible(false);
+        jtfNovaSenha.setVisible(false);
+        jbtSalvar.setVisible(false);
+        lblSenha.setVisible(false);
+        lblcod.setVisible(false);
     }
 
     /**
@@ -37,6 +43,11 @@ public class TeladeLogin extends javax.swing.JFrame {
         jpfSenha = new javax.swing.JPasswordField();
         jbtEsqueceuSenha = new javax.swing.JButton();
         jbtLogar = new javax.swing.JButton();
+        lblcod = new javax.swing.JLabel();
+        lblSenha = new javax.swing.JLabel();
+        jtfInfCod = new javax.swing.JTextField();
+        jtfNovaSenha = new javax.swing.JTextField();
+        jbtSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,11 +64,33 @@ public class TeladeLogin extends javax.swing.JFrame {
         });
 
         jbtEsqueceuSenha.setText("Reset");
+        jbtEsqueceuSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtEsqueceuSenhaActionPerformed(evt);
+            }
+        });
 
         jbtLogar.setText("Logar");
         jbtLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtLogarActionPerformed(evt);
+            }
+        });
+
+        lblcod.setText("Informe o código");
+
+        lblSenha.setText("Nova Senha");
+
+        jtfInfCod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfInfCodActionPerformed(evt);
+            }
+        });
+
+        jbtSalvar.setText("Salvar");
+        jbtSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtSalvarActionPerformed(evt);
             }
         });
 
@@ -82,8 +115,19 @@ public class TeladeLogin extends javax.swing.JFrame {
                         .addGap(111, 111, 111)
                         .addComponent(jlbSenha)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jpfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(119, Short.MAX_VALUE))
+                        .addComponent(jpfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblSenha)
+                            .addComponent(lblcod))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtfInfCod, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                            .addComponent(jtfNovaSenha))
+                        .addGap(18, 18, 18)
+                        .addComponent(jbtSalvar)))
+                .addContainerGap(74, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jlbTelaLogin)
@@ -94,19 +138,33 @@ public class TeladeLogin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(jlbTelaLogin)
-                .addGap(44, 44, 44)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbUsuario))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jpfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlbSenha))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtEsqueceuSenha)
-                    .addComponent(jbtLogar))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbUsuario))
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jpfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlbSenha))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbtEsqueceuSenha)
+                            .addComponent(jbtLogar))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblcod)
+                            .addComponent(jtfInfCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblSenha)
+                            .addComponent(jtfNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(20, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbtSalvar)
+                        .addGap(34, 34, 34))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -133,19 +191,54 @@ public class TeladeLogin extends javax.swing.JFrame {
         String login = jtfUsuario.getText().trim();
         String senha = new String(jpfSenha.getPassword());
         Usuario usuario = usuarioDAO.logar(login, senha);
-        
-        if (usuario !=null) {
-            JOptionPane.showMessageDialog(null,"Usuario "+usuario.getUsu()+" logado com sucesso!");
+
+        if (usuario != null) {
+            JOptionPane.showMessageDialog(null, "Usuario " + usuario.getUsu() + " logado com sucesso!");
             dispose();
             TelaPrincipal tela = new TelaPrincipal();
             tela.setVisible(true);
-        }else{
-            JOptionPane.showMessageDialog(null,"Usuário ou senha inválido!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário ou senha inválido!");
             TeladeLogin telaLogin = new TeladeLogin();
             telaLogin.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_jbtLogarActionPerformed
+
+    private void jbtEsqueceuSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEsqueceuSenhaActionPerformed
+        // TODO add your handling code here:
+        jtfInfCod.setVisible(true);
+        jtfNovaSenha.setVisible(true);
+        jbtSalvar.setVisible(true);
+        lblSenha.setVisible(true);
+        lblcod.setVisible(true);
+
+    }//GEN-LAST:event_jbtEsqueceuSenhaActionPerformed
+
+    private void jtfInfCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfInfCodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfInfCodActionPerformed
+
+    private void jbtSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtSalvarActionPerformed
+        // TODO add your handling code here:
+        if (!jtfInfCod.getText().isBlank()&&!jtfNovaSenha.getText().isBlank()) {
+                UsuarioDAO usu = new UsuarioDAO();
+                try {
+                    usu.alterarUsu(Integer.parseInt(jtfInfCod.getText()), jtfNovaSenha.getText());
+                    JOptionPane.showMessageDialog(null, "Senha alterada com sucesso!");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Erro ao alterar a senha!");
+                }
+        } else {
+            JOptionPane.showMessageDialog(null, "Preencha os campos");
+        }
+        jtfInfCod.setVisible(false);
+        jtfNovaSenha.setVisible(false);
+        jbtSalvar.setVisible(false);
+        lblSenha.setVisible(false);
+        lblcod.setVisible(false);
+
+    }//GEN-LAST:event_jbtSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,10 +279,15 @@ public class TeladeLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbtEsqueceuSenha;
     private javax.swing.JButton jbtLogar;
+    private javax.swing.JButton jbtSalvar;
     private javax.swing.JLabel jlbSenha;
     private javax.swing.JLabel jlbTelaLogin;
     private javax.swing.JLabel jlbUsuario;
     private javax.swing.JPasswordField jpfSenha;
+    private javax.swing.JTextField jtfInfCod;
+    private javax.swing.JTextField jtfNovaSenha;
     private javax.swing.JTextField jtfUsuario;
+    private javax.swing.JLabel lblSenha;
+    private javax.swing.JLabel lblcod;
     // End of variables declaration//GEN-END:variables
 }

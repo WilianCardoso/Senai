@@ -3,7 +3,7 @@
 -- Questão 1
 select *
 from departamento
-where id_departamento = 30;
+where id_departamento LIKE "vendas";
 
 -- Questão 2
 select nm_empregado, funcao, id_departamento
@@ -35,12 +35,23 @@ where NM_EMPREGADO like '%A%';
 -- Questão 7
 select nm_empregado, ID_DEPARTAMENTO 
 from empregado 
-where ID_DEPARTAMENTO in (10,30);
+where ID_DEPARTAMENTO in (10,30)
+order by NM_EMPREGADO;
 
 -- Questão 8
 select nm_empregado,DATA_CONTRATACAO 
 from empregado 
 where DATA_CONTRATACAO like "1982%";
+
+select nm_empregado,DATA_CONTRATACAO 
+from empregado 
+where DATA_CONTRATACAO like "1982-__-__";
+
+-- comparação
+select nm_empregado,DATA_CONTRATACAO 
+from empregado 
+where DATA_CONTRATACAO >= '1982-01-01' and
+	DATA_CONTRATACAO <= '1982-12-31';
 
 -- Questão 9
 select * 

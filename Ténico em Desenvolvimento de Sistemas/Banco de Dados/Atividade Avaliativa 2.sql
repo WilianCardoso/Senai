@@ -45,6 +45,6 @@ where e.ID_DEPARTAMENTO = d.ID_DEPARTAMENTO and e.salario >=1500 and e.salario <
 -- Questão 10
 select e.nm_empregado, e.salario, e.data_contratacao, d.id_departamento, l.nm_empregado NM_Lider, l.data_contratacao Data_Contratacao_Lider, l.salario salario_lider
 from empregado e left join empregado l on(e.ID_EMPREGADO = l.ID_EMPREGADO) 
-where e.ID_DEPARTAMENTO = d.ID_DEPARTAMENTO ;
+where e.ID_DEPARTAMENTO = d.ID_DEPARTAMENTO;
 
 

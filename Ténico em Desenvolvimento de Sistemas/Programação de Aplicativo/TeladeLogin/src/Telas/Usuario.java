@@ -14,7 +14,6 @@ public class Usuario {
     
     
     public Usuario(){
-        
     }
     
     public Usuario(Integer cod,String nome, String usu, String pass){

@@ -40,7 +40,7 @@ public class TeladeLogin extends javax.swing.JFrame {
         jlbTelaLogin = new javax.swing.JLabel();
         jlbSenha = new javax.swing.JLabel();
         jtfUsuario = new javax.swing.JTextField();
-        jpfSenha = new javax.swing.JPasswordField();
+        jtfSenha = new javax.swing.JPasswordField();
         jbtEsqueceuSenha = new javax.swing.JButton();
         jbtLogar = new javax.swing.JButton();
         lblcod = new javax.swing.JLabel();
@@ -57,9 +57,9 @@ public class TeladeLogin extends javax.swing.JFrame {
 
         jlbSenha.setText("Senha");
 
-        jpfSenha.addActionListener(new java.awt.event.ActionListener() {
+        jtfSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jpfSenhaActionPerformed(evt);
+                jtfSenhaActionPerformed(evt);
             }
         });
 
@@ -115,7 +115,7 @@ public class TeladeLogin extends javax.swing.JFrame {
                         .addGap(111, 111, 111)
                         .addComponent(jlbSenha)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jpfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -146,7 +146,7 @@ public class TeladeLogin extends javax.swing.JFrame {
                             .addComponent(jlbUsuario))
                         .addGap(17, 17, 17)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jpfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jlbSenha))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -181,15 +181,15 @@ public class TeladeLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jpfSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpfSenhaActionPerformed
+    private void jtfSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSenhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jpfSenhaActionPerformed
+    }//GEN-LAST:event_jtfSenhaActionPerformed
 
     private void jbtLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtLogarActionPerformed
         // TODO add your handling code here:
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         String login = jtfUsuario.getText().trim();
-        String senha = new String(jpfSenha.getPassword());
+        String senha = new String(jtfSenha.getPassword());
         Usuario usuario = usuarioDAO.logar(login, senha);
 
         if (usuario != null) {
@@ -283,9 +283,9 @@ public class TeladeLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jlbSenha;
     private javax.swing.JLabel jlbTelaLogin;
     private javax.swing.JLabel jlbUsuario;
-    private javax.swing.JPasswordField jpfSenha;
     private javax.swing.JTextField jtfInfCod;
     private javax.swing.JTextField jtfNovaSenha;
+    private javax.swing.JPasswordField jtfSenha;
     private javax.swing.JTextField jtfUsuario;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblcod;

@@ -11,7 +11,7 @@ class MinhaThread extends Thread {
         for (int i = 0; i < 5; i++) {
             System.out.println("Executando " + Thread.currentThread().getName() + " Valor do contador :" + i);
             try {
-                Thread.sleep(2000); // pausa a thread por 1 segundo
+                Thread.sleep(tempo); // pausa a thread por 1 segundo
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -21,10 +21,10 @@ class MinhaThread extends Thread {
 
 public class App {
     public static void main(String[] args) throws Exception {
-        MinhaThread thread_1 = new MinhaThread(1000);
+        MinhaThread thread_1 = new MinhaThread(500);
         thread_1.start();
 
-        MinhaThread thread_2 = new MinhaThread(2000);
+        MinhaThread thread_2 = new MinhaThread(3000);
         thread_2.start();
 
         System.out.println("Programa Finalizado");

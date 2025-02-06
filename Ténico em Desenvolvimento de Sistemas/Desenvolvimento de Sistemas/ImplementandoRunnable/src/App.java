@@ -14,11 +14,21 @@ class MinhaRunnable implements Runnable {
 
 public class App {
     public static void main(String[] args) throws Exception {
-        MinhaRunnable minhaRunnable = new MinhaRunnable();
-        Thread thread_1 = new Thread(minhaRunnable);
-        thread_1.start(); // Inicia a thread_1 e chama o metodo run()
+        RunnableComParametro runTh1 = new RunnableComParametro("Thread 1", 1500);
+        RunnableComParametro runTh2 = new RunnableComParametro("Thread 2", 4500);
+        
+        Thread thread1 = new Thread(runTh1);
+        Thread thread2 = new Thread(runTh2);
+        thread1.start();
+        thread2.start();
 
-        Thread thread_2 = new Thread(minhaRunnable);
-        thread_2.start(); // Inicia a thread_2 e chama o metodo run()
+        System.out.println("Programa finalizado!!!");
+
+       // MinhaRunnable minhaRunnable = new MinhaRunnable();
+      //  Thread thread_1 = new Thread(minhaRunnable);
+      //  thread_1.start(); // Inicia a thread_1 e chama o metodo run()
+
+       // Thread thread_2 = new Thread(minhaRunnable);
+        //thread_2.start(); // Inicia a thread_2 e chama o metodo run()
     }
 }

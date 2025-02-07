@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
@@ -14,7 +13,7 @@ public class MinhaProgressBar extends JFrame {
         setLocationRelativeTo(null);
 
         // Inicializando a JProgressBar
-        progressBar = new JProgressBar(0, 100);
+        progressBar = new JProgressBar(0, 10);
         progressBar.setStringPainted(true);
 
         // Adicionando a JProgressBar ao JFrame

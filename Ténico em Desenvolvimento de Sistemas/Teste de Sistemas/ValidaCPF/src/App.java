@@ -22,20 +22,18 @@ public class App {
         // Chama a função de validação
         boolean res = validarCPF(cpf_digitos);
 
-        if (res && cpf.matches("(\\d)\\1{10}")) {
+        if (res) {
             System.out.println("CPF válido!");
         } else {
             System.out.println("CPF inválido!");
-            System.out.println("CPF não pode conter numeros iguais!");
 
         }
-        /*
-         * ler.close();
-         * 
-         * if (cpf.matches("(\\d)\\1{10}")) {
-         * System.out.println("CPF não pode conter numeros iguais!");
-         * }
-         */
+
+        ler.close();
+
+        if (cpf.matches("(\\d)\\1{10}")) {
+            System.out.println("CPF não pode conter numeros iguais!");
+        }
     }
 
     public static boolean validarCPF(int num[]) {

@@ -1,4 +1,3 @@
-// Inicialização das variaveis
 const boardSize = 16;
 const board = [];
 
@@ -6,7 +5,7 @@ let esquadra = {
     submarino: { size: 1, count: 4, color: 'blue' },
     cruzador: { size: 2, count: 3, color: 'green' },
     hidroaviao: { size: 3, count: 5, color: 'red' },
-    encouracada: { size: 4, count: 2, color: 'purple' },
+    encouracado: { size: 4, count: 2, color: 'purple' },
     portaAvioes: { size: 5, count: 1, color: 'orange' }
 };
 
@@ -15,8 +14,8 @@ const playerEsquadra = [];
 let qtdItemEsquadra = [4, 3, 5, 2, 1];
 
 let jogoIniciado = false;
-
 let currentDirection = 'HORIZONTAL';
+
 
 // Cria tabuleiro
 function createBoard() {
@@ -35,7 +34,7 @@ function createBoard() {
                 cell.textContent = String.fromCharCode(64 + col);
                 cell.classList.add('title');
             }
-            if (col === 0 && row && row > 0) {
+            if (col === 0 && row > 0) {
                 cell.textContent = row;
                 cell.classList.add('title');
             }
@@ -50,38 +49,31 @@ function createBoard() {
 // Mudar barco atual
 function changeItem() {
     const shipOrder = ["submarino", "cruzador", "hidroaviao", "encouracado", "portaAvioes"];
+    const currentIndex = shipOrder.indexOf(itemEsquadraAtual);
 
     itemEsquadraAtual = shipOrder[(currentIndex + 1) % shipOrder.length];
-    alert(`Agora coloque o  $(itemEsquadraAtual).`);
+    alert(`Agora coloque o ${itemEsquadraAtual}.`);
 }
 
 // Alterar direção do barco através do mouse
 function onCellClick(event, row, col) {
-    // Definir com base no botão do mouse
-
     let qtd = esquadra[itemEsquadraAtual].count;
 
     if (event.button === 0) {
-        // Botão esquerdo (horizontal)
         currentDirection = "HORIZONTAL";
-        aler("VERTICAL" + "\nLinha:" + row + "\nColuna: " + col);
+        //alert(currentDirection + "\nLinha: " + row + "\nColuna: " + col);
     } else if (event.button === 2) {
-        // Botao direito (vertical)
         currentDirection = "VERTICAL";
-        alert("VERTICAL" + "\nLinha: " + row + "\nColuna: " + col);
+        //alert(currentDirection + "\nLinha: " + row + "\nColuna: " + col);
     }
 
     if (esquadra[itemEsquadraAtual].count === 0) {
-        alert("Toda a esquadra já está pocisionada.");
+        alert("Toda a esquadra já está posicionada.")
         return;
-    }
-    else {
-        alert(currentDirection + ": " + "\nLinha: " + row + "\nColuna: " + col + itemEsquadraAtual + "\nPosicionado 1 " + itemEsquadraAtual + "restam" + (qtd - 1));
-
+    } else {
+        alert(currentDirection + ": " + "\nLinha: " + row + "\nColuna: " + col + "\n" + itemEsquadraAtual + "\n Posicionado 1 " + itemEsquadraAtual + " restam " + (qtd - 1));
         esquadra[itemEsquadraAtual].count--;
-
         placePart(row, col);
-
         if (esquadra[itemEsquadraAtual].count === 0) {
             changeItem();
         }
@@ -89,8 +81,7 @@ function onCellClick(event, row, col) {
 }
 
 // Colocar barco
-// Função para colocar o barco
-function colocaPeca(row, col) {
+function placePart(row, col) {
     const itemSize = esquadra[itemEsquadraAtual].size;
     const itemColor = esquadra[itemEsquadraAtual].color;
     const newItem = [];
@@ -98,7 +89,7 @@ function colocaPeca(row, col) {
     // Lógica para o hidroavião
     if (itemEsquadraAtual === "hidroaviao") {
         if (currentDirection === "HORIZONTAL") {
-            if (col + 1 >= boardSize || row + 1 >= boardSize || col - 1 < 1) {
+            if (col + 1 >= boardSize || row + 1 >= boardSize || col - 1 < 1 || row < 1) {
                 alert("Não é possível colocar o hidroavião aqui.");
 
                 esquadra[itemEsquadraAtual].count++;
@@ -129,7 +120,7 @@ function colocaPeca(row, col) {
 
 
         } else if (currentDirection === "VERTICAL") {
-            if (row + 1 >= boardSize || row - 1 < 1 || col + 1 >= boardSize) {
+            if (row + 1 >= boardSize || row - 1 < 1 || col < 1 || col +1 >= boardSize) {
                 alert("Não é possível colocar o hidroavião aqui.");
                 esquadra[itemEsquadraAtual].count++;
                 return;
@@ -155,10 +146,9 @@ function colocaPeca(row, col) {
             newItem.push({ row, col }, { row: row - 1, col: col + 1 }, { row: row + 1, col: col + 1 });
         }
     }
-
     else if (itemEsquadraAtual === "submarino") {
         if (currentDirection === "HORIZONTAL") {
-            if (col + itemSize - 1 >= boardSize || col < 1) {
+            if ((col + itemSize - 1 )>= boardSize || (row < 1) || (col < 1)) {
                 alert("Não é possível colocar o submarino aqui.");
                 esquadra[itemEsquadraAtual].count++;
                 return;
@@ -179,7 +169,7 @@ function colocaPeca(row, col) {
             }
 
         } else if (currentDirection === "VERTICAL") {
-            if (row + itemSize - 1 >= boardSize || row < 1) {
+            if (row + itemSize - 1 >= boardSize || (col < 1) || (row < 1)) {
                 alert("Não é possível colocar o submarino aqui.");
                 esquadra[itemEsquadraAtual].count++;
                 return;
@@ -202,7 +192,7 @@ function colocaPeca(row, col) {
     }
     else if (itemEsquadraAtual === "cruzador") {
         if (currentDirection === "HORIZONTAL") {
-            if (col + itemSize - 1 >= boardSize) {
+            if (col + itemSize - 1 >= boardSize || (row < 1) || (col < 1)) {
                 alert("Não é possível colocar o cruzador aqui.");
                 esquadra[itemEsquadraAtual].count++;
                 return;
@@ -222,7 +212,7 @@ function colocaPeca(row, col) {
                 newItem.push({ row, col: col + i });
             }
         } else if (currentDirection === "VERTICAL") {
-            if (row + itemSize - 1 >= boardSize) {
+            if (row + itemSize - 1 >= boardSize || (row < 1) || (col < 1)) {
                 alert("Não é possível colocar o cruzador aqui.");
                 esquadra[itemEsquadraAtual].count++;
                 return;
@@ -243,10 +233,9 @@ function colocaPeca(row, col) {
             }
         }
     }
-
     else if (itemEsquadraAtual === "encouracado") {
         if (currentDirection === "HORIZONTAL") {
-            if (col + itemSize - 1 >= boardSize || col < 1) {
+            if (col + itemSize - 1 >= boardSize || (row < 1) || (col < 1)) {
                 alert("Não é possível colocar o encouraçado aqui.");
                 esquadra[itemEsquadraAtual].count++;
                 return;
@@ -266,7 +255,7 @@ function colocaPeca(row, col) {
                 newItem.push({ row, col: col + i });
             }
         } else if (currentDirection === "VERTICAL") {
-            if (row + itemSize - 1 >= boardSize || row < 1) {
+            if (col + itemSize - 1 >= boardSize || (row < 1) || (col < 1)) {
                 alert("Não é possível colocar o encouraçado aqui.");
                 esquadra[itemEsquadraAtual].count++;
                 return;
@@ -289,7 +278,7 @@ function colocaPeca(row, col) {
     }
     else if (itemEsquadraAtual === "portaAvioes") {
         if (currentDirection === "HORIZONTAL") {
-            if (col + itemSize - 1 >= boardSize || col < 1) {
+            if (row + itemSize - 1 >= boardSize || (row < 1) || (col < 1)) {
                 alert("Não é possível colocar o porta-aviões aqui.");
                 esquadra[itemEsquadraAtual].count++;
                 return;
@@ -309,7 +298,7 @@ function colocaPeca(row, col) {
                 newItem.push({ row, col: col + i });
             }
         } else if (currentDirection === "VERTICAL") {
-            if (row + itemSize - 1 >= boardSize || row < 1) {
+            if (row + itemSize - 1 >= boardSize || (row < 1) || (col < 1)) {
                 alert("Não é possível colocar o porta-aviões aqui.");
                 esquadra[itemEsquadraAtual].count++;
                 return;
@@ -331,6 +320,5 @@ function colocaPeca(row, col) {
         }
     }
 }
-
 
 window.onload = () => createBoard();

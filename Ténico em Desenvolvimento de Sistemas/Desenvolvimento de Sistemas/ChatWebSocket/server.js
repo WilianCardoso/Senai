@@ -27,6 +27,7 @@ const server = http.createServer(app);
 // Tanto as requisições HTTP quanto as conexões WebSocket vão ser tratadas pelo mesmo servidor.
 const wss = new WebSocket.Server({ server });
 
+let clients = {};
 
 // Quando um cliente se conectar
 wss.on('connection', (ws, req) => {

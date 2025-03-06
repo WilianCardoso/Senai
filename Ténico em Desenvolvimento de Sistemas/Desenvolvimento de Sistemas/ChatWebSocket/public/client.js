@@ -6,8 +6,7 @@ function connectServer() {
     const serverIp = document.getElementById('serverIp').value;
     const username = document.getElementById('username').value;
 
-    socket = new WebSocket(`ws://$(serverIp):3000`);
-
+    socket = new WebSocket(`ws://${serverIp}:3000`);
     //evento disparo quando a conexão é estabelecida
     socket.onopen = () => {
         socket.send(JSON.stringify({ type: 'login', username }));

@@ -18,7 +18,7 @@
             align-items: center;
             min-height: 100vh;
         }
-        
+
         /* Contêiner do Chat */
         .chat-container {
             width: 100%;
@@ -31,19 +31,19 @@
             flex-direction: column;
             gap: 20px;
         }
-        
+
         /* Estilização dos Inputs e Botões */
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        
+
         label {
             font-weight: bold;
             color: #333;
         }
-        
+
         /* Inputs e Select */
         input,
         select {
@@ -54,12 +54,12 @@
             outline: none;
             transition: border-color 0.3s ease-in-out;
         }
-        
+
         input:focus,
         select:focus {
             border-color: #0d9134;
         }
-        
+
         /* Botões */
         button {
             padding: 12px;
@@ -69,26 +69,26 @@
             cursor: pointer;
             transition: background-color 0.3s ease-in-out;
         }
-        
+
         /* Botão Principal */
         button {
             background-color: #0dbd4e;
             color: #fff;
         }
-        
+
         button:hover {
             background-color: #0a9e3e;
         }
-        
+
         /* Botão de Desconexão */
         #disconnectionBtn {
             background-color: #f44336;
         }
-        
+
         #disconnectionBtn:hover {
             background-color: #d32f2f;
         }
-        
+
         /* Caixa de Chat */
         .chat-box {
             border: 1px solid #ddd;
@@ -99,7 +99,7 @@
             max-height: 400px;
             overflow-y: auto;
         }
-        
+
         /* Lista de Usuários */
         #userList {
             padding: 8px;
@@ -108,14 +108,14 @@
             border: 1px solid #ccc;
             background-color: #fff;
         }
-        
+
         /* Caixa de Mensagens */
         .message-box {
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-        
+
         .message-box input {
             padding: 12px;
             font-size: 14px;
@@ -141,7 +141,7 @@
 
         </div>
 
-        <button onclick="connectionServer()">Conectar</button>
+        <button onclick="connectServer()">Conectar</button>
 
         <div class="form-group">
             <label for="userList">Usuário Logado</label>

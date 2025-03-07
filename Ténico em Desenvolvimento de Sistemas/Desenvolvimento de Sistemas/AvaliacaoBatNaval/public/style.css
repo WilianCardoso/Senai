@@ -100,7 +100,6 @@ button:hover {
     font-weight: bold;
 }
 
-/* Estilos para os inputs */
 input, select {
     width: 100%;
     padding: 10px;
@@ -110,27 +109,16 @@ input, select {
     font-size: 16px;
 }
 
-/* Labels para manter alinhamento */
 label {
     font-weight: bold;
     margin-top: 10px;
 }
 
-/* Ajuste para os inputs dentro dos containers */
-.container-1 input, 
-.container-2 input, 
-.container-2 select {
-    width: calc(100% - 20px);
-}
 
-.chat-container {
-    width: 90%; /* Ajuste para caber melhor dentro do container */
-    max-width: 450px; /* Mantém um tamanho máximo */
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.chat-box {
+    flex-grow: 1;
+    background-color: #c2bfbc;
+    border-radius: 5px;
+    padding: 10px;
+    overflow-y: auto;
 }

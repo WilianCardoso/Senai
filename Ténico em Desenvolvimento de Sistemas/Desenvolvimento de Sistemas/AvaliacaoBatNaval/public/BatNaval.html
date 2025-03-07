@@ -18,10 +18,10 @@
         <label for="username">Jogador:</label>
         <input type="text" id="username" placeholder="Digite aqui seu nome.">
 
-        <label for="server">Servidor:</label>
-        <input type="text" id="server" placeholder="Digite aqui o IP do servidor">
+        <label for="serverIp">Servidor:</label>
+        <input type="text" id="serverIp" placeholder="Digite aqui o IP do servidor">
 
-        <button onclick="connect()" id="connectBtn">Conectar</button>
+        <button onclick="connectServer()" id="connectBtn">Conectar</button>
         <div id="board">
 
         </div>
@@ -30,12 +30,12 @@
 
     <div class="container-2">
         <h1> Batalha Naval - Coluna - 2</h1>
-        <label for="userList">Jogador:</label>
+        <label for="userList">Jogador Adversário:</label>
         <select name="userList" id="userList"></select>
 
-        <label for="tiro">Tiro:</label>
+        <label for="shoot">Tiro:</label>
         <input type="text" id="tiro" placeholder="">
-        <button onclick="tiro()" id="resetBtn">Tiro</button>
+        <button onclick="shoot()" id="resetBtn">Tiro</button>
         <div id="board_2">
 
         </div>
@@ -44,7 +44,7 @@
 
     <div class="container-3">
         <h1> Batalha Naval - Coluna - 3</h1>
-        <div class="chat-container">
+        <div class="chat-box">
 
 
 
@@ -52,9 +52,9 @@
 
     </div>
     </div>
-
+    <script src="client.js">
+    </script>
     <script src="script.js">
-
     </script>
 </body>
 

@@ -15,7 +15,7 @@ let itemEsquadraAtual = "submarino";
 const playerEsquadra = [];
 let qtdItemEsquadra = [4, 3, 5, 2, 1];
 
-let jogoIniciado = false;
+let jogoIniciado = true;
 let currentDirection = 'HORIZONTAL';
 
 
@@ -69,8 +69,8 @@ function createBoard2() {
                 cell_2.textContent = row;
                 cell_2.classList.add('title_2');
             }
-
-            cell_2.addEventListener('mousedown', (event) => onCellClick(event, row, col));
+            // Adiciona o evento de clique para disparo
+            cell_2.addEventListener('mousedown', (event) => shoot(event));
             board_2[row].push(cell_2);
             boardContainer2.appendChild(cell_2);
         }
@@ -85,6 +85,7 @@ function changeItem() {
     itemEsquadraAtual = shipOrder[(currentIndex + 1) % shipOrder.length];
     alert(`Agora coloque o ${itemEsquadraAtual}.`);
 }
+
 
 // Alterar direção do barco através do mouse
 function onCellClick(event, row, col) {
@@ -353,3 +354,4 @@ function placePart(row, col) {
 }
 
 window.onload = () => createBoard();
+window.onload = () => createBoard2();

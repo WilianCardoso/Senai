@@ -35,7 +35,7 @@ function conectar() {
         }
 
         if (data.from && data.message) {
-            const chat = document.getElementById('msgTiro');
+            const chat = document.getElementById('msgShoot');
             chat.innerHTML += `<p><strong>${data.from}:</strong> ${data.message}</p>`;
             const partes = data.message.split(":");
             const linha = parseInt(partes[1].substring(1));
@@ -45,10 +45,10 @@ function conectar() {
 
 
 
-            if (tiro.includes('FOGO')) {
+            if (tiro.includes('Fogo')) {
                 //alert("FOGO");
                 marcaShoot(linha, coluna, "F");
-            } else if (tiro.includes('AGUA')) {
+            } else if (tiro.includes('Agua')) {
                 //alert("AGUA");
                 marcaShoot(linha, coluna, "A");
             } else if (tiro.includes('TIRO')) {
@@ -517,13 +517,13 @@ function colocaPeca(row, col) {
 
 function checarBomba(row, col) {
     if (document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`).classList.contains('ship')) {
-        infoShoot('C' + col + ':L' + row + ':FOGO');
-        alert("FOGO: Alvo atingido.");
+        infoShoot('C' + col + ':L' + row + ':Fogo');
+        alert("Fogo: Alvo atingido.");
 
     }
     else {
-        infoShoot('C' + col + ':L' + row + ':AGUA');
-        alert("ÁGUA: Alvo não atingido.");
+        infoShoot('C' + col + ':L' + row + ':Agua');
+        alert("Agua: Alvo não atingido.");
     }
 }
 

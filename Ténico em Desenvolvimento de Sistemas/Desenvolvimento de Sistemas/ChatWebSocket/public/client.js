@@ -133,7 +133,6 @@ function createBoard() {
 
             // Adicionar eventos de listener de click de mouse para cada célula 
 
-
             cell.addEventListener('mousedown', (event) => onCellClick(event, row, col));
             board[row].push(cell);
             boardContainer.appendChild(cell);
@@ -199,14 +198,11 @@ function onCellClick(event, row, col) {
     if (event.button === 0) {
         // Botão esquerdo (horizontal)
         currentDirection = "HORIZONTAL";
-        //alert("HORIZONTAL" + "\nLinha: " + row + "\nColuna: " + col);
     } else if (event.button === 2) {
         // Botão direito (vertical)
         currentDirection = "VERTICAL";
-        //alert("VERTICAL" + "\nLinha: " + row + "\nColuna: " + col);
     }
 
-    //alert("Aqui");
 
 
     if (esquadra[itemEsquadraAtual].count === 0) {
@@ -230,9 +226,7 @@ function onCellClick(event, row, col) {
 
 }
 
-// Função para alterar a direção do barco baseado no botão do mouse
 function onCellClick2(event, row, col) {
-    // Definir direção com base no botão do mouse
 
     let qtd = esquadra[itemEsquadraAtual].count;
 
@@ -253,21 +247,30 @@ function onCellClick2(event, row, col) {
 // Função para marcar o tiro
 const newBombs = []; // Array global para armazenar os tiros
 
-function marcarTiro(row, col, resultado) {
+function marcaShoot(row, col, resultado) {
+    // Seleciona a célula do tabuleiro do jogador 2 com base nas coordenadas fornecidas
     const cell = document.querySelector(`.cell2[data-row="${row}"][data-col="${col}"]`);
 
+    // Se a célula não existir, exibe um alerta e interrompe a execução
     if (!cell) {
-        alert("Célula não existe...");
+        alert("Célula não encontrada.");
         return;
     }
 
-    cell.classList.add('tiro'); // Adiciona a classe de marcação
+    // Adiciona a classe 'tiro' para indicar que um tiro foi registrado nessa célula
+    cell.classList.add('tiro');
 
-    // Define a cor com base no resultado do tiro
-    const cores = { 'F': 'green', 'A': 'gray' };
-    cell.style.backgroundColor = cores[resultado] || 'red'; // Vermelho se for um valor inesperado
+    // Define as cores de fundo para representar o resultado do tiro
+    const corResultado = {
+        'F': 'green', // "F" (Fogo) -> Acertou um navio -> Verde
+        'A': 'gray',  // "A" (Água) -> Errou o tiro -> Cinza
+        'B': 'red'    // "B" (Bomba) -> Acertou uma bomba -> Vermelho
+    };
 
-    // Armazena o tiro no array global
+    // Aplica a cor correspondente ao resultado na célula, ou padrão vermelho se for desconhecido
+    cell.style.backgroundColor = corResultado[resultado] || 'red';
+
+    // Registra a nova marcação no array de bombas (ou tiros armazenados)
     newBombs.push({ row, col, resultado });
 }
 

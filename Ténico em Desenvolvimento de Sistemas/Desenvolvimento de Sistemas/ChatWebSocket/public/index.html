@@ -1,168 +1,56 @@
-<!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat WebSocket</title>
-
-    <style>
-        /*Regras de estilização*/
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* Contêiner do Chat */
-        .chat-container {
-            width: 100%;
-            max-width: 450px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* Estilização dos Inputs e Botões */
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #333;
-        }
-
-        /* Inputs e Select */
-        input,
-        select {
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 6px;
-            border: 1px solid #12bb29;
-            outline: none;
-            transition: border-color 0.3s ease-in-out;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: #0d9134;
-        }
-
-        /* Botões */
-        button {
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out;
-        }
-
-        /* Botão Principal */
-        button {
-            background-color: #0dbd4e;
-            color: #fff;
-        }
-
-        button:hover {
-            background-color: #0a9e3e;
-        }
-
-        /* Botão de Desconexão */
-        #disconnectionBtn {
-            background-color: #f44336;
-        }
-
-        #disconnectionBtn:hover {
-            background-color: #d32f2f;
-        }
-
-        /* Caixa de Chat */
-        .chat-box {
-            border: 1px solid #ddd;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 6px;
-            min-height: 200px;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        /* Lista de Usuários */
-        #userList {
-            padding: 8px;
-            font-size: 14px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-        }
-
-        /* Caixa de Mensagens */
-        .message-box {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .message-box input {
-            padding: 12px;
-            font-size: 14px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-    </style>
+    <title>Batalha Naval</title>
+    <link rel="stylesheet" href="batNaval.css">
 </head>
 
 <body>
-    <!-- Estrutura da página do Client-->
-    <div class="chat-container">
-
-        <div class="form-group">
-            <label for="username">Nome do Usuário</label>
-            <input type="text" id="username" placeholder="Digite aqui o nome do usuário.">
-
+    <div class="container-1">
+        <h1>Batalha Naval</h1>
+        <div class="connectServer">
+            <label for="player">Jogador:</label>
+            <input type="text" id="player" name="player" required>
+            <label for="ipServer">Servidor:</label>
+            <input type="text" id="ipServer" name="ipServer" required>
+            <button onclick="conectar()" id="connectBtn">Conectar</button>
         </div>
 
-        <div class="form-group">
-            <label for="serverIp">Endereço do Servidor</label>
-            <input type="text" id="serverIp" placeholder="Digite aqui o IP do servidor.">
+        <div id="board">
 
         </div>
+        <button onclick="createBoard()" id="resetBtn">Reiniciar Tabuleiro</button>
+        
+    </div>
+    <div class="container-2">
+        <h1>Batalha Naval - Jogador 2</h1>
+        <div class="player2">
 
-        <button id="connection" onclick="connectServer()">Conectar</button>
 
-        <div class="form-group">
-            <label for="userList">Usuário Logado</label>
-            <select name="userList" id="userList"></select>
-            <option value="Todos"></option>
+            <label for="player2">Jogador adversário:</label>
+            <select id="player2">
+                <option value="Todos">Todos</option>
+            </select>
+
+            <label for="tiro">Tiro:</label>
+            <input type="text" id="tiro" name="tiro" required>
+            <button onclick="shoot()" id="tiroBtn">Atirar</button>
         </div>
 
-        <div class="message-box">
-            <input type="text" id="message" placeholder="Digite sua mensagem...">
-            <button onclick="sendMessage()">Enviar Mensagem</button>
-        </div>
-
-        <div class="form-group">
-            <button id="disconnect" onclick="disconnectServer()">Desconectar</button>
-        </div>
-
-        <div class="chat-box" id="chat">
+        <div id="board-player2">
 
         </div>
+        <button onclick="createBoard2()" id="resetBtn2">Reiniciar Tabuleiro</button>
 
     </div>
+    <div class="container-3">
+        <h1>Batalha Naval - Histórico</h1>
+        <div class="infoShoot" id="msgShoot"></div>
+
+    </div>
+
     <script src="client.js"></script>
 </body>
 

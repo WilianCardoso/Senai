@@ -40,18 +40,18 @@ function conectar() {
             const partes = data.message.split(":");
             const linha = parseInt(partes[1].substring(1));
             const coluna = parseInt(partes[0].substring(1));
-            const tiro = partes[2];
+            const shoot = partes[2];
 
 
 
 
-            if (tiro.includes('Fogo')) {
+            if (shoot.includes('FOGO')) {
                 //alert("FOGO");
                 marcaShoot(linha, coluna, "F");
-            } else if (tiro.includes('Agua')) {
+            } else if (shoot.includes('AGUA')) {
                 //alert("AGUA");
                 marcaShoot(linha, coluna, "A");
-            } else if (tiro.includes('TIRO')) {
+            } else if (shoot.includes('TIRO')) {
                 //alert("TIRO");
                 checarBomba(linha, coluna);
             }
@@ -60,7 +60,7 @@ function conectar() {
 }
 
 function shoot() {
-    const coordenadaTiro = document.getElementById('tiro').value;
+    const coordenadaTiro = document.getElementById('shoot').value;
     const toUser = document.getElementById('player2').value;
     const username = document.getElementById('player').value;
 
@@ -71,7 +71,7 @@ function shoot() {
         message: coordenadaTiro + ":TIRO"
     }));
 
-    document.getElementById('tiro').value = '';
+    document.getElementById('shoot').value = '';
 }
 
 function infoShoot(msg) {
@@ -85,7 +85,7 @@ function infoShoot(msg) {
         message: msg
     }));
 
-    document.getElementById('tiro').value = '';
+    document.getElementById('shoot').value = '';
 }
 
 // Criar o tabuleiro 16x16
@@ -131,8 +131,6 @@ function createBoard() {
                 cell.classList.add('title');
             }
 
-            // Adicionar eventos de listener de click de mouse para cada célula 
-
             cell.addEventListener('mousedown', (event) => onCellClick(event, row, col));
             board[row].push(cell);
             boardContainer.appendChild(cell);
@@ -165,9 +163,6 @@ function createBoard2() {
                 cell2.textContent = row; // Coloca Números como títulos das linhas
                 cell2.classList.add('title');
             }
-
-            // Adicionar eventos de listener de click de mouse para cada célula 
-
 
             cell2.addEventListener('mousedown', (event) => onCellClick2(event, row, col));
             board[row].push(cell2);
@@ -239,39 +234,36 @@ function onCellClick2(event, row, col) {
     }
 
     // Exibindo a coordenada do tiro
-    const tiro = document.getElementById('tiro');
-    tiro.value = "C" + col + ":L" + row;
+    const shoot = document.getElementById('shoot');
+    shoot.value = "C" + col + ":L" + row;
 
 }
 
 // Função para marcar o tiro
-const newBombs = []; // Array global para armazenar os tiros
+ function marcaTiro(row, col, shoot) {
 
-function marcaShoot(row, col, resultado) {
-    // Seleciona a célula do tabuleiro do jogador 2 com base nas coordenadas fornecidas
+    const newBomb = [];
+    const msgShoot = shoot;
+
+    document.querySelector(`.cell2[data-row="${row}"][data-col="${col}"]`).classList.add('shoot');
     const cell = document.querySelector(`.cell2[data-row="${row}"][data-col="${col}"]`);
 
-    // Se a célula não existir, exibe um alerta e interrompe a execução
-    if (!cell) {
-        alert("Célula não encontrada.");
-        return;
+    if (cell) {
+        if (msgShoot === 'F') {
+            cell.style.backgroundColor = 'green';
+
+        } else if (msgShoot === 'A') {
+            cell.style.backgroundColor = 'gray';
+        }
     }
 
-    // Adiciona a classe 'tiro' para indicar que um tiro foi registrado nessa célula
-    cell.classList.add('tiro');
+    else {
+        alert("Célula não existe...")
+    }
 
-    // Define as cores de fundo para representar o resultado do tiro
-    const corResultado = {
-        'F': 'green', // "F" (Fogo) -> Acertou um navio -> Verde
-        'A': 'gray',  // "A" (Água) -> Errou o tiro -> Cinza
-        'B': 'red'    // "B" (Bomba) -> Acertou uma bomba -> Vermelho
-    };
+    newBomb.push({ row, col: col });
 
-    // Aplica a cor correspondente ao resultado na célula, ou padrão vermelho se for desconhecido
-    cell.style.backgroundColor = corResultado[resultado] || 'red';
 
-    // Registra a nova marcação no array de bombas (ou tiros armazenados)
-    newBombs.push({ row, col, resultado });
 }
 
 // Função para colocar o barco
@@ -520,13 +512,13 @@ function colocaPeca(row, col) {
 
 function checarBomba(row, col) {
     if (document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`).classList.contains('ship')) {
-        infoShoot('C' + col + ':L' + row + ':Fogo');
-        alert("Fogo: Alvo atingido.");
+        infoShoot('C' + col + ':L' + row + ':FOGO');
+       // alert("Fogo: Alvo atingido.");
 
     }
     else {
-        infoShoot('C' + col + ':L' + row + ':Agua');
-        alert("Agua: Alvo não atingido.");
+        infoShoot('C' + col + ':L' + row + ':AGUA');
+    //    alert("Agua: Alvo não atingido.");
     }
 }
 

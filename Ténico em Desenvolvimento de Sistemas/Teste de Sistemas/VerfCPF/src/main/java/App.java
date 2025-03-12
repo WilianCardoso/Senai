@@ -1,10 +1,16 @@
+
 import java.util.Scanner;
 
+/**
+ *
+ * @author wilian_g_cardoso
+ */
 public class App {
+
     public static Scanner ler = new Scanner(System.in);
 
     public static void main(String[] args) {
-        String cpf = "";
+         String cpf = "";
         System.out.println("Entre com o seu CPF: ");
         cpf = ler.nextLine();
 
@@ -82,5 +88,4 @@ public class App {
         // Comparação dos dígitos calculados com os informados
         return (num[9] == dv1) && (num[10] == dv2);
     }
-
 }

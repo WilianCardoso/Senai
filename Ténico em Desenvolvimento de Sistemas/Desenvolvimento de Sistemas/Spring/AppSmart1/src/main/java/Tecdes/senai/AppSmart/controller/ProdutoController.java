@@ -16,12 +16,12 @@ public class ProdutoController {
         int quantidade = 15;
 
         //adiciona as variáveis ao modelo
-        model.addAllAttribute("id", id);
-        model.addAllAttribute("produto", produto);
-        model.addAllAttribute("preco", preco);
-        model.addAllAttribute("quantidade", quantidade);
+        model.addAttribute("id", id);
+        model.addAttribute("produto", produto);
+        model.addAttribute("preco", preco);
+        model.addAttribute("quantidade", quantidade);
         
         // Retorna o nome da página .html a ser renderizada
-        return "produto";
+        return "index";
     }
 }

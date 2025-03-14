@@ -1,0 +1,5 @@
+101;Microcomputador 19 3200Hz;15.3000.55
+102;Mouse sem fio 19;10.38.45
+103;Monitor Samsung 144Hz;33.580.25
+104;Teclado universal 104 teclas;45.120.55
+105;Disci SSD;15.3000.55

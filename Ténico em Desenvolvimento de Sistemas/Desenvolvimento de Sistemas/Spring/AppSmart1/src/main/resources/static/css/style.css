@@ -1,35 +1,130 @@
-body {
-    background-color: #121212;
-    color: #ffffff;
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Corpo da página */
+body {
+    background-color: #121212; /* Fundo escuro */
+    color: #ffffff;  /* Texto em branco */
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+/* Container principal */
 .container {
-    max-width: 600px;
-    margin: 50px auto;
+    max-width: 800px;
+    width: 100%;
+    margin: 30px;
     padding: 20px;
-    background-color: #1e1e1e;
+    background-color: #1e1e1e; /* Fundo cinza escuro */
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-h1 {
+/* Títulos */
+h1, h2 {
     text-align: center;
-    color: #00adb5;
+    color: #00adb5; /* Cor de destaque */
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
 
-p {
-    font-size: 18px;
-    line-height: 1.6;
+/* Formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-strong {
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 1rem;
+    margin-bottom: 5px;
     color: #eeeeee;
 }
 
-span {
-    color: #00ffcc;
+input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    background-color: #333333; /* Fundo dos inputs */
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    background-color: #444444; /* Fundo mais claro quando o campo está em foco */
+}
+
+/* Botão de envio */
+button {
+    padding: 12px;
+    background-color: #00adb5;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #009a97; /* Cor mais escura ao passar o mouse */
+}
+
+/* Tabela de produtos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #333333; /* Bordas cinza escuro */
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #212121;
+    color: #ffffff;
+}
+
+td {
+    background-color: #2c2c2c;
+    color: #eeeeee;
+}
+
+td:hover {
+    background-color: #333333; /* Destaque para a célula ao passar o mouse */
+}
+
+/* Link de navegação */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #00adb5;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+a:hover {
+    color: #009a97;
 }

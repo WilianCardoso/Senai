@@ -1,0 +1,13 @@
+CREATE DATABASE produtcdb;
+
+-- Uso do banco de dados criando 
+
+USE produtcdb;
+
+-- Criação da tabela 'produto'
+
+CREATE TABLE produto (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL,
+    preco DECIMAL(10,2)
+)

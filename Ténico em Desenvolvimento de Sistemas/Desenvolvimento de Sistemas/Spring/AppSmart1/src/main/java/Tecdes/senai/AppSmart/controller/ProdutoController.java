@@ -101,8 +101,7 @@ public class ProdutoController {
             while ((linha = br.readLine()) != null) {
                 String[] dados = linha.split(";");
                 if (dados.length == 4) {
-                    Produto p = new Produto(dados[0], dados[1], Integer.parseInt(dados[2]),
-                            Double.parseDouble(dados[3]));
+                    Produto p = new Produto(dados[0], dados[1], Integer.parseInt(dados[2]),Double.parseDouble(dados[3]));
                     produtos.add(p);
                 }
             }

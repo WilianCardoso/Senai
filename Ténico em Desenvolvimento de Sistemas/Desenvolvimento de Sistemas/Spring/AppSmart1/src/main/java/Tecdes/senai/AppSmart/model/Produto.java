@@ -6,6 +6,16 @@ public class Produto{
     private int qtd;
     private double preco;
 
+
+       // Construtor correto
+       public Produto(String codigo, String descricao, int qtd, double preco) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+        this.qtd = qtd;
+        this.preco = preco;
+    }
+
+
     public String getCodigo() {
         return codigo;
     }

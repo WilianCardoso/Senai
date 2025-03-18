@@ -10,12 +10,12 @@ public class App {
     public static Scanner ler = new Scanner(System.in);
 
     public static void main(String[] args) {
-         String cpf = "";
+        String cpf = "";
         System.out.println("Entre com o seu CPF: ");
         cpf = ler.nextLine();
 
         if (verfLetras(cpf)) {
-            System.out.println( " contem Letras");
+            System.out.println(" contem Letras");
             return;
         }
 
@@ -29,7 +29,6 @@ public class App {
             System.out.println(" CPF não pode conter numeros iguais!");
             return;
         }
-
 
         int[] cpf_digitos = new int[11];
 

@@ -7,7 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author wilian_g_cardoso
  */
 public class AppTest {
-   App verificador = new App();
+
+    App verificador = new App();
+
     @Test
     void testValidaQtdDigitos() {
         assertTrue(verificador.validaQtdDigitos("12345678901"));  // CPF correto
@@ -24,13 +26,16 @@ public class AppTest {
 
     @Test
     void testVerfIgual() {
+        int[] cpfValido = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};  // CPF real válido: 111.444.777-05
+        assertFalse(verificador.validarCPF(cpfValido));
+
         assertTrue(verificador.verfIgual("11111111111"));  // Todos os números iguais
         assertFalse(verificador.verfIgual("12345678901")); // CPF normal
     }
 
     @Test
     void testValidarCPF() {
-        int[] cpfValido = {1, 1, 1, 4, 4, 4, 7, 7, 7, 0, 5};  // CPF real válido: 111.444.777-05
+        int[] cpfValido = {1, 1, 1, 4, 4, 4, 7, 7, 7, 3, 5};  // CPF real válido: 111.444.777-05
         int[] cpfInvalido = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1}; // CPF inválido
 
         assertTrue(verificador.validarCPF(cpfValido));

@@ -2,11 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif; /* Fonte moderna */
+    font-family: 'Roboto', sans-serif; 
 }
 
 body {
-    background-color: #f4f7fc; /* Fundo suave para toda a página */
+    background-color: #f4f7fc; 
     color: #333;
     padding: 20px;
     display: flex;
@@ -37,7 +37,14 @@ form {
 }
 
 form:hover {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Efeito ao passar o mouse */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); 
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 label {
@@ -59,7 +66,7 @@ input {
 }
 
 input:focus {
-    border-color: #4f92dd; /* Cor ao focar no campo */
+    border-color: #4f92dd; 
     box-shadow: 0 0 5px rgba(79, 146, 221, 0.5);
 }
 
@@ -100,7 +107,7 @@ table {
     border-collapse: collapse;
     margin-top: 40px;
     border-radius: 10px;
-    overflow: hidden; /* Bordas arredondadas nas células */
+    overflow: hidden; 
 }
 
 th, td {
@@ -141,9 +148,9 @@ a:hover {
 }
 
 .produto-imagem {
-    width: 60px; /* Aumenta a largura para maior visibilidade */
-    height: 60px; /* Aumenta a altura para maior visibilidade */
-    object-fit: cover; /* Melhora o ajuste sem distorcer */
+    width: 60px;
+    height: 60px; 
+    object-fit: cover; 
     border-radius: 8px;
     border: 2px solid #ddd;
     background-color: #f1f1f1;
@@ -153,4 +160,26 @@ a:hover {
 
 .produto-imagem:hover {
     transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
+}
+
+/* Estilização para o botão "Cadastrar Novo Produto" */
+.btn-cadastrar-novo {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #0c70e2;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-cadastrar-novo:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
 }

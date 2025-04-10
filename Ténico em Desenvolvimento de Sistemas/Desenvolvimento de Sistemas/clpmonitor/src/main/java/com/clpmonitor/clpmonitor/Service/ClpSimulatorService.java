@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import com.PLC.PlcConnector;
 import com.clpmonitor.clpmonitor.Model.ClpData;
 
 import jakarta.annotation.PostConstruct;
@@ -32,6 +33,8 @@ public class ClpSimulatorService {
     // CopyOnWriteArrayList é usada para permitir acesso concorrente com
     // segurança (vários threads atualizando a lista).
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+    private PlcConnector plcEstDb9;
+    private byte[] indexColorEst = new byte[28];
 
     // executor – Agendamento das tarefas de simulações
     // Cria uma pool de threads agendadas (com 2 threads).
@@ -69,16 +72,37 @@ public class ClpSimulatorService {
 
     // sendClp1Update() – Gera 28 bytes (valores de 0 a 3) para o CLP 1
     private void sendClp1Update() {
-        // Gera uma lista de 28 inteiros entre 0 e 3.
-        Random rand = new Random();
-        List<Integer> byteArray = new ArrayList<>();
-        for (int i = 0; i < 28; i++) {
-            byteArray.add(rand.nextInt(4)); // 0 a 3
+        PlcConnector plc = null;
+        try {
+            // 1. Estabelece conexão
+            plc = new PlcConnector("10.74.241.10", 102);
+            plc.connect();
+            
+            // 2. Leitura dos dados do CLP com tratamento de timeout
+            byte[] dadosPlc = plc.readBlock(9, 68, 28);
+            
+            // 3. Processamento dos dados
+            List<Integer> byteArray = new ArrayList<>();
+            for (int i = 0; i < 28; i++) {
+                byteArray.add(dadosPlc[i] & 0x03); // Garante valores entre 0-3
+            }
+            
+            // 4. Envio dos dados
+            sendToEmitters("clp1-data", new ClpData(1, byteArray));
+            
+        } catch (Exception e) {
+            // Envia mensagem de erro via SSE
+            sendToEmitters("clp-error", new ClpData(0, "Erro na conexão com CLP: " + e.getMessage()));
+        } finally {
+            // 5. Fechamento seguro da conexão
+            if (plc != null) {
+                try {
+                    plc.disconnect();
+                } catch (Exception e) {
+                    System.err.println("Erro ao desconectar: " + e.getMessage());
+                }
+            }
         }
-
-        // Cria um ClpData com id = 1 e envia com o evento "clp1-data".
-        ClpData clp1 = new ClpData(1, byteArray);
-        sendToEmitters("clp1-data", clp1);
     }
 
     // sendClp2to4Updates() – Gera valores inteiros simples

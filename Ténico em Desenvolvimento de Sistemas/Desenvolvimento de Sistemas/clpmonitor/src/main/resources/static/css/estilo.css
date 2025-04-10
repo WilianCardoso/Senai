@@ -97,8 +97,30 @@ th {
 
 .grid-expedicao {
     display: grid;
-    grid-template-columns: repeat(6, 40px);
-    grid-template-rows: repeat(2, 40px);
+    grid-template-columns: repeat(6, 40px); /* 6 colunas */
+    grid-template-rows: repeat(2, 40px);    /* 2 linhas (total 12 células) */
     gap: 5px;
-    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/* Células da expedição (bordas coloridas) */
+.cell-exp {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border: 3px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.cell-exp.livre {
+    border-color: #4CAF50; /* Verde */
+}
+
+.cell-exp.ocupado {
+    border-color: #F44336; /* Vermelho */
+    background-color: #FFEBEE; /* Fundo vermelho claro */
 }

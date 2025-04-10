@@ -107,7 +107,7 @@
 
         <h2>Expedição (12 espaços)</h2>
         <div id="expedicao-grid" class="grid-expedicao"></div>
-
+      
         <h2>CLP 2 a 4</h2>
         <table>
             <thead>
@@ -240,21 +240,26 @@
         function updateExpedicaoGrid() {
             const grid = document.getElementById('expedicao-grid');
             grid.innerHTML = '';
-
-            // Gera 12 valores aleatórios entre 0 e 3
+        
+            // Simulação: 50% de chance de estar ocupado com um número aleatório (1-9999)
             for (let i = 0; i < 12; i++) {
-                const val = Math.floor(Math.random() * 4); // 0 a 3
                 const cell = document.createElement('div');
-                cell.classList.add('cell', `color-${val}`);
+                cell.classList.add('cell-exp');
+        
+                if (Math.random() > 0.5) {
+                    cell.classList.add('livre'); // Espaço livre (borda verde)
+                } else {
+                    cell.classList.add('ocupado'); // Espaço ocupado (borda vermelha)
+                    cell.textContent = Math.floor(Math.random() * 9999) + 1; // Número aleatório
+                }
+        
                 grid.appendChild(cell);
             }
         }
-
-        // Atualiza a grid de expedição a cada 2 segundos
+        
+        // Atualiza a cada 2 segundos
         setInterval(updateExpedicaoGrid, 2000);
-
-        // Chama a função imediatamente para exibir a grid ao carregar
-        updateExpedicaoGrid();
+        updateExpedicaoGrid(); // Renderiza imediatamente
     </script>
 </body>
 

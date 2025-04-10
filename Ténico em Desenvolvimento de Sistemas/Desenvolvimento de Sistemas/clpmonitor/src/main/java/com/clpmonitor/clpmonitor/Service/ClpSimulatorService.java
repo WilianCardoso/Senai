@@ -33,8 +33,6 @@ public class ClpSimulatorService {
     // CopyOnWriteArrayList é usada para permitir acesso concorrente com
     // segurança (vários threads atualizando a lista).
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
-    private PlcConnector plcEstDb9;
-    private byte[] indexColorEst = new byte[28];
 
     // executor – Agendamento das tarefas de simulações
     // Cria uma pool de threads agendadas (com 2 threads).
@@ -77,19 +75,19 @@ public class ClpSimulatorService {
             // 1. Estabelece conexão
             plc = new PlcConnector("10.74.241.10", 102);
             plc.connect();
-            
+
             // 2. Leitura dos dados do CLP com tratamento de timeout
             byte[] dadosPlc = plc.readBlock(9, 68, 28);
-            
+
             // 3. Processamento dos dados
             List<Integer> byteArray = new ArrayList<>();
             for (int i = 0; i < 28; i++) {
                 byteArray.add(dadosPlc[i] & 0x03); // Garante valores entre 0-3
             }
-            
+
             // 4. Envio dos dados
             sendToEmitters("clp1-data", new ClpData(1, byteArray));
-            
+
         } catch (Exception e) {
             // Envia mensagem de erro via SSE
             sendToEmitters("clp-error", new ClpData(0, "Erro na conexão com CLP: " + e.getMessage()));

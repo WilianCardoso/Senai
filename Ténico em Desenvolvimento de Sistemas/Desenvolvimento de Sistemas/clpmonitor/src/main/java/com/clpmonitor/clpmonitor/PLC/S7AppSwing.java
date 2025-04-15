@@ -1,4 +1,4 @@
-package com.PLC;
+package com.clpmonitor.clpmonitor.PLC;
 
 import java.awt.Color;
 import java.awt.Font;

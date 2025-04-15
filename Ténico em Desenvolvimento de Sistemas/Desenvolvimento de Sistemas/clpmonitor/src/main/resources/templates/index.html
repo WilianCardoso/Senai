@@ -107,7 +107,7 @@
 
         <h2>Expedição (12 espaços)</h2>
         <div id="expedicao-grid" class="grid-expedicao"></div>
-      
+
         <h2>CLP 2 a 4</h2>
         <table>
             <thead>
@@ -131,6 +131,12 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="read-buttons">
+            <button onclick="updateAllClps()" class="update-button">
+                <i class="refresh-icon">↻</i> Atualizar Todos CLPs
+            </button>
+        </div>
     </div>
 
     <div class="container2">
@@ -142,6 +148,25 @@
 
 
     <script>
+
+        // Função para atualizar todos os CLPs
+        function updateAllClps() {
+            const button = document.querySelector('.update-button');
+            button.disabled = true;
+            button.innerHTML = '<i class="refresh-icon">↻</i> Atualizando...';
+            
+            // Adiciona tratamento de erro para cada chamada
+            Promise.all([
+                fetch('/read-clp1').catch(e => console.error("Erro CLP1:", e)),
+                fetch('/read-clp2to4').catch(e => console.error("Erro CLP2-4:", e)),
+                fetch('/read-expedicao').catch(e => console.error("Erro Expedição:", e))
+            ]).finally(() => {
+                setTimeout(() => {
+                    button.disabled = false;
+                    button.innerHTML = '<i class="refresh-icon">↻</i> Atualizar Todos CLPs';
+                }, 1000);
+            });
+        }
         const eventSource = new EventSource('/clp-data-stream');
 
         // CLP 1 - grade 5x6
@@ -185,23 +210,59 @@
         });
 
 
-
+        eventSource.addEventListener('expedicao-data', function(event) {
+            try {
+                const data = JSON.parse(event.data);
+                // Garante que temos um array com 12 elementos
+                const values = (Array.isArray(data.value) ? data.value : Array(12).fill(0));
+                
+                // Se o array tiver menos de 12 elementos, completa com zeros
+                while (values.length < 12) {
+                    values.push(0);
+                }
+                
+                updateExpedicaoGrid(values);
+            } catch (e) {
+                console.error("Erro ao processar dados da expedição:", e);
+                // Mostra todos como livres em caso de erro
+                updateExpedicaoGrid(Array(12).fill(0));
+            }
+        });
         // CLP 2
         // Escuta eventos SSE (Server-Sent Events) com nome clp2-data.
         // Rregistra um listener para eventos SSE com o nome clp2-data.
-        eventSource.addEventListener('clp2-data', function (event) {
-            // Quando um evento chega, ele extrai o valor (data.value) 
-            // e coloca esse valor no conteúdo de um elemento HTML com id="clp2".
-            // Converte os dados do evento (que chegam como string JSON) em um objeto JavaScript.
+        function updateExpedicaoGrid(values) {
+            const grid = document.getElementById('expedicao-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            
+            for (let i = 0; i < 12; i++) {
+                const slot = document.createElement('div');
+                slot.className = 'expedicao-slot';
+                
+                // Garante que o valor é um número
+                const valor = Number(values[i] || 0);
+                
+                if (valor === 0) {
+                    slot.classList.add('livre');
+                    slot.textContent = `P${i+1}= [ ___ ]`;
+                } else {
+                    slot.classList.add('ocupado');
+                    const formattedValue = `OP${valor.toString().padStart(4, '0')}`;
+                    slot.textContent = `P${i+1}= [${formattedValue}]`;
+                }
+                
+                grid.appendChild(slot);
+            }
+        }
+        
+        
+        // No seu event listener para expedicao-data:
+        eventSource.addEventListener('expedicao-data', function(event) {
             const data = JSON.parse(event.data);
-            // Exemplo de dados recebidos:
-            // {
-            //   "clpId": 2,
-            //   "value": 73
-            // }
-            // Seleciona o elemento HTML com o id="clp2".
-            // Substitui o texto do elemento com o valor recebido do backend (data.value).
-            document.getElementById('clp2').textContent = data.value;
+            const values = Array.isArray(data.value) ? data.value : JSON.parse(data.value);
+            updateExpedicaoGrid(values);
         });
 
         // CLP 3
@@ -236,30 +297,34 @@
                 })
         });
 
-        // Adicione este código junto com os outros event listeners
-        function updateExpedicaoGrid() {
-            const grid = document.getElementById('expedicao-grid');
-            grid.innerHTML = '';
-        
-            // Simulação: 50% de chance de estar ocupado com um número aleatório (1-9999)
-            for (let i = 0; i < 12; i++) {
-                const cell = document.createElement('div');
-                cell.classList.add('cell-exp');
-        
-                if (Math.random() > 0.5) {
-                    cell.classList.add('livre'); // Espaço livre (borda verde)
-                } else {
-                    cell.classList.add('ocupado'); // Espaço ocupado (borda vermelha)
-                    cell.textContent = Math.floor(Math.random() * 9999) + 1; // Número aleatório
-                }
-        
-                grid.appendChild(cell);
-            }
-        }
-        
-        // Atualiza a cada 2 segundos
-        setInterval(updateExpedicaoGrid, 2000);
-        updateExpedicaoGrid(); // Renderiza imediatamente
+        /* // Adicione este código junto com os outros event listeners
+         function updateExpedicaoGrid() {
+             const grid = document.getElementById('expedicao-grid');
+             grid.innerHTML = '';
+ 
+             // Simulação: 50% de chance de estar ocupado com um número aleatório (1-9999)
+             for (let i = 0; i < 12; i++) {
+                 const cell = document.createElement('div');
+                 cell.classList.add('cell-exp');
+ 
+                 if (Math.random() > 0.5) {
+                     cell.classList.add('livre'); // Espaço livre (borda verde)
+                 } else {
+                     cell.classList.add('ocupado'); // Espaço ocupado (borda vermelha)
+                     cell.textContent = Math.floor(Math.random() * 9999) + 1; // Número aleatório
+                 }
+ 
+                 grid.appendChild(cell);
+             }
+         }
+         // Atualiza a cada 2 segundos
+         */
+
+         setInterval(updateExpedicaoGrid, 2000);
+         
+         updateExpedicaoGrid(); // Renderiza imediatamente
+         
+
     </script>
 </body>
 

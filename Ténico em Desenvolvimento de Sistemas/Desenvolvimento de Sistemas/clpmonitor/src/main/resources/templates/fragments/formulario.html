@@ -1,4 +1,3 @@
-
 <!-- src/main/resources/templates/fragments/formulario.html -->
 <div th:fragment="clp-write-fragment" class="clp-write-section">
     <link rel="stylesheet" th:href="@{/css/estilo.css}"> <!-- Importa os estilos -->
@@ -46,4 +45,17 @@
             <p th:text="${erro}"></p>
         </div>
     </div>
+    <div class="test-buttons">
+        <button type="button" onclick="updateAllClps()" class="test-button">
+            <i class="refresh-icon">↻</i> Testar Atualização
+        </button>
+    </div>
+
 </div>
+
+<script>
+    function updateAllClps() {
+        fetch('/read-clp1');
+        fetch('/read-clp2to4');
+    }
+</script>

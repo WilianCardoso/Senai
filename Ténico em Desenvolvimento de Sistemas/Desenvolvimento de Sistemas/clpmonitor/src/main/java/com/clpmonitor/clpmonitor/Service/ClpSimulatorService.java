@@ -8,6 +8,7 @@ package com.clpmonitor.clpmonitor.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -18,8 +19,8 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import com.PLC.PlcConnector;
 import com.clpmonitor.clpmonitor.Model.ClpData;
+import com.clpmonitor.clpmonitor.PLC.PlcConnector;
 
 import jakarta.annotation.PostConstruct;
 
@@ -33,6 +34,9 @@ public class ClpSimulatorService {
     // CopyOnWriteArrayList é usada para permitir acesso concorrente com
     // segurança (vários threads atualizando a lista).
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+    private PlcConnector plcConnector;
+    private boolean connectionActive = false;
+
 
     // executor – Agendamento das tarefas de simulações
     // Cria uma pool de threads agendadas (com 2 threads).
@@ -40,7 +44,7 @@ public class ClpSimulatorService {
     // 1 segundo).
     private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
 
-    // @PostConstruct – Inicialização automática
+ /*   // @PostConstruct – Inicialização automática
     @PostConstruct
     // Esse método é chamado automaticamente após a construção do bean.
     // Define os dois agendamentos de envio de dados simulados:
@@ -50,6 +54,20 @@ public class ClpSimulatorService {
 
         // Agendamento para CLPs 2 a 4 (1 segundo)
         executor.scheduleAtFixedRate(this::sendClp2to4Updates, 0, 3, TimeUnit.SECONDS);
+    } */
+
+    private synchronized void initializePlcConnection() {
+        if (!connectionActive) {
+            try {
+                plcConnector = new PlcConnector("10.74.241.10", 102);
+                plcConnector.connect();
+                connectionActive = true;
+                System.out.println("Conexão PLC estabelecida com sucesso");
+            } catch (Exception e) {
+                connectionActive = false;
+                System.err.println("Falha ao conectar ao PLC: " + e.getMessage());
+            }
+        }
     }
 
     // subscribe() – Adiciona cliente à lista de ouvintes SSE
@@ -69,30 +87,22 @@ public class ClpSimulatorService {
     }
 
     // sendClp1Update() – Gera 28 bytes (valores de 0 a 3) para o CLP 1
-    private void sendClp1Update() {
+    public void readClp1Data() {
         PlcConnector plc = null;
         try {
-            // 1. Estabelece conexão
             plc = new PlcConnector("10.74.241.10", 102);
             plc.connect();
-
-            // 2. Leitura dos dados do CLP com tratamento de timeout
             byte[] dadosPlc = plc.readBlock(9, 68, 28);
-
-            // 3. Processamento dos dados
+            
             List<Integer> byteArray = new ArrayList<>();
             for (int i = 0; i < 28; i++) {
-                byteArray.add(dadosPlc[i] & 0x03); // Garante valores entre 0-3
+                byteArray.add(dadosPlc[i] & 0x03);
             }
-
-            // 4. Envio dos dados
+            
             sendToEmitters("clp1-data", new ClpData(1, byteArray));
-
         } catch (Exception e) {
-            // Envia mensagem de erro via SSE
             sendToEmitters("clp-error", new ClpData(0, "Erro na conexão com CLP: " + e.getMessage()));
         } finally {
-            // 5. Fechamento seguro da conexão
             if (plc != null) {
                 try {
                     plc.disconnect();
@@ -105,12 +115,34 @@ public class ClpSimulatorService {
 
     // sendClp2to4Updates() – Gera valores inteiros simples
     // Simula os valores para os CLPs 2, 3 e 4 com números aleatórios de 0 a 99.
-    private void sendClp2to4Updates() {
-        Random rand = new Random();
-
-        sendToEmitters("clp2-data", new ClpData(2, rand.nextInt(100)));
-        sendToEmitters("clp3-data", new ClpData(3, rand.nextInt(100)));
-        sendToEmitters("clp4-data", new ClpData(4, rand.nextInt(100)));
+    public void readExpedicaoData() {
+        if (!connectionActive) {
+            initializePlcConnection();
+            if (!connectionActive) {
+                sendToEmitters("clp-error", new ClpData(0, "Sem conexão com o CLP"));
+                return;
+            }
+        }
+    
+        try {
+            byte[] dadosExpedicao = plcConnector.readBlock(9, 76, 12);
+            int[] valores = new int[12];
+            
+            // Inicializa com valores padrão 0
+            Arrays.fill(valores, 0);
+            
+            if (dadosExpedicao != null) {
+                for (int i = 0; i < Math.min(12, dadosExpedicao.length); i++) {
+                    valores[i] = dadosExpedicao[i] & 0xFF;
+                }
+            }
+            
+            sendToEmitters("expedicao-data", new ClpData(5, valores));
+        } catch (Exception e) {
+            // Envia array de zeros em caso de erro
+            sendToEmitters("expedicao-data", new ClpData(5, new int[12]));
+            System.err.println("Erro na leitura da expedição: " + e.getMessage());
+        }
     }
 
     // sendToEmitters() – Envia um evento SSE para todos os clientes

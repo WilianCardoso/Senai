@@ -89,16 +89,22 @@ public class ClpController {
         return "redirect:/";
     }
 
-  @GetMapping("/read-expedicao")
-public ResponseEntity<String> readExpedicao() {
-    try {
-        simulatorService.readExpedicaoData();
-        return ResponseEntity.ok("Leitura da expedição solicitada");
-    } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Erro ao ler expedição: " + e.getMessage());
+    @GetMapping("/read-expedicao")
+    public ResponseEntity<String> readExpedicao() {
+        try {
+            simulatorService.readExpedicaoData();
+            return ResponseEntity.ok("Leitura da expedição solicitada");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao ler expedição: " + e.getMessage());
+        }
     }
-}
+
+    @GetMapping("/read-clp2to4")
+    public String readClp2to4() {
+        simulatorService.readClp2to4Data();
+        return "redirect:/";
+    }
 
     /*
      * Descrição do Funcionamento:

@@ -180,7 +180,6 @@
             // Dispara todas as requisições em paralelo
             Promise.allSettled([
                 fetch('/read-clp1').catch(e => console.error("Erro CLP1:", e)),
-                fetch('/read-clp2to4').catch(e => console.error("Erro CLP2-4:", e)),
                 fetch('/read-expedicao').catch(e => console.error("Erro Expedição:", e))
             ]).finally(() => {
                 // Restaura o botão após 1 segundo (mesmo se houver erros)

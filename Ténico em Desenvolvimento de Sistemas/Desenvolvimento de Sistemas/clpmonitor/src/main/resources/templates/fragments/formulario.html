@@ -45,17 +45,11 @@
             <p th:text="${erro}"></p>
         </div>
     </div>
-    <div class="test-buttons">
-        <button type="button" onclick="updateAllClps()" class="test-button">
-            <i class="refresh-icon">↻</i> Testar Atualização
-        </button>
-    </div>
-
 </div>
 
 <script>
     function updateAllClps() {
         fetch('/read-clp1');
-        fetch('/read-clp2to4');
+        fetch('/read-expedicao');
     }
 </script>

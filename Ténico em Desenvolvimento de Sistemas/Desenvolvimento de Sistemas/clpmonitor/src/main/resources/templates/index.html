@@ -107,31 +107,6 @@
 
         <h2>Expedição (12 espaços)</h2>
         <div id="expedicao-grid" class="grid-expedicao"></div>
-
-        <h2>CLP 2 a 4</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>CLP</th>
-                    <th>Valor</th>
-                </tr>
-            </thead>
-            <tbody id="clp-table">
-                <tr>
-                    <td>CLP 2</td>
-                    <td id="clp2">-</td>
-                </tr>
-                <tr>
-                    <td>CLP 3</td>
-                    <td id="clp3">-</td>
-                </tr>
-                <tr>
-                    <td>CLP 4</td>
-                    <td id="clp4">-</td>
-                </tr>
-            </tbody>
-        </table>
-
         <div class="read-buttons">
             <button onclick="updateAllClps()" class="update-button">
                 <i class="refresh-icon">↻</i> Atualizar Todos CLPs
@@ -151,10 +126,10 @@
         // Variável para armazenar o último estado válido da expedição
         // Inicializa com 12 posições livres (valor 0)
         let ultimoEstadoExpedicao = Array(12).fill(0);
-        
+
         // Variável para a conexão SSE
         let eventSource;
-    
+
         /**
          * Inicia a conexão SSE com o servidor para receber atualizações em tempo real
          * - Configura os listeners para cada tipo de evento (clp1-data, expedicao-data, etc)
@@ -163,20 +138,20 @@
         function iniciarConexaoSSE() {
             // Cria nova conexão SSE com o endpoint '/clp-data-stream'
             eventSource = new EventSource('/clp-data-stream');
-    
+
             // Listener para dados do CLP 1 (matriz de 28 bytes)
-            eventSource.addEventListener('clp1-data', function(event) {
+            eventSource.addEventListener('clp1-data', function (event) {
                 try {
                     // Parse dos dados recebidos (formato JSON)
                     const data = JSON.parse(event.data);
-                    
+
                     // Converte os valores para array (tratando casos onde pode vir como string JSON)
                     const byteArray = Array.isArray(data.value) ? data.value : JSON.parse(data.value);
-                    
+
                     // Obtém o elemento da grade no DOM
                     const grid = document.getElementById('clp1-grid');
                     grid.innerHTML = ''; // Limpa a grade
-                    
+
                     // Cria uma célula para cada byte (28 no total)
                     byteArray.forEach((val, i) => {
                         const cell = document.createElement('div');
@@ -188,23 +163,23 @@
                     console.error("Erro ao processar CLP1:", e);
                 }
             });
-    
+
             /**
              * Listener para dados da expedição (12 posições)
              * - Atualiza a interface e mantém o último estado válido
              * - Proteção contra erros de parsing e dados incompletos
              */
-            eventSource.addEventListener('expedicao-data', function(event) {
+            eventSource.addEventListener('expedicao-data', function (event) {
                 try {
                     const data = JSON.parse(event.data);
                     // Garante que temos um array (usa vazio se falhar)
                     const values = Array.isArray(data.value) ? data.value : [];
-                    
+
                     // Atualiza o último estado válido apenas se recebermos 12 valores
                     if (values.length === 12) {
                         ultimoEstadoExpedicao = [...values]; // Cria cópia do array
                     }
-                    
+
                     // Atualiza a interface com os valores
                     atualizarGridExpedicao(ultimoEstadoExpedicao);
                 } catch (e) {
@@ -213,31 +188,14 @@
                     atualizarGridExpedicao(ultimoEstadoExpedicao);
                 }
             });
-    
-            // Listener para CLP 2 (valor único)
-            eventSource.addEventListener('clp2-data', function(event) {
-                const data = JSON.parse(event.data);
-                document.getElementById('clp2').textContent = data.value;
-            });
-    
-            // Listener para CLP 3 (valor único)
-            eventSource.addEventListener('clp3-data', function(event) {
-                const data = JSON.parse(event.data);
-                document.getElementById('clp3').textContent = data.value;
-            });
-    
-            // Listener para CLP 4 (valor único)
-            eventSource.addEventListener('clp4-data', function(event) {
-                const data = JSON.parse(event.data);
-                document.getElementById('clp4').textContent = data.value;
-            });
-    
+
+
             /**
              * Tratamento de erros da conexão SSE
              * - Tenta reconectar automaticamente após 5 segundos
              * - Loga o erro no console para debugging
              */
-            eventSource.addEventListener('error', function(e) {
+            eventSource.addEventListener('error', function (e) {
                 console.error("Erro na conexão SSE:", e);
                 // Fecha a conexão atual
                 if (eventSource) eventSource.close();
@@ -245,7 +203,7 @@
                 setTimeout(iniciarConexaoSSE, 5000);
             });
         }
-    
+
         /**
          * Atualiza a grid de expedição no DOM
          * @param {Array} values - Array com 12 valores (0 = livre, >0 = ocupado)
@@ -253,21 +211,21 @@
         function atualizarGridExpedicao(values) {
             const grid = document.getElementById('expedicao-grid');
             if (!grid) return; // Proteção caso o elemento não exista
-            
+
             // Completa com zeros se receber menos de 12 valores
             const valoresExibicao = values.length === 12 ? values : [...values, ...Array(12 - values.length).fill(0)];
-            
+
             grid.innerHTML = ''; // Limpa a grade
-            
+
             // Cria uma célula para cada posição (12 no total)
             valoresExibicao.forEach((val, i) => {
                 const slot = document.createElement('div');
                 slot.className = 'cell-exp';
-                slot.setAttribute('data-pos', i+1); // Armazena a posição (P1-P12)
-                
+                slot.setAttribute('data-pos', i + 1); // Armazena a posição (P1-P12)
+
                 // Converte para número (trata casos inválidos como 0)
                 const numVal = Number(val) || 0;
-                
+
                 if (numVal === 0) {
                     slot.classList.add('livre'); // Posição livre (verde)
                     slot.textContent = '___';
@@ -277,11 +235,11 @@
                     const formattedValue = `OP${numVal.toString().padStart(4, '0')}`;
                     slot.textContent = formattedValue;
                 }
-                
+
                 grid.appendChild(slot);
             });
         }
-    
+
         /**
          * Atualiza todos os CLPs e a expedição manualmente
          * - Dispara requisições para todos os endpoints
@@ -295,11 +253,11 @@
                 button.disabled = true;
                 button.innerHTML = '<i class="refresh-icon">↻</i> Atualizando...';
             }
-    
+
             // Adiciona classe de loading na grid de expedição
             const expedicaoGrid = document.getElementById('expedicao-grid');
             if (expedicaoGrid) expedicaoGrid.classList.add('loading');
-    
+
             // Dispara todas as requisições em paralelo
             Promise.allSettled([
                 fetch('/read-clp1').catch(e => console.error("Erro CLP1:", e)),
@@ -317,22 +275,26 @@
                 if (expedicaoGrid) expedicaoGrid.classList.remove('loading');
             });
         }
-    
+
         // Inicialização quando a página carrega
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // 1. Inicia a conexão SSE
             iniciarConexaoSSE();
-            
-            // 2. Inicializa a grid de expedição com valores padrão
+
+            // 2. Adicione esta linha para carregar os dados na primeira vez
+            updateAllClps();
+
+
+            // 3. Inicializa a grid de expedição com valores padrão
             atualizarGridExpedicao(ultimoEstadoExpedicao);
-            
-            // 3. Configura o formulário de escrita
+
+            // 4. Configura o formulário de escrita
             const form = document.getElementById("clp-write-form");
             if (form) {
-                form.addEventListener("submit", function(e) {
+                form.addEventListener("submit", function (e) {
                     e.preventDefault();
                     const formData = new FormData(form);
-    
+
                     fetch('/write-tag', {
                         method: 'POST',
                         body: formData

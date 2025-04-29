@@ -8,7 +8,6 @@ package com.clpmonitor.clpmonitor.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
@@ -31,6 +30,7 @@ public class ClpSimulatorService {
     // segurança (vários threads atualizando a lista).
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
     private PlcConnector plcConnector;
+    private PlcConnector plcConnectorExpedicao;
     private boolean connectionActive = false;
 
     // executor – Agendamento das tarefas de simulações
@@ -113,30 +113,6 @@ public class ClpSimulatorService {
         }
     }
 
-    // Adicione este método para CLPs 2-4
-    public void readClp2to4Data() {
-        if (!connectionActive) {
-            initializePlcConnection();
-            if (!connectionActive) {
-                sendToEmitters("clp-error", new ClpData(0, "Sem conexão com o CLP"));
-                return;
-            }
-        }
-
-        try {
-            int valorCLP2 = plcConnector.readInt(9, 70);
-            sendToEmitters("clp2-data", new ClpData(2, valorCLP2));
-
-            int valorCLP3 = plcConnector.readInt(9, 72);
-            sendToEmitters("clp3-data", new ClpData(3, valorCLP3));
-
-            int valorCLP4 = plcConnector.readInt(9, 74);
-            sendToEmitters("clp4-data", new ClpData(4, valorCLP4));
-        } catch (Exception e) {
-            System.err.println("Erro na leitura dos CLPs 2-4: " + e.getMessage());
-            sendToEmitters("clp-error", new ClpData(0, "Erro na leitura dos CLPs 2-4: " + e.getMessage()));
-        }
-    }
 
     /**
      * Lê os dados da expedição do CLP e envia via SSE
@@ -145,30 +121,35 @@ public class ClpSimulatorService {
      * - Formata os valores como OP0001, OP0002, etc.
      * - Envia array de inteiros via SSE
      */
-    public void readExpedicaoData() {
-        if (!connectionActive) {
-            initializePlcConnection();
-            if (!connectionActive) {
-                sendToEmitters("clp-error", new ClpData(0, "Sem conexão com o CLP"));
-                return;
-            }
-        }
+    public void sendExpeditionUpdate() {
+        int values[] = new int[12];
 
-        int[] valores = new int[12];
-        Arrays.fill(valores, 0); // Inicializa com zeros
+        plcConnectorExpedicao = new PlcConnector("10.74.241.40", 102);
+        List<Integer> byteArray = new ArrayList<>();
 
         try {
-            // Lê os 12 valores conforme a lógica original (DB9, offsets 6,8,...,28)
-            for (int i = 0, offset = 6; i < 12; i++, offset += 2) {
-                valores[i] = plcConnector.readInt(9, offset);
-            }
-
-            sendToEmitters("expedicao-data", new ClpData(5, valores));
-
+            plcConnectorExpedicao.connect();
         } catch (Exception e) {
-            System.err.println("Erro na leitura da expedição: " + e.getMessage());
-            sendToEmitters("expedicao-data", new ClpData(5, valores)); // Envia zeros em caso de erro
+            e.printStackTrace();
         }
+
+        try {
+            int j = 0;
+            for (int i = 6; i <= 28; i += 2) {
+                values[j] = plcConnectorExpedicao.readInt(9, i);
+                j++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Falha!");
+        }
+
+        for (int i = 0; i < 12; i++) {
+            byteArray.add(values[i]);
+        }
+
+        ClpData expeditionData = new ClpData(5, byteArray);
+        sendToEmitters("expedition-data", expeditionData);
     }
 
     // sendToEmitters() – Envia um evento SSE para todos os clientes

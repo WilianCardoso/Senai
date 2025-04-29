@@ -92,7 +92,7 @@ public class ClpController {
     @GetMapping("/read-expedicao")
     public ResponseEntity<String> readExpedicao() {
         try {
-            simulatorService.readExpedicaoData();
+            simulatorService.sendExpeditionUpdate();
             return ResponseEntity.ok("Leitura da expedição solicitada");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -100,11 +100,7 @@ public class ClpController {
         }
     }
 
-    @GetMapping("/read-clp2to4")
-    public String readClp2to4() {
-        simulatorService.readClp2to4Data();
-        return "redirect:/";
-    }
+
 
     /*
      * Descrição do Funcionamento:

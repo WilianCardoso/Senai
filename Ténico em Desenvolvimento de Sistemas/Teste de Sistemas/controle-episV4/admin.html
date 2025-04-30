@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel do Administrador</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <h1>Painel do Administrador</h1>
+  <h2 id="adminNome"></h2>
+
+  <section style="max-width: 700px; margin: auto;">
+    <hr>
+    <h3>Cadastrar Novo Colaborador</h3>
+    <form id="formNovoUsuario">
+      <input type="text" id="novoNome" placeholder="Nome completo" required>
+      <input type="email" id="novoEmail" placeholder="Email" required>
+      <input type="password" id="novoSenha" placeholder="Senha" required>
+      <select id="novoTipo" required>
+        <option value="">Tipo</option>
+        <option value="colaborador">Colaborador</option>
+        <option value="admin">Administrador</option>
+      </select>
+      <button type="submit">Cadastrar</button>
+      <div class="mensagem" id="msgNovoUsuario"></div>
+    </form>
+
+    <hr>
+    <h3>Cadastrar Novo EPI</h3>
+    <form id="formNovoEpi">
+      <input type="text" id="epiNome" placeholder="Nome do EPI" required>
+      <input type="number" id="epiQuantidade" placeholder="Quantidade" min="1" required>
+      <button type="submit">Cadastrar EPI</button>
+      <div class="mensagem" id="msgNovoEpi"></div>
+    </form>
+
+    <hr>
+    <h3>Empréstimos Pendentes</h3>
+    <div id="listaEmprestimosPendentes"></div>
+
+    <hr>
+    <h3>Devoluções Pendentes</h3>
+    <div id="listaDevolucoesPendentes"></div>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <button onclick="logout()">Sair</button>
+    </div>
+    <div style="text-align: center; margin-top: 15px;">
+      <button onclick="confirmarReset()">Limpar Sistema (Apagar Todos os Dados)</button>
+    </div>    
+  </section>
+
+  <script src="assets/js/admin.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

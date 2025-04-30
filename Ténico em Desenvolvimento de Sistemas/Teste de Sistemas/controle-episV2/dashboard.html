@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Controle de EPIs</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <h1>Bem-vindo(a) ao Sistema de Controle de EPIs</h1>
+  <h2 id="usuarioNome"></h2>
+
+  <div style="max-width: 400px; margin: auto; text-align: center;">
+    <button onclick="window.location.href='emprestimo.html'">Registrar Empréstimo</button>
+    <button onclick="window.location.href='devolucao.html'">Registrar Devolução</button>
+    <button onclick="window.location.href='relatorio.html'">Relatórios</button>
+    <button onclick="logout()">Sair</button>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const usuario = JSON.parse(localStorage.getItem('usuarioLogado'));
+      if (!usuario) {
+        window.location.href = 'index.html';
+      } else {
+        document.getElementById('usuarioNome').textContent = `Olá, ${usuario.nome}!`;
+      }
+    });
+  </script>
+</body>
+</html>

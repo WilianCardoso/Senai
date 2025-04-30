@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatórios - Controle de EPIs</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <h1>Relatórios de Empréstimos e Devoluções</h1>
+
+  <div style="max-width: 700px; margin: auto;">
+    <input type="text" id="filtroColaborador" placeholder="Filtrar por colaborador" oninput="atualizarRelatorios()">
+
+    <h2>Empréstimos</h2>
+    <table id="tabelaEmprestimos" border="1" cellspacing="0" cellpadding="8" style="width: 100%; margin-bottom: 30px;"></table>
+
+    <h2>Devoluções</h2>
+    <table id="tabelaDevolucoes" border="1" cellspacing="0" cellpadding="8" style="width: 100%;"></table>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <button onclick="exportarPDF()">Exportar Relatório (PDF)</button>
+      <button onclick="window.location.href='dashboard.html'">Voltar para a Tela Principal</button>
+    </div>
+  </div>
+
+  <!-- jsPDF + AutoTable -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+  <script src="assets/js/relatorio.js"></script>
+</body>
+</html>

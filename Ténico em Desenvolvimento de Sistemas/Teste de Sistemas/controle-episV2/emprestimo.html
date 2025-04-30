@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Empréstimo</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <h1>Registro de Empréstimo de EPI</h1>
+
+  <p style="text-align: center; color: #555;">
+    A solicitação será enviada para o supervisor autorizar.
+  </p>
+
+  <form id="formEmprestimo">
+    <label for="colaborador">Colaborador</label>
+    <input type="text" id="colaborador" readonly>
+
+    <label for="item">EPI Emprestado</label>
+    <select id="item" required>
+      <option value="">Selecione um EPI</option>
+      <option>Capacete de Segurança</option>
+      <option>Óculos de Proteção</option>
+      <option>Protetor Auricular</option>
+      <option>Luvas de Borracha</option>
+      <option>Botina com Biqueira de Aço</option>
+      <option>Cinto de Segurança</option>
+    </select>
+
+    <label for="dataHora">Data e hora do empréstimo</label>
+    <input type="datetime-local" id="dataHora" required>
+
+    <label for="previsao">Previsão de devolução</label>
+    <input type="date" id="previsao" required>
+
+    <button type="submit">Registrar</button>
+    <div class="mensagem" id="mensagemEmprestimo"></div>
+  </form>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <button onclick="window.location.href='dashboard.html'">Voltar para a Tela Principal</button>
+  </div>
+
+  <script src="assets/js/emprestimo.js"></script>
+</body>
+</html>

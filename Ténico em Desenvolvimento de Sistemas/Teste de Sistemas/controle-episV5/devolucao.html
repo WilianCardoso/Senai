@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Devolução</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <h1>Registro de Devolução de EPI</h1>
+
+  <form id="formDevolucao">
+    <label for="colaborador">Colaborador</label>
+    <input type="text" id="colaborador" readonly>
+
+    <label for="item">EPI a Devolver</label>
+    <select id="item" required>
+      <option value="">Selecione um EPI</option>
+      <!-- Opções serão inseridas via JS -->
+    </select>
+
+    <label for="dataHora">Data e hora da devolução</label>
+    <input type="datetime-local" id="dataHora" required>
+
+    <button type="submit">Registrar</button>
+    <div class="mensagem" id="mensagemDevolucao"></div>
+  </form>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <button onclick="window.location.href='dashboard.html'">Voltar para a Tela Principal</button>
+  </div>
+
+  <script src="assets/js/devolucao.js"></script>
+</body>
+</html>

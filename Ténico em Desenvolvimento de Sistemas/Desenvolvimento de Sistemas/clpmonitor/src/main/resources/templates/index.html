@@ -88,7 +88,7 @@
              * - Atualiza a interface e mantém o último estado válido
              * - Proteção contra erros de parsing e dados incompletos
              */
-            eventSource.addEventListener('expedicao-data', function (event) {
+            eventSource.addEventListener('expedition-data', function (event) {
                 try {
                     const data = JSON.parse(event.data);
                     // Garante que temos um array (usa vazio se falhar)

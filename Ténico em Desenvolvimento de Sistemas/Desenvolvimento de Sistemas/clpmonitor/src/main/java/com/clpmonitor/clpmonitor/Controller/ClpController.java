@@ -89,7 +89,7 @@ public class ClpController {
         return "redirect:/";
     }
 
-    @GetMapping("/read-expedicao")
+    @GetMapping("/expedition-data")
     public ResponseEntity<String> readExpedicao() {
         try {
             simulatorService.sendExpeditionUpdate();

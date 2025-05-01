@@ -9,6 +9,7 @@ package com.clpmonitor.clpmonitor.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -55,7 +56,6 @@ public class ClpSimulatorService {
      * TimeUnit.SECONDS);
      * }
      */
-
     private synchronized void initializePlcConnection() {
         if (!connectionActive) {
             try {
@@ -113,13 +113,10 @@ public class ClpSimulatorService {
         }
     }
 
-
     /**
-     * Lê os dados da expedição do CLP e envia via SSE
-     * - Lê 12 valores inteiros a partir do DB9 (offsets 6 a 28, incrementando de 2
-     * em 2)
-     * - Formata os valores como OP0001, OP0002, etc.
-     * - Envia array de inteiros via SSE
+     * Lê os dados da expedição do CLP e envia via SSE - Lê 12 valores inteiros
+     * a partir do DB9 (offsets 6 a 28, incrementando de 2 em 2) - Formata os
+     * valores como OP0001, OP0002, etc. - Envia array de inteiros via SSE
      */
     public void sendExpeditionUpdate() {
         int values[] = new int[12];
@@ -150,6 +147,14 @@ public class ClpSimulatorService {
 
         ClpData expeditionData = new ClpData(5, byteArray);
         sendToEmitters("expedition-data", expeditionData);
+    }
+
+    private void sendClp2to4Updates() {
+        Random rand = new Random();
+
+        sendToEmitters("clp2-data", new ClpData(2, rand.nextInt(100)));
+        sendToEmitters("clp3-data", new ClpData(3, rand.nextInt(100)));
+        sendToEmitters("clp4-data", new ClpData(4, rand.nextInt(100)));
     }
 
     // sendToEmitters() – Envia um evento SSE para todos os clientes

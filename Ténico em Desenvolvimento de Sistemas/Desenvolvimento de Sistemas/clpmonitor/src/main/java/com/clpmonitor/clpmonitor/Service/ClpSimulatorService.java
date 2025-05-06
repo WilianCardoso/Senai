@@ -20,104 +20,76 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import com.clpmonitor.clpmonitor.Model.ClpData;
 import com.clpmonitor.clpmonitor.PLC.PlcConnector;
 
-// Define que esta classe é um componente de serviço do Spring (fica disponível para injeção com @Autowired).
-// Contém a lógica de negócio: neste caso, a simulação de dados dos CLPs e envio via SSE.
+import jakarta.annotation.PostConstruct;
+
 @Service
 public class ClpSimulatorService {
 
-    // emitters – Lista de clientes conectados via SSE
-    // Guarda todos os clientes que estão conectados e escutando eventos via SSE.
-    // CopyOnWriteArrayList é usada para permitir acesso concorrente com
-    // segurança (vários threads atualizando a lista).
-    private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
-    private PlcConnector plcConnector;
+    private PlcConnector plcConnectorEstoque;
     private PlcConnector plcConnectorExpedicao;
-    private boolean connectionActive = false;
+    public static byte[] indexColorEst = new byte[28];
+    public static byte[] indexColorExp = new byte[12];
 
-    // executor – Agendamento das tarefas de simulações
-    // Cria uma pool de threads agendadas (com 2 threads).
-    // É usada para executar tarefas repetidamente com um intervalo fixo (ex: a cada
-    // 1 segundo).
+    private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+
     private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
 
-    /*
-     * // @PostConstruct – Inicialização automática
-     * 
-     * @PostConstruct
-     * // Esse método é chamado automaticamente após a construção do bean.
-     * // Define os dois agendamentos de envio de dados simulados:
-     * public void startSimulation() {
-     * // Agendamento separado para CLP 1 (800ms)
-     * executor.scheduleAtFixedRate(this::sendClp1Update, 0, 3800,
-     * TimeUnit.MILLISECONDS);
-     * 
-     * // Agendamento para CLPs 2 a 4 (1 segundo)
-     * executor.scheduleAtFixedRate(this::sendClp2to4Updates, 0, 3,
-     * TimeUnit.SECONDS);
-     * }
-     */
-    private synchronized void initializePlcConnection() {
-        if (!connectionActive) {
-            try {
-                plcConnector = new PlcConnector("10.74.241.10", 102);
-                plcConnector.connect();
-                connectionActive = true;
-                System.out.println("Conexão PLC estabelecida com sucesso");
-            } catch (Exception e) {
-                connectionActive = false;
-                System.err.println("Falha ao conectar ao PLC: " + e.getMessage());
-            }
-        }
+    // @PostConstruct – Inicialização automática
+    @PostConstruct
+    public void startSimulation() {
+        sendClp1Update();
+
+        sendClp2to4Updates();
+
+        sendExpeditionUpdate();
     }
 
     // subscribe() – Adiciona cliente à lista de ouvintes SSE
-    // Esse método é chamado quando o frontend conecta-se à URL /clp-data-stream.
     public SseEmitter subscribe() {
-        // Cria um novo SseEmitter com timeout infinito (0L).
         SseEmitter emitter = new SseEmitter(0L);
 
-        // Adiciona esse emitter à lista emitters.
         emitters.add(emitter);
 
-        // Remove o cliente se ele desconectar ou der timeout.
         emitter.onCompletion(() -> emitters.remove(emitter));
         emitter.onTimeout(() -> emitters.remove(emitter));
 
         return emitter;
     }
 
-    // sendClp1Update() – Gera 28 bytes (valores de 0 a 3) para o CLP 1
-    public void readClp1Data() {
-        PlcConnector plc = null;
-        try {
-            plc = new PlcConnector("10.74.241.10", 102);
-            plc.connect();
-            byte[] dadosPlc = plc.readBlock(9, 68, 28);
-
-            List<Integer> byteArray = new ArrayList<>();
-            for (int i = 0; i < 28; i++) {
-                byteArray.add(dadosPlc[i] & 0x03);
-            }
-
-            sendToEmitters("clp1-data", new ClpData(1, byteArray));
-        } catch (Exception e) {
-            sendToEmitters("clp-error", new ClpData(0, "Erro na conexão com CLP: " + e.getMessage()));
-        } finally {
-            if (plc != null) {
-                try {
-                    plc.disconnect();
-                } catch (Exception e) {
-                    System.err.println("Erro ao desconectar: " + e.getMessage());
-                }
-            }
-        }
+    public void updateStock() {
+        sendClp1Update();
     }
 
-    /**
-     * Lê os dados da expedição do CLP e envia via SSE - Lê 12 valores inteiros
-     * a partir do DB9 (offsets 6 a 28, incrementando de 2 em 2) - Formata os
-     * valores como OP0001, OP0002, etc. - Envia array de inteiros via SSE
-     */
+    public void updateExpedition() {
+        sendExpeditionUpdate();
+    }
+
+    // sendClp1Update() – Gera 28 bytes (valores de 0 a 3) para o CLP 1
+    public void sendClp1Update() {
+        plcConnectorEstoque = new PlcConnector("10.74.241.10", 102);
+        List<Integer> byteArray = new ArrayList<>();
+
+        try {
+            plcConnectorEstoque.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            indexColorEst = plcConnectorEstoque.readBlock(9, 68, 28);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Falha!");
+        }
+
+        for (int i = 0; i < 28; i++) {
+            byteArray.add((int) indexColorEst[i]);
+        }
+
+        ClpData clp1 = new ClpData(1, byteArray);
+        sendToEmitters("clp1-data", clp1);
+    }
+
     public void sendExpeditionUpdate() {
         int values[] = new int[12];
 
@@ -162,13 +134,8 @@ public class ClpSimulatorService {
         // Percorre todos os SseEmitters conectados.
         for (SseEmitter emitter : emitters) {
             try {
-                // Envia um evento com:
-                // eventName → nome do evento no frontend (ex: clp1-data, clp2-data, etc).
-                // data(clpData) → dados a serem enviados (convertidos para JSON
-                // automaticamente).
                 emitter.send(SseEmitter.event().name(eventName).data(clpData));
             } catch (IOException e) {
-                // Se algum cliente tiver erro de conexão, ele é removido da lista.
                 emitters.remove(emitter);
             }
         }

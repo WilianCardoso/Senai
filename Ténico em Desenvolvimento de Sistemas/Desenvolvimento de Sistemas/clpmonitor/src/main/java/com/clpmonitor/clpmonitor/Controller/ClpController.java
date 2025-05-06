@@ -7,8 +7,6 @@
 package com.clpmonitor.clpmonitor.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -83,48 +81,22 @@ public class ClpController {
         return "fragments/formulario :: clp-write-fragment";
     }
 
-    @GetMapping("/read-clp1")
-    public String readClp1() {
-        simulatorService.readClp1Data();
-        return "redirect:/";
+    @PostMapping("/update-stock")
+    public String updateStock() {
+        simulatorService.updateStock();
+        return "redirect:/fragmento-formulario";
     }
 
-    @GetMapping("/expedition-data")
-    public ResponseEntity<String> readExpedicao() {
-        try {
-            simulatorService.sendExpeditionUpdate();
-            return ResponseEntity.ok("Leitura da expedição solicitada");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao ler expedição: " + e.getMessage());
-        }
+    @PostMapping("/update-expedition")
+    public String updateExpedition() {
+        simulatorService.updateExpedition();
+        return "redirect:/fragmento-formulario";
     }
 
+    @PostMapping("/update")
+    public String update() {
+        simulatorService.startSimulation();
+        return "redirect:/fragmento-formulario";
+    }
 
-
-    /*
-     * Descrição do Funcionamento:
-     * 
-     * 1 - O usuário acessa http://localhost:8080/ → o método index() retorna o
-     * HTML.
-     * 
-     * 2 - O HTML carrega o JavaScript (scripts.js), que cria:
-     * 
-     * const eventSource = new EventSource('/clp-data-stream');
-     * 
-     * 3 - O navegador faz uma requisição GET para /clp-data-stream.
-     * 
-     * 4 - O Spring chama simulatorService.subscribe() e devolve um SseEmitter ao
-     * navegador.
-     * 
-     * 5 - A cada X milissegundos, o ClpSimulatorService envia eventos como:
-     * 
-     * clp1-data
-     * clp2-data
-     * clp3-data
-     * clp4-data
-     * 
-     * 6 - O JavaScript escuta cada evento separadamente e atualiza a interface
-     * conforme os dados recebidos.
-     */
 }

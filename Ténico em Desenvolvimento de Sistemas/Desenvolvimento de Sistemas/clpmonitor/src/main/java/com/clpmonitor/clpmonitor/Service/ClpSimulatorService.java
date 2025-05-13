@@ -8,6 +8,7 @@ package com.clpmonitor.clpmonitor.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -66,28 +67,24 @@ public class ClpSimulatorService {
 
     // sendClp1Update() – Gera 28 bytes (valores de 0 a 3) para o CLP 1
     public void sendClp1Update() {
-        plcConnectorEstoque = new PlcConnector("10.74.241.10", 102);
-        List<Integer> byteArray = new ArrayList<>();
-
         try {
+            plcConnectorEstoque = new PlcConnector("10.74.241.10", 102);
             plcConnectorEstoque.connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
+            
             indexColorEst = plcConnectorEstoque.readBlock(9, 68, 28);
+            System.out.println("Dados brutos do estoque: " + Arrays.toString(indexColorEst));
+            
+            List<Integer> byteArray = new ArrayList<>();
+            for (byte b : indexColorEst) {
+                byteArray.add(b & 0xFF); // Converter byte com sinal para int sem sinal
+            }
+            
+            ClpData clp1 = new ClpData(1, byteArray);
+            sendToEmitters("clp1-data", clp1);
         } catch (Exception e) {
+            System.err.println("Erro em sendClp1Update: " + e.getMessage());
             e.printStackTrace();
-            System.out.println("Falha!");
         }
-
-        for (int i = 0; i < 28; i++) {
-            byteArray.add((int) indexColorEst[i]);
-        }
-
-        ClpData clp1 = new ClpData(1, byteArray);
-        sendToEmitters("clp1-data", clp1);
     }
 
     public void sendExpeditionUpdate() {

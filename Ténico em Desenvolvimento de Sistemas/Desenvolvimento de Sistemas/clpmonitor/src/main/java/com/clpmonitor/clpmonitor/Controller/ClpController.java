@@ -6,7 +6,11 @@
 //------------------------------------------------------------------------------------------
 package com.clpmonitor.clpmonitor.Controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.clpmonitor.clpmonitor.Model.TagWriteRequest;
+import com.clpmonitor.clpmonitor.PLC.PlcConnector;
 import com.clpmonitor.clpmonitor.Service.ClpSimulatorService;
 import com.clpmonitor.clpmonitor.Util.TagValueParser;
+import com.clpmonitor.clpmonitor.Model.Tag;
 
 @Controller
 public class ClpController {
@@ -50,30 +56,36 @@ public class ClpController {
         return simulatorService.subscribe();
     }
 
-    @PostMapping("/write-tag")
-    public String writeTag(@ModelAttribute TagWriteRequest request, Model model) {
-        try {
-            Object typedValue = TagValueParser.parseValue(request.getValue(), request.getType());
+   @PostMapping("/write-tag")
+public ResponseEntity<?> writeTag(@ModelAttribute TagWriteRequest request, Model model) {
+    try {
+        Object typedValue = TagValueParser.parseValue(request.getValue(), request.getType());
+        
+        System.out.println("\nDados recebidos para escrita:");
+        System.out.println("IP: " + request.getIp());
+        System.out.println("Porta: " + request.getPort());
+        System.out.println("DB: " + request.getDb());
+        System.out.println("Offset: " + request.getOffset());
+        System.out.println("Tipo: " + request.getType());
+        System.out.println("Valor convertido: " + typedValue);
 
-            // lógica de escrita no CLP aqui...
-            // Aqui você escreveria no CLP usando IP, DB, Offset etc.
-            // Simulação:
-            System.out.println("\nEscrevendo no CLP: " + request.getIp() + "\n"
-                    + " | DB: " + request.getDb() + "\n"
-                    + " | Offset: " + request.getOffset() + "\n"
-                    + " | Type: " + request.getType() + "\n"
-                    + " | Valor convertido: " + typedValue + "\n");
-
-            model.addAttribute("message", "Valor escrito com sucesso!");
-        } catch (Exception e) {
-            model.addAttribute("error", "Erro ao escrever valor: " + e.getMessage());
+        // Simulação de escrita - substitua pela lógica real
+        boolean writeSuccess = true; // simulatorService.writeToPlc(request);
+        
+        if (writeSuccess) {
+            return ResponseEntity.ok().body(Map.of(
+                "message", "Valor escrito com sucesso!",
+                "status", "success"
+            ));
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Falha na escrita no CLP"));
         }
-
-        // ✅ Adiciona de novo o objeto para o formulário não quebrar na volta
-        model.addAttribute("tag", new TagWriteRequest());
-
-        return "index";
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(Map.of("error", "Erro: " + e.getMessage()));
     }
+}
 
     @GetMapping("/fragmento-formulario")
     public String carregarFragmentoFormulario(Model model) {

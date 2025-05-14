@@ -46,18 +46,25 @@
     </div>
 
     <script>
-        document.querySelector('select[th\\:field="*{type}"]').addEventListener('change', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             const type = this.value;
+            const selectElement = document.querySelector('select[name="type"]');
             const bitField = document.getElementById('bitNumberField');
             const sizeField = document.getElementById('sizeField');
+            if (selectElement) {
+                selectElement.addEventListener('change', function () {
+                    // Mostrar/ocultar campos conforme o tipo
+                    bitField.style.display = type === 'BIT' ? 'block' : 'none';
+                    sizeField.style.display = type === 'STRING' || type === 'BLOCK' ? 'block' : 'none';
 
-            // Mostrar/ocultar campos conforme o tipo
-            bitField.style.display = type === 'BIT' ? 'block' : 'none';
-            sizeField.style.display = type === 'STRING' || type === 'BLOCK' ? 'block' : 'none';
+                    // Tornar obrigatório conforme necessário
+                    bitField.required = type === 'BIT';
+                    sizeField.required = type === 'STRING' || type === 'BLOCK';
+                });
+            } else {
+                console.error("Elemento select não encontrado!");
+            }
 
-            // Tornar obrigatório conforme necessário
-            bitField.required = type === 'BIT';
-            sizeField.required = type === 'STRING' || type === 'BLOCK';
         });
     </script>
 </div>

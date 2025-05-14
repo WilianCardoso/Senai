@@ -14,12 +14,26 @@ public class TagValueParser {
                 case "INTEGER" -> Integer.parseInt(value);
                 case "FLOAT" -> Float.parseFloat(value);
                 case "BYTE" -> Byte.parseByte(value);
-                case "BIT" -> Integer.parseInt(value); // ou Boolean.parseBoolean(value)
-                case "STRING", "BLOCK" -> value;
+                case "BIT" -> Boolean.parseBoolean(value);
+                case "STRING" -> value;
+                case "BLOCK" -> hexStringToByteArray(value);
                 default -> throw new IllegalArgumentException("Tipo de dado não suportado: " + type);
             };
         } catch (Exception e) {
             throw new RuntimeException("Erro ao converter valor: " + value + " para o tipo: " + type, e);
         }
+    }
+    
+    private static byte[] hexStringToByteArray(String hexString) {
+        if (hexString == null || hexString.length() % 2 != 0) {
+            throw new IllegalArgumentException("String hexadecimal inválida");
+        }
+        
+        byte[] byteArray = new byte[hexString.length() / 2];
+        for (int i = 0; i < hexString.length(); i += 2) {
+            String hexPair = hexString.substring(i, i + 2);
+            byteArray[i / 2] = (byte) Integer.parseInt(hexPair, 16);
+        }
+        return byteArray;
     }
 }

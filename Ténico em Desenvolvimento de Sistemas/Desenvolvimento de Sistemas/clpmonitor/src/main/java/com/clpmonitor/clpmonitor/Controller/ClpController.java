@@ -22,7 +22,6 @@ import com.clpmonitor.clpmonitor.Model.TagWriteRequest;
 import com.clpmonitor.clpmonitor.PLC.PlcConnector;
 import com.clpmonitor.clpmonitor.Service.ClpSimulatorService;
 import com.clpmonitor.clpmonitor.Util.TagValueParser;
-import com.clpmonitor.clpmonitor.Model.Tag;
 
 @Controller
 public class ClpController {
@@ -57,26 +56,53 @@ public class ClpController {
     }
 
    @PostMapping("/write-tag")
-public ResponseEntity<?> writeTag(@ModelAttribute TagWriteRequest request, Model model) {
+public ResponseEntity<?> writeTag(@ModelAttribute TagWriteRequest request) {
     try {
+        // Cria o conector com o CLP
+        PlcConnector plc = new PlcConnector(request.getIp(), request.getPort());
+        plc.connect();
+        
+        // Converte o valor para o tipo correto
         Object typedValue = TagValueParser.parseValue(request.getValue(), request.getType());
         
-        System.out.println("\nDados recebidos para escrita:");
-        System.out.println("IP: " + request.getIp());
-        System.out.println("Porta: " + request.getPort());
-        System.out.println("DB: " + request.getDb());
-        System.out.println("Offset: " + request.getOffset());
-        System.out.println("Tipo: " + request.getType());
-        System.out.println("Valor convertido: " + typedValue);
-
-        // Simulação de escrita - substitua pela lógica real
-        boolean writeSuccess = true; // simulatorService.writeToPlc(request);
+        boolean writeSuccess = false;
+        
+        // Executa a escrita conforme o tipo
+        switch (request.getType().toUpperCase()) {
+            case "STRING":
+                writeSuccess = plc.writeString(request.getDb(), request.getOffset(), 
+                                              request.getSize(), (String) typedValue);
+                break;
+            case "BLOCK":
+                writeSuccess = plc.writeBlock(request.getDb(), request.getOffset(), 
+                                            request.getSize(), (byte[]) typedValue);
+                break;
+            case "FLOAT":
+                writeSuccess = plc.writeFloat(request.getDb(), request.getOffset(), 
+                                             (Float) typedValue);
+                break;
+            case "INTEGER":
+                writeSuccess = plc.writeInt(request.getDb(), request.getOffset(), 
+                                          (Integer) typedValue);
+                break;
+            case "BYTE":
+                writeSuccess = plc.writeByte(request.getDb(), request.getOffset(), 
+                                           (Byte) typedValue);
+                break;
+            case "BIT":
+                writeSuccess = plc.writeBit(request.getDb(), request.getOffset(), 
+                                         request.getBitNumber(), (Boolean) typedValue);
+                break;
+            default:
+                throw new IllegalArgumentException("Tipo não suportado: " + request.getType());
+        }
+        
+        plc.disconnect();
         
         if (writeSuccess) {
             return ResponseEntity.ok().body(Map.of(
                 "message", "Valor escrito com sucesso!",
-                "status", "success"
-            ));
+                "status", "success"));
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of("error", "Falha na escrita no CLP"));
@@ -89,7 +115,7 @@ public ResponseEntity<?> writeTag(@ModelAttribute TagWriteRequest request, Model
 
     @GetMapping("/fragmento-formulario")
     public String carregarFragmentoFormulario(Model model) {
-        model.addAttribute("tag", new TagWriteRequest()); // substitua pelo seu DTO real
+        model.addAttribute("tag", new TagWriteRequest());
         return "fragments/formulario :: clp-write-fragment";
     }
 

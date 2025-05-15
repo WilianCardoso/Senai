@@ -22,6 +22,7 @@ import com.clpmonitor.clpmonitor.Model.TagWriteRequest;
 import com.clpmonitor.clpmonitor.PLC.PlcConnector;
 import com.clpmonitor.clpmonitor.Service.ClpSimulatorService;
 import com.clpmonitor.clpmonitor.Util.TagValueParser;
+import com.clpmonitor.clpmonitor.Service.PedidoTesteService;
 
 @Controller
 public class ClpController {
@@ -31,6 +32,10 @@ public class ClpController {
     // os eventos SSE que serão enviados ao frontend.
     @Autowired
     private ClpSimulatorService simulatorService;
+
+    @Autowired
+    private PedidoTesteService pedidoTesteService;
+
 
     // Mapeia a URL raiz (http://localhost:8080/) para o método index().
     // Retorna a view index.html, localizada em
@@ -137,4 +142,9 @@ public ResponseEntity<?> writeTag(@ModelAttribute TagWriteRequest request) {
         return "redirect:/fragmento-formulario";
     }
 
+    @PostMapping("/pedidoTeste")
+    public String peditoTeste() {
+        pedidoTesteService.enviarPedidoTeste();
+        return "redirect:/store";
+    }
 }

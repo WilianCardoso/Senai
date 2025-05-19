@@ -36,7 +36,6 @@ public class ClpController {
     @Autowired
     private PedidoTesteService pedidoTesteService;
 
-
     // Mapeia a URL raiz (http://localhost:8080/) para o método index().
     // Retorna a view index.html, localizada em
     // src/main/resources/templates/index.html (Thymeleaf).
@@ -60,63 +59,63 @@ public class ClpController {
         return simulatorService.subscribe();
     }
 
-   @PostMapping("/write-tag")
-public ResponseEntity<?> writeTag(@ModelAttribute TagWriteRequest request) {
-    try {
-        // Cria o conector com o CLP
-        PlcConnector plc = new PlcConnector(request.getIp(), request.getPort());
-        plc.connect();
-        
-        // Converte o valor para o tipo correto
-        Object typedValue = TagValueParser.parseValue(request.getValue(), request.getType());
-        
-        boolean writeSuccess = false;
-        
-        // Executa a escrita conforme o tipo
-        switch (request.getType().toUpperCase()) {
-            case "STRING":
-                writeSuccess = plc.writeString(request.getDb(), request.getOffset(), 
-                                              request.getSize(), (String) typedValue);
-                break;
-            case "BLOCK":
-                writeSuccess = plc.writeBlock(request.getDb(), request.getOffset(), 
-                                            request.getSize(), (byte[]) typedValue);
-                break;
-            case "FLOAT":
-                writeSuccess = plc.writeFloat(request.getDb(), request.getOffset(), 
-                                             (Float) typedValue);
-                break;
-            case "INTEGER":
-                writeSuccess = plc.writeInt(request.getDb(), request.getOffset(), 
-                                          (Integer) typedValue);
-                break;
-            case "BYTE":
-                writeSuccess = plc.writeByte(request.getDb(), request.getOffset(), 
-                                           (Byte) typedValue);
-                break;
-            case "BIT":
-                writeSuccess = plc.writeBit(request.getDb(), request.getOffset(), 
-                                         request.getBitNumber(), (Boolean) typedValue);
-                break;
-            default:
-                throw new IllegalArgumentException("Tipo não suportado: " + request.getType());
-        }
-        
-        plc.disconnect();
-        
-        if (writeSuccess) {
-            return ResponseEntity.ok().body(Map.of(
-                "message", "Valor escrito com sucesso!",
-                "status", "success"));
-        } else {
+    @PostMapping("/write-tag")
+    public ResponseEntity<?> writeTag(@ModelAttribute TagWriteRequest request) {
+        try {
+            // Cria o conector com o CLP
+            PlcConnector plc = new PlcConnector(request.getIp(), request.getPort());
+            plc.connect();
+
+            // Converte o valor para o tipo correto
+            Object typedValue = TagValueParser.parseValue(request.getValue(), request.getType());
+
+            boolean writeSuccess = false;
+
+            // Executa a escrita conforme o tipo
+            switch (request.getType().toUpperCase()) {
+                case "STRING":
+                    writeSuccess = plc.writeString(request.getDb(), request.getOffset(),
+                            request.getSize(), (String) typedValue);
+                    break;
+                case "BLOCK":
+                    writeSuccess = plc.writeBlock(request.getDb(), request.getOffset(),
+                            request.getSize(), (byte[]) typedValue);
+                    break;
+                case "FLOAT":
+                    writeSuccess = plc.writeFloat(request.getDb(), request.getOffset(),
+                            (Float) typedValue);
+                    break;
+                case "INTEGER":
+                    writeSuccess = plc.writeInt(request.getDb(), request.getOffset(),
+                            (Integer) typedValue);
+                    break;
+                case "BYTE":
+                    writeSuccess = plc.writeByte(request.getDb(), request.getOffset(),
+                            (Byte) typedValue);
+                    break;
+                case "BIT":
+                    writeSuccess = plc.writeBit(request.getDb(), request.getOffset(),
+                            request.getBitNumber(), (Boolean) typedValue);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Tipo não suportado: " + request.getType());
+            }
+
+            plc.disconnect();
+
+            if (writeSuccess) {
+                return ResponseEntity.ok().body(Map.of(
+                        "message", "Valor escrito com sucesso!",
+                        "status", "success"));
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(Map.of("error", "Falha na escrita no CLP"));
+            }
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Falha na escrita no CLP"));
+                    .body(Map.of("error", "Erro: " + e.getMessage()));
         }
-    } catch (Exception e) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(Map.of("error", "Erro: " + e.getMessage()));
     }
-}
 
     @GetMapping("/fragmento-formulario")
     public String carregarFragmentoFormulario(Model model) {
@@ -146,5 +145,10 @@ public ResponseEntity<?> writeTag(@ModelAttribute TagWriteRequest request) {
     public String peditoTeste() {
         pedidoTesteService.enviarPedidoTeste();
         return "redirect:/store";
+    }
+
+    @GetMapping("/store")
+    public String exibirStore() {
+        return "store"; 
     }
 }

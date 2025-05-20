@@ -1,11 +1,6 @@
-//------------------------------------------------------------------------------------------
-// Atualização de Eventos do Backend para o Frontend utilizando SSE - Server Sent Events
-// Curso Técnico em Desenvolvimento de Sistemas - SENAI Timbó -SC
-// UC: Desenvolvimento de Sistemas
-// Docente: Gerson Trindade         SET-2024
-//------------------------------------------------------------------------------------------
 package com.clpmonitor.clpmonitor.Controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import com.clpmonitor.clpmonitor.Model.TagWriteRequest;
@@ -27,51 +27,40 @@ import com.clpmonitor.clpmonitor.Service.PedidoTesteService;
 @Controller
 public class ClpController {
 
-    // Injeta automaticamente uma instância da classe ClpSimulatorService.
-    // Essa classe é responsável por simular os dados dos CLPs e gerenciar
-    // os eventos SSE que serão enviados ao frontend.
     @Autowired
     private ClpSimulatorService simulatorService;
 
     @Autowired
     private PedidoTesteService pedidoTesteService;
+    
+    private final PlcConnector plcConnector;
 
-    // Mapeia a URL raiz (http://localhost:8080/) para o método index().
-    // Retorna a view index.html, localizada em
-    // src/main/resources/templates/index.html (Thymeleaf).
+    public ClpController(PlcConnector plcConnector, ClpSimulatorService simulatorService) {
+        this.plcConnector = plcConnector;
+        this.simulatorService = simulatorService;
+    }
+
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("tag", new TagWriteRequest());
         return "index";
     }
 
-    // Rota "/clp-data-stream" — Comunicação via SSE (Server-Sent Events)
-    // Essa rota é chamada no JavaScript pelo EventSource:
     @GetMapping("/clp-data-stream")
-
-    // Retorna um objeto SseEmitter, que é a classe do Spring para enviar
-    // dados do servidor para o cliente continuamente usando Server-Sent Events.
     public SseEmitter streamClpData() {
-        // Esse método delega a lógica para simulatorService.subscribe() que:
-        // Cria o SseEmitter.
-        // Armazena ele numa lista de ouvintes (clientes conectados).
-        // Inicia o envio periódico dos dados simulados
         return simulatorService.subscribe();
     }
 
     @PostMapping("/write-tag")
     public ResponseEntity<?> writeTag(@ModelAttribute TagWriteRequest request) {
         try {
-            // Cria o conector com o CLP
             PlcConnector plc = new PlcConnector(request.getIp(), request.getPort());
             plc.connect();
 
-            // Converte o valor para o tipo correto
             Object typedValue = TagValueParser.parseValue(request.getValue(), request.getType());
 
             boolean writeSuccess = false;
 
-            // Executa a escrita conforme o tipo
             switch (request.getType().toUpperCase()) {
                 case "STRING":
                     writeSuccess = plc.writeString(request.getDb(), request.getOffset(),
@@ -114,6 +103,61 @@ public class ClpController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "Erro: " + e.getMessage()));
+        }
+    }
+
+    @GetMapping("/estoque")
+    public ResponseEntity<List<Integer>> getEstoque() {
+        try {
+            List<Integer> estoque = simulatorService.getEstoque();
+            return ResponseEntity.ok(estoque);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+    
+    @PutMapping("/estoque/{posicao}")
+    public ResponseEntity<Void> atualizarPosicaoEstoque(
+            @PathVariable int posicao,
+            @RequestParam int cor) {
+        
+        if (posicao < 1 || posicao > 28) {
+            return ResponseEntity.badRequest().build();
+        }
+        
+        if (cor < 0 || cor > 3) {
+            return ResponseEntity.badRequest().build();
+        }
+        
+        try {
+            simulatorService.atualizarPosicaoEstoque(posicao - 1, cor);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+    
+    @DeleteMapping("/estoque/{posicao}")
+    public ResponseEntity<Void> limparPosicaoEstoque(@PathVariable int posicao) {
+        try {
+            simulatorService.atualizarPosicaoEstoque(posicao - 1, 0);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+    
+    @PutMapping("/estoque")
+    public ResponseEntity<Void> atualizarEstoqueCompleto(@RequestBody List<Integer> estoque) {
+        if (estoque == null || estoque.size() != 28) {
+            return ResponseEntity.badRequest().build();
+        }
+        
+        try {
+            simulatorService.atualizarEstoqueCompleto(estoque);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 

@@ -1,31 +1,17 @@
 package com.clpmonitor.clpmonitor.PLC;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-
 //-------------------------------------------------------------------------------------------------
 /* 
  *  Classe de conexão com CLP Siemens usando S7Client
  *  para leitura e escrita de variáveis no CLP S71200 e S71500
  */
 //-------------------------------------------------------------------------------------------------
-@Component 
 public class PlcConnector {
 
     private String ipAddress;
     private int port;
     S7Client client;
     boolean connected = false;
-
-    @Configuration
-public class PlcConfig {
-    
-    @Bean
-    public PlcConnector plcConnector() {
-        return new PlcConnector("10.74.241.10", 102); // Substitua pelos valores reais
-    }
-}
 
     public PlcConnector(String ipAddress, int port) {
         this.ipAddress = ipAddress;

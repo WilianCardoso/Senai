@@ -21,8 +21,8 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import com.clpmonitor.clpmonitor.Model.TagWriteRequest;
 import com.clpmonitor.clpmonitor.PLC.PlcConnector;
 import com.clpmonitor.clpmonitor.Service.ClpSimulatorService;
-import com.clpmonitor.clpmonitor.Util.TagValueParser;
 import com.clpmonitor.clpmonitor.Service.PedidoTesteService;
+import com.clpmonitor.clpmonitor.Util.TagValueParser;
 
 @Controller
 public class ClpController {
@@ -32,13 +32,6 @@ public class ClpController {
 
     @Autowired
     private PedidoTesteService pedidoTesteService;
-    
-    private final PlcConnector plcConnector;
-
-    public ClpController(PlcConnector plcConnector, ClpSimulatorService simulatorService) {
-        this.plcConnector = plcConnector;
-        this.simulatorService = simulatorService;
-    }
 
     @GetMapping("/")
     public String index(Model model) {
@@ -106,61 +99,6 @@ public class ClpController {
         }
     }
 
-    @GetMapping("/estoque")
-    public ResponseEntity<List<Integer>> getEstoque() {
-        try {
-            List<Integer> estoque = simulatorService.getEstoque();
-            return ResponseEntity.ok(estoque);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
-    }
-    
-    @PutMapping("/estoque/{posicao}")
-    public ResponseEntity<Void> atualizarPosicaoEstoque(
-            @PathVariable int posicao,
-            @RequestParam int cor) {
-        
-        if (posicao < 1 || posicao > 28) {
-            return ResponseEntity.badRequest().build();
-        }
-        
-        if (cor < 0 || cor > 3) {
-            return ResponseEntity.badRequest().build();
-        }
-        
-        try {
-            simulatorService.atualizarPosicaoEstoque(posicao - 1, cor);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
-    }
-    
-    @DeleteMapping("/estoque/{posicao}")
-    public ResponseEntity<Void> limparPosicaoEstoque(@PathVariable int posicao) {
-        try {
-            simulatorService.atualizarPosicaoEstoque(posicao - 1, 0);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
-    }
-    
-    @PutMapping("/estoque")
-    public ResponseEntity<Void> atualizarEstoqueCompleto(@RequestBody List<Integer> estoque) {
-        if (estoque == null || estoque.size() != 28) {
-            return ResponseEntity.badRequest().build();
-        }
-        
-        try {
-            simulatorService.atualizarEstoqueCompleto(estoque);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
-    }
-
     @GetMapping("/fragmento-formulario")
     public String carregarFragmentoFormulario(Model model) {
         model.addAttribute("tag", new TagWriteRequest());
@@ -193,6 +131,6 @@ public class ClpController {
 
     @GetMapping("/store")
     public String exibirStore() {
-        return "store"; 
+        return "store";
     }
 }
